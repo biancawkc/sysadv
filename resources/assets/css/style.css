@@ -1,0 +1,216 @@
+@charset "utf-8";
+/* CSS Document */
+
+*{
+	margin:0;
+	padding:0;
+}
+#login-form {
+	margin:5% auto;
+	max-width:500px;
+}
+/* home page */
+#wrapper{
+	padding-top:50px;
+}
+
+.navbar-custom {
+  background-color:#6DBDD6;
+  color:#1a1a1a;
+  border-radius:0;
+  margin-bottom: 0;
+}
+
+.navbar-header {
+  margin-right: 0;
+  margin-top: 0;
+  border-radius:0;
+  margin-bottom: 0;
+
+}
+
+.navbar-custom .navbar-nav > li > a {
+  color:#1a1a1a;
+}
+.navbar-custom .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+  color: #1a1a1a;
+  background-color:transparent;
+}
+.navbar-custom .navbar-brand {
+  color:#eeeeee;
+}
+
+.asterisk{
+  font-size: 18px;
+  color: red;
+}
+
+
+.progress-bar-custom {
+  background: #a6a6a6;
+}
+
+.navbar {
+  position: relative;
+}
+.brand {
+  position: absolute;
+  left: 43%;
+  margin-left: -43px !important;  /* 50% of your logo width */
+  display: block;
+  margin-top: 10px;
+}
+.brand2 {
+  position: absolute;
+  left: 49%;
+  margin-left: -49px !important;  /* 50% of your logo width */
+  display: block;
+  margin-top: 10px;
+  font-family: "Times New Roman";
+}
+
+.navbar-custom-height {
+  line-height: 200px;
+  height: 100px;
+  padding-top: 0;
+}
+
+.navbar-custom-height1 {
+  line-height: 200px;
+  height: 50px;
+  padding-top: 0;
+}
+
+
+footer {
+  background-color: #6DBDD6;
+  color: black;
+  padding: 15px;
+  height: 50px;
+  position:fixed; bottom:0; left: 0; right: 0px;
+}
+
+/* Customize container */
+@media (min-width: 768px) {
+  .container-custom {
+   max-width: 730px;
+   padding-right: 15px;
+   padding-left: 15px;
+   margin-right: auto;
+   margin-left: auto;
+   overflow:hidden;
+   min-height:0px !important;
+ }
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+.user-detail,
+.user-detail:hover
+{
+  color: #404040;
+}
+
+.btn-sign,
+.btn-sign:hover,
+.btn-sign:active,
+.btn-sign:visited,
+.btn-sign:focus {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+
+
+
+*{
+  margin:0;
+  padding:0;
+}
+#login-form {
+  margin:5% auto;
+  max-width:500px;
+}
+/* home page */
+#wrapper{
+  padding-top:50px;
+}
+
+
+  /* Customize container */
+@media (min-width: 768px) {
+  .container-custom {
+   max-width: 730px;
+   padding-right: 15px;
+   padding-left: 15px;
+   margin-right: auto;
+   margin-left: auto;
+   overflow:hidden;
+   min-height:0px !important;
+  }
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  padding: 14px 24px;
+  font-size: 21px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+.user-plus,
+ .dollar,
+ .etapa
+ {
+  color: #00b386;
+}
+.processo,
+.registros,
+.doc
+{
+  color:#3385ff;
+}
+.null
+{
+  padding-top: 4px;
+}
+
+.pdf
+{
+  height: 55px;
+  width: 50px;
+}
