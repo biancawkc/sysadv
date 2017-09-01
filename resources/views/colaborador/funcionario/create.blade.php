@@ -8,10 +8,9 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>'funcionario.store', 'id'=>'colabForm' ]) !!}
+{!! Form::open(['route'=>'funcionario.store', 'class'=>'form', 'autocomplete'=> 'off' ]) !!}
 @include('flash::message')
 <div class="container-custom">
-	<input type="hidden" name="ativo" value="0">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Funcionário <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
 	</h1>
@@ -28,9 +27,12 @@
 				<div class="row">
 
 					<div class="col-sm-4 form-group">
-						<div class="input-group">
-							<label>Data Nasc. <span class="asterisk">*</span></label>					
-							<input type='text' name="dt_nasc" class="form-control" />
+						<label>Data Nasc.<span class="asterisk">*</span></label>
+						<div class="input-group add-on col-md-12" >
+							<div class="input-group-btn">
+								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+							</div>
+							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 						</div>
 					</div>
 
@@ -74,7 +76,12 @@
 
 					<div class="col-sm-4 form-group">
 						<label>Data de Admissão <span class="asterisk">*</span></label>
-						<input type="text" placeholder="dd/mm/aaaa" name="dt_admissao" class="form-control" value="" data-validation=" required">
+						<div class="input-group add-on col-md-12" >
+							<div class="input-group-btn">
+								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+							</div>
+							<input name="dt_admissao" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+						</div>
 					</div>	
 
 				</div>

@@ -6,7 +6,7 @@
     <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
     <br>
     <br>
-     <table id="tblCadastro" class="table table-striped table-bordered text-center" >
+     <table class="table table-striped table-bordered tblCadastro" >
         <thead>
             <tr>
              <th>ID</th>
@@ -21,16 +21,13 @@
         <tr>
             <td>{!! $value->id_funcionario !!}</td>
             <td>{!! $value->nome !!}</td>
-            <td>{!!  $value->cpf  !!}</td>
+            <td class="cpf">{!!  $value->cpf  !!}</td>
             <td>
-                <a href="" class="btn btn-lg btn-success"> <i class="fa fa-eye fa-1x" aria-hidden="true"></i></a>    
+                <a href="{{ URL::to('/funcionario/' . $value->id_funcionario. '/show') }}" target="_blank" class="btn btn-lg btn-success"> <i class="fa fa-info-circle fa-1x" aria-hidden="true"></i></a>       
             </td>
         </tr>
         @endforeach
-        @else
-        <td colspan="3">
-            Não há registros
-        </td>
+        
         @endif
     </tbody>
 </table>
@@ -41,12 +38,6 @@
 
 @section('content_js')
 <script>
-    $("#tblCadastro").dataTable({
-      "language": {
-          "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json"
-         }
-       });
-       
    $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>
 @endsection

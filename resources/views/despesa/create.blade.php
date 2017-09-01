@@ -8,37 +8,35 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>'funcionario.store', 'id'=>'colabForm' ]) !!}
+{!! Form::open(['route'=>['despesa.store', $idProcesso], 'method'=>'post']) !!}
 @include('flash::message')
 <div class="container-custom">
-	<input type="hidden" name="ativo" value="0">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-money" aria-hidden="true"></i>
+	<h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 	</h1>
 
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
-
 				<div class="row">
-
-					<div class="col-sm-4 form-group">
-						<div class="input-group">
-							<label>Data <span class="asterisk">*</span></label>					
-							<input type='text' name="dt_despesa" class="form-control" data-validation="required"/>
-						</div>
-					</div>
-
-					<div class="col-sm-4 form-group">
+					<div class="col-sm-3 form-group">
 						<label>Valor<span class="asterisk">*</span></label>
-						<input type='text' name="valor" class="form-control" />
+						<input name="valor" type="number" class="form-control">		
 					</div>
-
+					<div class="col-sm-5 form-group">
+						<label>Data<span class="asterisk">*</span></label>
+						<div class="input-group add-on col-md-12" >
+						<div class="input-group-btn">
+							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+						</div>
+						<input name="dt_despesa" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+					</div>
+					</div>
 				</div>
 				
 				<div class="form-group">
 					<label>Descrição<span class="asterisk">*</span></label>
-					<textarea class="form-control" rows="4" name="desc_etapa"  rows="4" data-validation="required"></textarea>
+					<textarea class="form-control" rows="4" name="desc_despesa"  rows="4"></textarea>
 				</div>
 
 			</div>
@@ -57,7 +55,6 @@
 	<br>
 </div> 
 
-</form> 
 {!! Form::close() !!}
 @endsection
 
@@ -67,11 +64,6 @@
 	$.validate({
 		lang: 'pt',
 		modules : 'brazil'
-	});
-
-	$("#colabForm").submit(function() {
-		$("#cpf").unmask();
-		$("#rg").unmask();
 	});
 
 

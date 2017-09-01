@@ -211,6 +211,28 @@ footer {
 
 .pdf
 {
-  height: 55px;
-  width: 50px;
+  height: 45px;
+  width: 40px;
 }
+
+.in
+{
+  display: none;
+}
+
+.red
+{
+  color: #B71427;
+}
+
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+ .custom-modal {
+    width: 750px;
+    margin: 30px auto;
+  }
+
+
+

@@ -8,11 +8,10 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>'processo.store', 'id'=>'colabForm' ]) !!}
+{!! Form::open(['route'=>'processo.store', 'class'=>'form' ]) !!}
 @include('flash::message')
 <input type="hidden" name="id_estado_processo" value="1">
 <div class="container-custom">
-	<input type="hidden" name="ativo" value="0">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Processo <i class="fa fa-file processo" aria-hidden="true"></i>
 	</h1>
@@ -24,11 +23,11 @@
 				<div class="row">
 
 					<div class="col-sm-4 form-group">
-						<label>Data de início<span class="asterisk">*</span></label>					<div class="input-group add-on col-md-12" >
+						<label>Data de início<span class="asterisk">*</span></label><div class="input-group add-on col-md-12" >
 						<div class="input-group-btn">
 							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 						</div>
-						<input name="dt_inicio" type="text" class="form-control date-picker datepicker" readonly data-date-format="yyyy-mm-dd">
+						<input name="dt_inicio" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 
 					</div>
 				</div>
@@ -40,7 +39,7 @@
 						<div class="input-group-btn">
 							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 						</div>
-						<input name="dt_final" type="text" class="form-control date-picker datepicker" readonly data-date-format="yyyy-mm-dd">
+						<input name="dt_final" type="text" class="form-control date-picker datepicker date" placeholder="dd/mm/aaaa" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" data-validation-optional="true">
 
 					</div>
 				</div>
@@ -87,8 +86,11 @@
 					<label>Cliente<span class="asterisk">*</span></label>
 					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
 						<option value="">Selecione</option>
-						@foreach($partes as $parte)
-						<option value="{{$parte->id_parte}}">{{$parte->nome}}</option>
+						@foreach($pessoaFisica as $pf)
+						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
+						@endforeach
+						@foreach($pessoaJuridica as $pj)
+						<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
 						@endforeach
 					</select>
 					<input type="hidden" name="participacao[]" value="c">
@@ -112,8 +114,11 @@
 					<label>Parte adversa<span class="asterisk">*</span></label>
 					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
 						<option value="">Selecione</option>
-						@foreach($partes as $parte)
-						<option value="{{$parte->id_parte}}">{{$parte->nome}}</option>
+						@foreach($pessoaFisica as $pf)
+						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
+						@endforeach
+						@foreach($pessoaJuridica as $pj)
+						<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
 						@endforeach
 					</select>
 					<input type="hidden" name="participacao[]" value="a">
@@ -164,7 +169,12 @@
 
 				<div class="form-group">
 					<label>Vara<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="vara" class="form-control" data-validation="required" >
+					<select name="id_vara" class="form-control selectpicker" data-validation="required" data-live-search="true">	
+						<option value="">Selecione</option>
+						@foreach($varas as $vara)
+						<option value="{{$vara->id_vara}}">{{$vara->vara}}</option>
+						@endforeach
+					</select>
 				</div>
 
 
@@ -204,12 +214,6 @@
 <script type="text/javascript" >
 
 	/*$('select').select2();*/
-	
-
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
 
 
 	/*var tel = 1;
@@ -246,13 +250,6 @@
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
 });*/
-
-
-$("#colabForm").submit(function() {
-	$("#cpf").unmask();
-});
-
-
 
 </script>
 

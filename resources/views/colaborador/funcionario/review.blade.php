@@ -28,10 +28,15 @@
 				<div class="row">
 
 					<div class="col-sm-4 form-group">
-						<div class="input-group">
-							<label>Data Nasc. <span class="asterisk">*</span></label>					
-							<input type='text' name="dt_nasc" class="form-control" value="{{$pessoaFisica->dt_nasc}}" />
+						<label>Data Nasc.<span class="asterisk">*</span></label>
+						<div class="input-group add-on col-md-12" >
+							<div class="input-group-btn">
+								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+							</div>
+							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($pessoaFisica->dt_nasc))}}">
+
 						</div>
+
 					</div>
 
 					<div class="col-sm-4 form-group">
@@ -118,8 +123,8 @@
 	});
 
 
-$civil = {{ $e }}
-$('#estado_civil').val($civil)
+	$civil = {{ $e }}
+	$('#estado_civil').val($civil)
 
 	$(function () {
 		$('#datetimepicker1').datetimepicker();

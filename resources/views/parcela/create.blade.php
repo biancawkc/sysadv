@@ -1,0 +1,216 @@
+@extends('layouts.master2')
+
+@section('content')
+@if($errors->any())
+<ul class="alert alert-danger">
+	@foreach($errors->all() as $error)
+	<li>{{$error}}</li>
+	@endforeach
+</ul>
+@endif
+<div>
+	<div class="container-custom">
+		<div class="col-lg-12">
+			<div class="row">
+				<h3>Tipo de parcela: </h3>
+				<label  class="radio-inline">
+					<input type="radio" name="tp_parcela" id="ph" checked >Parcela Honorários
+				</label>
+
+				<label class="radio-inline">
+					<input type="radio" name="tp_parcela" id="pg">Parcela Ganho de Causa 
+				</label>
+			</div>
+		</div>
+	</div>
+	<div id="hono">
+		{!! Form::open(['route'=>['parcela.store', $idProcesso], 'method'=>'post', 'id'=>'colabForm']) !!}
+		@include('flash::message')
+		<div class="container-custom">
+			<input type="hidden" name="id_tp_parcela" value="1">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<h1 class="col-lg-12 well "> Cadastro de Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i>
+			</h1>
+			<div class="col-lg-12 well">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-3 form-group">
+								<label>Valor total parcela<span class="asterisk">*</span></label>
+								<input type='text' name="total" class="form-control" data-validation="required" id="total" onkeyup="parcela();" />
+							</div>
+
+							<div class="col-sm-2 form-group">
+								<label>Nº parcelas<span class="asterisk">*</span></label>				
+								<input type='text' name="num_parcelas" value="1" class="form-control" data-validation="required number" id="num" onkeyup="parcela();"/>
+							</div>
+
+							<div class="col-sm-2 form-group">
+								<label>Valor/parcela<span class="asterisk">*</span></label>				
+								<input type='text' name="valor" class="form-control money" data-validation="required" id="par" readonly/>
+							</div>
+
+							<div class="col-sm-5 form-group">
+								<label>Forma de pagamento<span class="asterisk">*</span></label>
+								<select class="form-control" name="id_forma_pag" data-validation="required">
+									<option value="">Selecione</option>
+									@foreach($formaPag as $formaPags)
+									<option value="{{$formaPags->id_forma_pag}}">{{$formaPags->forma_pag}}</option>
+									@endforeach						
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-5 form-group">
+								<label>1º Data de vencimento<span class="asterisk">*</span></label>
+								<div class="input-group add-on col-md-12">
+									<div class="input-group-btn">
+										<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+									</div>
+									<input name="dt_venc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
+			</div>
+
+			<div class="text-center">
+				<a href="{{ URL::to('/parcela/'.$idProcesso) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+				&nbsp;&nbsp;&nbsp;
+				<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
+			</div>
+			<br>
+			<br>
+		</div> 
+		{!! Form::close() !!}
+	</div>
+
+	<div style="display: none;" id="ganho">
+		{!! Form::open(['route'=>['parcela.store', $idProcesso], 'method'=>'post', 'id'=>'colabForm']) !!}
+		@include('flash::message')
+		<div class="container-custom">
+			<input type="hidden" name="id_tp_parcela" value="2">
+			<input type="hidden" name="_token" value="{{ csrf_token() }}">
+			<h1 class="col-lg-12 well "> Cadastro de Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i>
+			</h1>
+
+			<div class="col-lg-12 well">
+				<div class="row">
+					<div class="col-sm-12">
+						<div class="row">
+							<div class="col-sm-3 form-group">
+								<label>Valor Ação<span class="asterisk">*</span></label>
+								<input type='number' name="valor_acao" class="form-control money" data-validation="required" id="txt1"  onkeyup="porcent();"/>
+							</div>
+
+							<div class="col-sm-2 form-group">
+								<label>Porcentagem<span class="asterisk">*</span></label>				
+								<input type='text' name="porcentagem" class="form-control" data-validation="required" id="txt3" onkeyup="porcent();" />
+							</div>
+
+							<div class="col-sm-2 form-group">
+								<label>Nº parcelas<span class="asterisk">*</span></label>				
+								<input type='number' name="num_parcelas" value="1" class="form-control" data-validation="required" id="txt2"  onkeyup="porcent();"/>
+							</div>
+
+							<div class="col-sm-4 form-group">
+								<label>Valor total a receber<span class="asterisk">*</span></label>				
+								<input type='text' name="" class="form-control" data-validation="required" id="txt4" readonly/>
+							</div>
+
+						</div>
+						<div class="row">
+							<div class="col-sm-3 form-group">
+								<label>Valor/parcela<span class="asterisk">*</span></label>				
+								<input type='text' name="valor" class="form-control" data-validation="required" id="parcela" readonly/>
+							</div>
+
+							<div class="col-sm-4 form-group">
+								<label>Forma de pagamento<span class="asterisk">*</span></label>
+								<select class="form-control" name="id_forma_pag" data-validation="required">
+									<option value="">Selecione</option>
+									@foreach($formaPag as $formaPags)
+									<option value="{{$formaPags->id_forma_pag}}">{{$formaPags->forma_pag}}</option>
+									@endforeach						
+								</select>
+							</div>
+							<div class="col-sm-4 form-group">
+								<label>1º Data de vencimento<span class="asterisk">*</span></label>
+								<div class="input-group add-on col-md-12" >
+									<div class="input-group-btn">
+										<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+									</div>
+									<input name="dt_venc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
+			</div>
+
+			<div class="text-center">
+				<a href="{{ URL::to('/parcela/'.$idProcesso) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+				&nbsp;&nbsp;&nbsp;
+				<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
+			</div>
+			<br>
+			<br>
+		</div> 
+		{!! Form::close() !!}
+	</div>
+	@endsection
+
+	@section('content_js')
+	<script type="text/javascript" >
+		$(document).ready(function() {
+			$('input[type="radio"]').click(function() {
+				if($(this).attr('id') == 'ph') {
+					$('#hono').show();  
+					$('#ganho').hide();          
+				}
+				else {
+					$('#hono').hide();
+					$('#ganho').show();  
+				}
+			});
+		});
+
+		function porcent() 
+		{
+			var first = document.getElementById('txt1').value;
+			var second = document.getElementById('txt2').value;
+			var third = document.getElementById('txt3').value;
+			var result = Math.round(parseFloat(first) * (parseInt(third)/100)*100)/100;
+			var result2 = Math.round(result/parseInt(second)*100)/100;
+			if (!isNaN(result)) {
+				document.getElementById('txt4').value = result;
+			}
+
+			if (!isNaN(result2)) {
+				document.getElementById('parcela').value = result2;
+			}
+		}
+
+		function parcela()
+		{
+			var total = document.getElementById('total').value;
+			var num = document.getElementById('num').value;
+			var va= parseFloat(total)/parseInt(num);
+			var val = Math.round(va * 100) / 100;
+			if (!isNaN(val)) {
+				document.getElementById('par').value = val;
+			}
+		}
+	</script>
+
+	@endsection

@@ -11,7 +11,6 @@
 {!! Form::open(['route'=>['documento.store', $idProcesso], 'method'=>'post', 'id'=>'colabForm', 'files'=>true]) !!}
 @include('flash::message')
 <div class="container-custom">
-	<input type="hidden" name="ativo" value="0">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Documento <i class="fa fa-file-text doc" aria-hidden="true"></i>
 	</h1>
@@ -26,8 +25,8 @@
 
 				<div class="form-group">
 
-					<label>Arquivo <span class="asterisk">*</span></label>					
-					<input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf" >
+					<label>Arquivo (PDF, JPEG, PNG) <span class="asterisk">*</span></label>					
+					<input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf, png, jpeg" data-validation="required">
 				</div>
 				
 				<div class="form-group">
@@ -55,18 +54,6 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript" >
 
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-
-	$(function () {
-		$('#datetimepicker1').datetimepicker();
-	});
-
-</script>
 
 @endsection

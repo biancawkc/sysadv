@@ -8,7 +8,7 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>['advogado.updateReview', $parte->id_parte], 'method'=>'post', 'id'=>'colabForm']) !!}
+{!! Form::open(['route'=>['advogado.updateReview', $parte->id_parte], 'method'=>'post', 'class'=>'form']) !!}
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="ativo" value="0">
@@ -27,17 +27,20 @@
 
 				<div class="row">
 
-					<div class="col-sm-3 form-group">
-						<label>Data Nasc. <span class="asterisk">*</span></label>
-						
-						<input type='text' name="dt_nasc" class="form-control" value="{{$pessoaFisica->dt_nasc}}" />
-
+					<div class="col-sm-4 form-group">
+						<label>Data Nasc.<span class="asterisk">*</span></label>
+						<div class="input-group add-on col-md-12" >
+							<div class="input-group-btn">
+								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+							</div>
+							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($pessoaFisica->dt_nasc))}}">
+						</div>
 					</div>
 
 
 					<div class="col-sm-4 form-group">
 						<label>Estado Civil <span class="asterisk">*</span></label>
-						<select class="form-control" name="id_civil" data-validation="required" id="estado_civil">
+						<select class="form-control" name="id_estado_civil" data-validation="required" id="estado_civil">
 							<option value="">Selecione</option>
 							@foreach($civil as $civ)
 							<option value="{{$civ->id_estado_civil}}">{{$civ->desc_estado_civil}}</option>
@@ -100,7 +103,7 @@
 
 
 	<div class="text-center">
-		<a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		<a href="{{ URL::to('colaborador/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 		&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 	</div>
@@ -115,22 +118,8 @@
 @section('content_js')
 <script type="text/javascript" >
 
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-	$("#colabForm").submit(function() {
-		$("#cpf").unmask();
-	});
-
-
-	$(function () {
-		$('#datetimepicker1').datetimepicker();
-	});
-
 	$civil = {{ $e }}
-$('#estado_civil').val($civil)
+	$('#estado_civil').val($civil)
 
 
 </script>

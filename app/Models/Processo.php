@@ -20,7 +20,6 @@ class Processo extends Model {
               'acao_grat',
               'data_inicio',
               'data_final',
-              'vara',
               'id_justica',
               'id_estado_processo',
               'id_comarca',
@@ -29,7 +28,9 @@ class Processo extends Model {
     
     protected $primaryKey = "id_processo";
     
-    public $timestamps = false;
+   /* public $timestamps = false;*/
+    const CREATED_AT = 'dt_criacao';
+    const UPDATED_AT = 'dt_atualizacao';
 
 
     public function etapa()
@@ -50,12 +51,6 @@ class Processo extends Model {
         return $this->hasMany('App\Models\Documento', 'id_documento');
     }
 
-    public function procedimento()
-    {
-       
-        return $this->hasOne('App\Models\TipoProcedimento', 'id_tp_procedimento');
-    }
-
      public function parcela()
     {
        
@@ -66,6 +61,12 @@ class Processo extends Model {
     {
        
         return $this->hasMany('App\Models\Despesa', 'id_despesa');
+    }
+
+             public function vara()
+    {
+       
+        return $this->hasOne('App\Models\Vara', 'id_vara');
     }
 
 }

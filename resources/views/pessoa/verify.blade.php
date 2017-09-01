@@ -18,29 +18,31 @@
                         </label>
                         <br>
                         <br>
-                        <label for="msg" class="errorMsg" id="errorMsg">{{ $msg }}</label>
+                        <label for="msg" class="errorMsg red" id="errorMsg">{{ $msg }}</label>
                         <br>
                     
-                        {!! Form::open(['route'=>'fisica.addPerson' , 'class'=>'form-horizontal', 'id'=>'cpfForm']) !!}
+                        
                         <div class="form-group" id="cpf-form" style="display: none;">
+                        {!! Form::open(['route'=>'fisica.addPerson' , 'class'=>'form-horizontal form']) !!}
                             <label  class="col-md-1 control-label">CPF<span class="asterisk">*</span></label>
                             <div class="col-md-7 form-inline">
-                                <input type="text" class="form-control cpf" name="cpf" id="cpf" />
+                                <input type="text" class="form-control cpf" name="cpf" id="cpf" data-validation="required cpf" />
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
+                            {!! Form::close() !!}
                         </div>
-                        {!! Form::close() !!}
-
-                        {!! Form::open(['route'=>'jurid.addPerson' , 'class'=>'form-horizontal']) !!}
+                        
 
                         <div class="form-group" id="cnpj-form" style="display: none;">
+                        {!! Form::open(['route'=>'jurid.addPerson' , 'class'=>'form-horizontal form']) !!}
                             <label  class="col-md-1 control-label">CNPJ<span class="asterisk">*</span></label>
                             <div class="col-md-7 form-inline">
-                                <input type="text" class="form-control cnpj" name="cnpj"/>
+                                <input type="text" class="form-control cnpj" name="cnpjs" id="cnpj" />
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
+                        {!! Form::close() !!}
                         </div>
-                      {!! Form::close() !!}
+                      
                     </div>
                 </div>
             </div>
@@ -66,12 +68,6 @@
        }
    });
 });
-
-    $("#cpfForm").submit(function() {
-    $("#cpf").unmask();
-});
-
-
 
 </script>
 @endsection

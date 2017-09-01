@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset ('../resources/assets/images/rw.png')}}" />
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,8 +15,6 @@
     <link href="{{asset('../vendor/datatables/datatables/media/css/jquery.dataTables.min.css')}}" rel="stylesheet">
     <link href="{{asset('../vendor/fortawesome/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet">
     <link href="{{asset('../resources/assets/css/style.css')}}" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -29,15 +28,15 @@
                 <div class="container">
 
                     <label class="brand" style="margin: 10; float: none;">
-                       <img src="{{ asset ('../resources/assets/images/rw.png')}}" alt="RW Advocacia"
-                       class="img-responsive" style="width: 80px; height: 80px;">
+                       <img src="{{ asset ('../resources/assets/images/rw_adv.png')}}" alt="RW Advocacia"
+                       class="img-responsive" style="width: 260px; height: 80px;">
                    </label>
 
-                   <div class="brand2" style="padding-top: 15px; padding-bottom: 15px; text-align: center;">
+                   <!-- <div class="brand2" style="padding-top: 15px; padding-bottom: 15px; text-align: center;">
                     <div class="navbar-brand" style="text-align: center;">
                         <p style="color: black; font-size: 28px;" >ADVOCACIA</p>
                     </div>
-                </div>
+                </div> -->
                 @if ( !Auth::guard('web_usuario')->guest())
                 <div class="navbar-header pull-right navbar-brand pull-right">
                     <br>
@@ -83,8 +82,6 @@
     <script src="{{asset('../resources/assets/js/inc.js')}}"></script>
     <script src="{{asset('../resources/assets/js/jQuery-Form-Validator/form-validator/jquery.form-validator.min.js')}}"></script>
     <script src="{{asset('../resources/assets/js/jquery.mask.js')}}"></script>
-<!--     <script src="{{asset('../vendor/select2/select2/js/jquery.select2.js')}}"></script>
- -->
     @yield('content_js')
 
 </body>

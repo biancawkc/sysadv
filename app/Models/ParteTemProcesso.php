@@ -26,12 +26,12 @@ class ParteTemProcesso extends Model {
           
     public function TemParte()
     {
-        return $this->belongsTo('App\Models\Parte');
+        return $this->belongsToMany('App\Models\Parte');
     }
 
     public function TemProcesso()
     {
-      return $this->belongsTo('App\Models\Processo');
+      return $this->belongsToMany('App\Models\Processo');
     }
 
 }

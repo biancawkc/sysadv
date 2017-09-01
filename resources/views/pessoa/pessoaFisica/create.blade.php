@@ -1,5 +1,4 @@
 @extends('layouts.master2')
-
 @section('content')
 @if($errors->any())
 <ul class="alert alert-danger">
@@ -8,7 +7,7 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>'fisica.store', 'id'=>'clientForm' ]) !!}
+{!! Form::open(['route'=>'fisica.store', 'class'=>'form' ]) !!}
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="ativo" value="1">
@@ -30,9 +29,7 @@
 
 					<div class="col-sm-4 form-group">
 						<label>Data Nasc.<span class="asterisk">*</span></label>
-						
-						<input type='text' name="dt_nasc" class="form-control" />
-
+						<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 					</div>
 
 
@@ -123,7 +120,7 @@
 
 					<div class="col-sm-3 form-group">
 						<label>CEP<span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="cep" id="cep" class="form-control" data-validation="required cep" >
+						<input type="text" placeholder="" name="cep" id="cep" class="form-control cep" data-validation="required cep" >
 					</div>
 
 					<div class="col-sm-7 form-group">
@@ -132,7 +129,7 @@
 					</div>
 						<div class="col-sm-2 form-group null">
 						<label>Número</label>
-						<input type="text" placeholder="" name="numero" class="form-control" value="" data-validation="required" >
+						<input type="text" placeholder="" name="numero" class="form-control" value="">
 					</div>
 
 				</div>
@@ -156,15 +153,11 @@
 				</div>
 
 				<div class="row">
-					
-
 					<div class="col-sm-12 form-group">
 						<label>Complemento</label>
 						<input type="text" placeholder="" name="complemento" class="form-control" value="" >
 					</div>	
-
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -172,35 +165,30 @@
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
-			<div class="row">
-				<div class="col-sm-4 form-group" >
-					<label>CBO</label>
-					<input type="text" name="cbo" class="form-control">
-				</div>
 
-				<div class="col-sm-8 form-group">
-					<label>Profissão</label>
-					<input type="text" name="nm_profissao" class="form-control">
-				</div>
-
+				<div class="form-group">
+					<label>CBO - Profissão</label>
+					<select class="single-select form-control" name="id_profissao" style="width: 100%;">
+							<option value=""></option>
+							@foreach($profissao as $profs)
+							<option value="{{$profs->id_profissao}}" class="special" data-width="fit">{{$profs->cbo}} - {{$profs->nm_profissao}}</option>
+							@endforeach
+					</select>
 				</div>
 
 				<div class="row">
-				<div class="col-sm-4 form-group" >
-					<label>CTPS</label>
-					<input type="text" name="ctps" class="form-control">
-				</div>
+					<div class="col-sm-5 form-group" >
+						<label>CTPS</label>
+						<input type="text" name="ctps" class="form-control">
+					</div>
 
-				<div class="col-sm-3 form-group" >
-					<label>Remuneração (R$)</label>
-					<input type="text" name="remuneracao" class="form-control" >
+					<div class="col-sm-3 form-group" >
+						<label>Remuneração (R$)</label>
+						<input type="text" name="remuneracao" class="form-control" >
+					</div>
 				</div>
-				</div>
-
 			</div>
-
 		</div>
-
 	</div>
 
 
@@ -213,29 +201,22 @@
 
 
 <div class="text-center">
-	<a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+	<a href="{{ URL::to('/pessoa/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 	&nbsp;&nbsp;&nbsp;
 	<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>
 <br>
 <br>
-
-
 </div> 
-
 {!! Form::close() !!}
 @endsection
 
 @section('content_js')
 <script type="text/javascript" >
 
-
-
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
+$(document).ready(function() {
+  $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+});
 
 	//var tel = 2;
 	function add_fields() {
@@ -246,20 +227,8 @@
 	divtest.innerHTML = '<div class="row"></div><div class="col-sm-3 form-group"><label>Tipo de Telefone: </label><select class="form-control" name="id_tp_telefone[]"><option>Selecione</option><option value="1">Celular</option><option value="2">Comercial</option><option value="3">Residencial</option></select></div><div class="col-sm-3 form-group" ><label>Telefone:</label> <input type="text" class="form-control" name="telefone[]" value="" /></div>';
 
 
-
 	objTo.appendChild(divtest)
 }
-
-
-$("#clientForm").submit(function() {
-	$("#cpf").unmask();
-	$("#tel").unmask();
-	$("#rg").unmask();
-});
-
- $( function() {
-    $( "#datepicker" ).datepicker();
-  } );
 
 </script>
 

@@ -2031,6 +2031,10 @@ var components = {
         {
             "name": "bootstrap-datepicker",
             "main": "bootstrap-datepicker-built.js"
+        },
+        {
+            "name": "select2",
+            "main": "select2-built.js"
         }
     ],
     "shim": {

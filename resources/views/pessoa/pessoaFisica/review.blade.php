@@ -8,7 +8,7 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>['fisica.updateReview', $parte->id_parte], 'method'=>'post', 'id'=>'reviewForm']) !!}
+{!! Form::open(['route'=>['fisica.updateReview', $parte->id_parte], 'method'=>'post', 'class'=>'form']) !!}
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="ativo" value="1">
@@ -29,11 +29,9 @@
 
 				<div class="row">
 
-					<div class="col-sm-3 form-group">
+					<div class="col-sm-4 form-group">
 						<label>Data Nasc. <span class="asterisk">*</span></label>
-						
-						<input type='text' name="dt_nasc" class="form-control" value="{{$pessoaFisica->dt_nasc}}" />
-
+						<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$dtNasc}}">
 					</div>
 
 
@@ -75,19 +73,21 @@
 
 
 
-	<div class="col-lg-12 well">
+		<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
 
-				<div class="form-group">
-					<label>Email <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="email" class="form-control" data-validation="required email" value="{{ $parte->email }}">
+			<div class="row">
+				<div class="col-sm-10 form-group">
+					<label>Email<span class="asterisk">*</span></label>
+					<input type="text" placeholder="" name="email" class="form-control"  data-validation="required email">
 				</div>
+			</div>
 
 				<div class="row" id="telefones">
-					<div class="col-sm-3 form-group">
-						<label>Tipo de Telefone <span class="asterisk">*</span></label>
-						<select class="form-control" name="id_tp_telefone" data-validation="required" id="">
+					<div class="col-sm-4 form-group">
+						<label>Tipo de Telefone<span class="asterisk">*</span></label>
+						<select class="form-control" name="id_tp_telefone" data-validation="required">
 							<option value="">Selecione</option>
 							@foreach($tp_tel as $tels)
 							<option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option>
@@ -95,19 +95,22 @@
 						</select>
 					</div>	
 
-					<div class="col-sm-3 form-group" >
-						<label>Telefone <span class="asterisk">*</span></label>
+					<div class="col-sm-4 form-group" >
+						<label>Telefone<span class="asterisk">*</span></label>
 						<input type="text" name="telefone" class="form-control phone_with_ddd" data-validation="required" id="tel">
 					</div>
-					<br>
-					<br>
-					<a id="more_fields"  onclick="add_fields();">Mais <i class="fa fa-plus" aria-hidden="true"></i></a>
 
+					<div class="col-sm-4 form-group" style="padding-top: 32px; padding-left: 35px;">
+						<a id="more_fields" class="btn btn-sm btn-success" onclick="add_fields();"> Mais <i class="fa fa-plus" aria-hidden="true"></i> </a>
+
+					</div>
+					
 				</div>
 
 			</div>
 		</div>
 	</div>
+
 
 
 	<div class="col-lg-12 well">
@@ -116,41 +119,46 @@
 
 				<div class="row">
 
-					<div class="col-sm-4 form-group">
-						<label>CEP <span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="cep" id="cep" class="form-control" data-validation="required cep" value="" >
+					<div class="col-sm-3 form-group">
+						<label>CEP<span class="asterisk">*</span></label>
+						<input type="text" placeholder="" name="cep" id="cep" class="form-control cep" data-validation="required cep" >
 					</div>
 
+					<div class="col-sm-7 form-group">
+						<label>Logradouro<span class="asterisk">*</span></label>
+						<input type="text" placeholder="" name="logradouro" id="rua" class="form-control" value="" data-validation="required" >
+					</div>
+						<div class="col-sm-2 form-group null">
+						<label>Número</label>
+						<input type="text" placeholder="" name="numero" class="form-control" value="" data-validation="required" >
+					</div>
 
 				</div>
 
 				<div class="row">
+
+					<div class="col-sm-4 form-group">
+						<label>Cidade<span class="asterisk">*</span></label>
+						<input type="text" placeholder="" name="cidade" id="cidade" class="form-control" value="" data-validation="required" >
+					</div>
 
 					<div class="col-sm-2 form-group">
-						<label>UF <span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="uf" id="uf" class="form-control" data-validation="required" value="">
+						<label>UF<span class="asterisk">*</span></label>
+						<input type="text" placeholder="" name="uf" id="uf" class="form-control" data-validation="required" >
 					</div>
 
 					<div class="col-sm-4 form-group">
-						<label>Cidade <span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="cidade" id="cidade" class="form-control" data-validation="required" value="" >
-					</div>
-
-					<div class="col-sm-4 form-group">
-						<label>Bairro <span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="bairro" id="bairro" class="form-control" data-validation="required" >
+						<label>Bairro<span class="asterisk">*</span></label>
+						<input type="text" placeholder="" name="bairro" id="bairro" class="form-control" value="" data-validation="required" >
 					</div>
 				</div>
 
 				<div class="row">
-					<div class="col-sm-7 form-group">
-						<label>Logradouro <span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="logradouro" id="rua" class="form-control"  data-validation="required" >
-					</div>
+					
 
-					<div class="col-sm-5 form-group">
+					<div class="col-sm-12 form-group">
 						<label>Complemento</label>
-						<input type="text" placeholder="nº, apt, casa.." name="complemento" class="form-control" value="" >
+						<input type="text" placeholder="" name="complemento" class="form-control" value="" >
 					</div>	
 
 				</div>
@@ -210,14 +218,6 @@
 @section('content_js')
 <script type="text/javascript" >
 
-
-
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-
 	//var tel = 2;
 	function add_fields() {
 	//	tel++;
@@ -233,17 +233,6 @@
 
 $civil = {{ $e }}
 $('#estado_civil').val($civil)
-
-
-
-$("#reviewForm").submit(function() {
-	$("#cpf").unmask();
-	$("#tel").unmask();
-	$("#rg").unmask();
-});
-
-    $('#flash-overlay-modal').modal();
-
 </script>
 
 @endsection

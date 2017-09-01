@@ -25,38 +25,34 @@
 				</div>	
 
 				<div class="form-group">
-							<label>Instância<span class="asterisk">*</span></label>					
-							<input type='text' name="instancia" class="form-control" data-validation="required"/>
-					</div>
+					<label>Instância<span class="asterisk">*</span></label>					
+					<input type='text' name="instancia" class="form-control" data-validation="required"/>
+				</div>
 
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label>Data início<span class="asterisk">*</span></label>
 						<div class="input-group add-on col-md-12" >
-						<div class="input-group-btn">
+							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_etapa" value="" type="text" class="form-control date-picker datepicker" readonly data-date-format="yyyy-mm-dd">
-							
+							<input name="dt_etapa" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 						</div>
 					</div>
-
 					<div class="col-sm-4 form-group">
 						<label>Data final<span class="asterisk">*</span></label>
 						<div class="input-group add-on col-md-12" >
-						<div class="input-group-btn">
+							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_prazo" value="" type="text" class="form-control date-picker datepicker" readonly data-date-format="yyyy-mm-dd">
-							
+							<input name="dt_prazo" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 						</div>
 					</div>
-
 				</div>
-				
+
 				<div class="form-group">
 					<label>Descrição<span class="asterisk">*</span></label>
-					<textarea class="form-control" rows="4" name="desc_etapa"  rows="4" data-validation="required"></textarea>
+					<textarea class="form-control" rows="4" name="desc_etapa" data-validation="required"></textarea>
 				</div>
 
 			</div>
@@ -67,7 +63,7 @@
 	</div>
 
 	<div class="text-center">
-		<a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		<a href="{{ URL::to('/etapa/'.$idProcesso) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 		&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 	</div>

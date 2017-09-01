@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="icon" type="image/png" href="{{ asset ('../resources/assets/images/rw.png')}}" />
 
 	<!-- CSRF Token -->
 	<meta name="csrf-token" content="{{ csrf_token() }}">
@@ -100,7 +101,6 @@
 	</style>
 </head>
 <body>
-
 	<nav class="navbar navbar-default1 navbar-static-top">
 		<div class="container-fluid">
 			<div class="navbar-header">
@@ -110,10 +110,10 @@
 					<span class="icon-bar"></span>                        
 				</button>
 				<label style="margin: 1; float: none; margin-top: 5px;">
-					<img src="{{ asset ('../resources/assets/images/rw.png')}}" alt="RW Advocacia"
-					class="img-responsive" style="width: 47px; height: 47px;">
+					<img src="{{ asset ('../resources/assets/images/rw_adv.png')}}" alt="RW Advocacia"
+					class="img-responsive" style="width: 157px; height: 48px;">
 				</label>
-				<label class="adv">ADVOCACIA</label>
+				<!-- <label class="adv">ADVOCACIA</label> -->
 
 			</div>
 			@if ( !Auth::guard('web_usuario')->guest())
@@ -142,44 +142,12 @@
 						<h4><i class="fa fa-bell fa-fw fa-2x"></i> Datas Importantes</h4>
 					</div>
 					<div class="list-group">
+					@foreach($datas as $key => $value)
 						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
+							<i class="fa fa-calendar-times-o fa-fw"></i> {{$value->nome}}
+							 <span class="pull-right text-muted small"><em>{{date('d/m/Y', strtotime($value->dt_etapa))}}</em>
 						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Important date
-							 <span class="pull-right text-muted small"><em>03-10-2017</em>
-						</a>
-
-						
+					@endforeach
 					</div>
 					<!-- /.list-group -->
 					<a href="#" class="btn btn-default btn-block">Mais</a>
@@ -193,20 +161,19 @@
 				</div>
 				<div class="col-lg-12 well">
 				<div class="row">
-					<div class="col-lg-4 col-md-6">
+				<div class="col-lg-4 col-md-6">
 						<div class="panel panel-black">
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-3">
-										<i class="fa fa-user-circle-o fa-5x"></i>
+										<i class="fa fa-tasks fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<div class="huge">12</div>
-										<div>Funionários</div>
+										<h4>Processos</h4>
 									</div>
 								</div>
 							</div>
-							<a href="{{ URL::to('/funcionario') }}">
+							<a href="{{ URL::to('/processo') }}">
 								<div class="panel-footer">
 									<span class="pull-left">Entrar</span>
 									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -223,12 +190,11 @@
 										<i class="fa fa-address-card fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<div class="huge">12</div>
-										<div>Pessoas</div>
+										<h4>Pessoas</h4>
 									</div>
 								</div>
 							</div>
-							<a href="#">
+							<a href="{{ URL::to('/pessoa') }}">
 								<div class="panel-footer">
 									<span class="pull-left">Entrar</span>
 									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -237,20 +203,20 @@
 							</a>
 						</div>
 					</div>
-						<div class="col-lg-4 col-md-6">
+				@if (Auth::guard('web_usuario')->user()->administrador)
+					<div class="col-lg-4 col-md-6">
 						<div class="panel panel-black">
 							<div class="panel-heading">
 								<div class="row">
 									<div class="col-xs-3">
-										<i class="fa fa-tasks fa-5x"></i>
+										<i class="fa fa-user-circle-o fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<div class="huge">12</div>
-										<div>Processos</div>
+										<h4>Funionários</h4>
 									</div>
 								</div>
 							</div>
-							<a href="#">
+							<a href="{{ URL::to('/funcionario') }}">
 								<div class="panel-footer">
 									<span class="pull-left">Entrar</span>
 									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -258,8 +224,7 @@
 								</div>
 							</a>
 						</div>
-					</div>
-				
+					</div>						
 				</div>
 				 <div class="row">
 				 <div class="col-lg-4 col-md-6">
@@ -270,8 +235,7 @@
 										<i class="fa fa-user-circle fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<div class="huge">12</div>
-										<div>Advogados</div>
+										<h4>Advogados</h4>
 									</div>
 								</div>
 							</div>
@@ -315,12 +279,12 @@
 										<i class="fa fa-users fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<div class="huge">12</div>
-										<div>Usuários</div>
+										
+										<h4>Usuários</h4>
 									</div>
 								</div>
 							</div>
-							<a href="#">
+							<a href="{{ URL::to('/usuario') }}">
 								<div class="panel-footer">
 									<span class="pull-left">Entrar</span>
 									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -330,6 +294,7 @@
 						</div>
 					</div>
 					</div>
+					@endif
 			<!-- 		<div class="col-sm-4">
 						<div class="well">
 							<p>Text</p> 

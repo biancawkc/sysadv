@@ -17,7 +17,7 @@ class Admin
         return redirect()->guest('login');
       }
     } else if (!Auth::guard('web_usuario')->user()->administrador) {
-      return redirect()->to('/')->withError('Permissão Negada!');
+      return redirect()->to('/home')->withError('Permissão Negada!');
     }
 
     return $next($request);

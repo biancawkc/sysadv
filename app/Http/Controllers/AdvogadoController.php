@@ -10,15 +10,15 @@ class AdvogadoController extends Controller
 {	
 	public function index()
 	{
-		 $advogados =  \DB::table('pessoa_fisica')
-      ->join('advogado', 'pessoa_fisica.id_parte', '=', 'advogado.id_parte')
-      ->get();
+		$advogados =  \DB::table('pessoa_fisica')
+		->join('advogado', 'pessoa_fisica.id_parte', '=', 'advogado.id_parte')
+		->get();
 
-      return view('colaborador.advogado.index')
-      ->with('advogados', $advogados);
+		return view('colaborador.advogado.index')
+		->with('advogados', $advogados);
 	}
 
-    public function create(Request $request)
+	public function create(Request $request)
 	{  
 		$cpf = $request->cpf;
 		$tp_colab = $request->tp_colab;
@@ -34,7 +34,6 @@ class AdvogadoController extends Controller
 			->with('tp_colab', $tp_colab)
 			->with('civil', $civil);
 			//->with('tp_tel', $tp_tel);
-
 		}
 		else
 		{	
@@ -54,9 +53,9 @@ class AdvogadoController extends Controller
 			}
 			elseif($result !== NULL)
 			{
-			$msg="O advogado com CPF: $cpf já foi cadastrado!";
-			return view('colaborador.verify')
-			->with('msg', $msg);
+				$msg="O advogado com CPF: $cpf já foi cadastrado!";
+				return view('colaborador.verify')
+				->with('msg', $msg);
 			}
 		}
 
@@ -68,8 +67,7 @@ class AdvogadoController extends Controller
 			'nome' => 'required|max:200',
 			'rg' => 'required|max:9',
 			'orgao_exp' => 'required|max:10',
-			'cpf' => 'required|max:13',
-			'ativo' =>'required'
+			'cpf' => 'required|max:13|unique:pessoa_fisica,cpf'
 			]);
 		if ($validator->fails()) {
 			return redirect('advogado/create')
@@ -80,8 +78,8 @@ class AdvogadoController extends Controller
 			$advogado = new \App\Models\Advogado();
 			$pessoaFisica = new \App\Models\PessoaFisica();
 			$parte = new \App\Models\Parte();
-	
-			$parte->ativo = $request->ativo;
+
+			$parte->ativo = 0;
 			$parte->save();
 
 			$pessoaFisica->id_parte = $parte->getAttribute("id_parte");
@@ -89,21 +87,27 @@ class AdvogadoController extends Controller
 			$pessoaFisica->rg = $request->rg;
 			$pessoaFisica->orgao_exp = $request->orgao_exp;
 			$pessoaFisica->cpf = $request->cpf;
-			$pessoaFisica->dt_nasc = $request->dt_nasc;
+			$pessoaFisica->id_estado_civil = $request->id_estado_civil;
+
+			$str = $request->dt_nasc;
+			$data = explode("/", $str);
+			$data = $data[2] . "-" . $data[1] . "-" . $data[0];
+			$pessoaFisica->dt_nasc = new \DateTime($data);
 			$pessoaFisica->save();
 
 			$advogado->oab = $request->oab;
 			$advogado->seccional = $request->seccional;
 			$advogado->id_parte = $pessoaFisica->getAttribute("id_parte");
 			$advogado->save();
+			
 
-			flash()->success('Cadastro Inserido com Sucesso!');
-			return redirect('/advogado/create');
-
+			//flash()->success('Cadastro Inserido com Sucesso!');
+			return redirect('cadastrar_usuario/'.$advogado->id_parte);
+			
 		}
 	}
 
-	function review($id)
+	public function review($id)
 	{
 		$civil = \App\Models\EstadoCivil::all(['desc_estado_civil', 'id_estado_civil']);
 		$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
@@ -118,9 +122,9 @@ class AdvogadoController extends Controller
 		->with('e', $e);
 	}
 
-	function updateReview(Request $request, $id)
+	public function updateReview(Request $request, $id)
 	{	
-			$validator = Validator::make($request->all(), [
+		$validator = Validator::make($request->all(), [
 			'nome' => 'required|max:200',
 			'rg' => 'required|max:9',
 			'orgao_exp' => 'required|max:10',
@@ -134,28 +138,140 @@ class AdvogadoController extends Controller
 		} else {
 
 	/*		\App\Models\Parte::find($id)
-			->update(['ativo' => $request->ativo]);*/
+	->update(['ativo' => $request->ativo]);*/
 
-			$advogado = new \App\Models\Advogado();
-			$advogado->oab = $request->oab;
-			$advogado->seccional = $request->seccional;
-			$advogado->id_parte = $id;
-			$advogado->save();
+	$advogado = new \App\Models\Advogado();
+	$advogado->oab = $request->oab;
+	$advogado->seccional = $request->seccional;
+	$advogado->id_parte = $id;
+	$advogado->save();
 
-			 \DB::table('pessoa_fisica')
-			->where('id_parte','=', $id)
-			->update([
-       		 			'nome' => $request->nome,
-        				'orgao_exp' => $request->orgao_exp,
-        				'cpf' => $request->cpf,
-        				'dt_nasc' => $request->dt_nasc,
-        				'ctps' => $request->ctps,
-        				'id_estado_civil' => $request->id_estado_civil
-    				]);
+	$str = $request->dt_nasc;
+	$data = explode("/", $str);
+	$data = $data[2] . "-" . $data[1] . "-" . $data[0];
 
+	\DB::table('pessoa_fisica')
+	->where('id_parte','=', $id)
+	->update([
+		'nome' => $request->nome,
+		'orgao_exp' => $request->orgao_exp,
+		//'cpf' => $request->cpf,
+		'dt_nasc' => $data,
+		'ctps' => $request->ctps,
+		'id_estado_civil' => $request->id_estado_civil
+		]);
+	//flash()->success('Cadastro Inserido com Sucesso!');
+	return redirect('cadastrar_usuario/'.$advogado->id_parte);
+}
+}
 
-			flash()->success('Cadastro Inserido com Sucesso!');
-			return redirect('advogado/'.$id.'/review');
-		}
+public function edit($idAdvogado)
+{
+	$advogado =  \DB::table('pessoa_fisica')
+	->join('advogado', 'pessoa_fisica.id_parte', '=', 'advogado.id_parte')
+	->where('advogado.id_advogado', '=', $idAdvogado)
+	->first();
+
+	$civil = \App\Models\EstadoCivil::all(['desc_estado_civil', 'id_estado_civil']);
+	$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
+
+	return view('colaborador.advogado.edit')
+	->with('advogado', $advogado)
+	->with('civil', $civil)
+	->with('tp_tel', $tp_tel);
+}
+
+public function update(Request $request, $idAdvogado)
+{
+	$validator = Validator::make($request->all(), [
+		'nome' => 'required|max:200',
+		'rg' => 'required|max:9',
+		'orgao_exp' => 'required|max:10',
+		'cpf' => 'required|max:13'
+		]);
+	if ($validator->fails()) {
+		return redirect('advogado/'.$idAdvogado.'/edit')
+		->withErrors($validator)
+		->withInput();
+	} else {
+
+		$advogado = \App\Models\Advogado::find($idAdvogado);
+
+		$str = $request->dt_nasc;
+		$data = explode("/", $str);
+		$data = $data[2] . "-" . $data[1] . "-" . $data[0];
+
+		\DB::table('pessoa_fisica')
+		->where('id_parte','=', $advogado->id_parte)
+		->update([
+			'nome' => $request->nome,
+			'orgao_exp' => $request->orgao_exp,
+			'cpf' => $request->cpf,
+			'dt_nasc' => $data,
+			'ctps' => $request->ctps,
+			'id_estado_civil' => $request->id_estado_civil
+			]);
+
+		$advogado->oab = $request->oab;
+		$advogado->seccional = $request->seccional;
+		$advogado->save();
+
+		flash()->success('Dados Alterados com Sucesso!');
+		return redirect('/advogado/'.$idAdvogado.'/edit');
 	}
+}
+
+public function show($idAdvogado)
+{
+	$advogado =  \DB::table('pessoa_fisica')
+	->join('advogado', 'pessoa_fisica.id_parte', '=', 'advogado.id_parte')
+	->where('advogado.id_advogado', '=', $idAdvogado)
+	->first();
+
+	$civil = \App\Models\EstadoCivil::find($advogado->id_estado_civil);
+
+	$processo = \DB::table('processo')->where('id_advogado','=', $idAdvogado)->first();
+
+	return view('colaborador.advogado.show')
+	->with('advogado', $advogado)
+	->with('civil', $civil)
+	->with('processo', $processo);
+}
+
+public function remove($idAdvogado)
+{	
+	$advogado =  \DB::table('pessoa_fisica')
+	->join('advogado', 'pessoa_fisica.id_parte', '=', 'advogado.id_parte')
+	->where('advogado.id_advogado', '=', $idAdvogado)
+	->first();
+
+	$processo = \DB::table('processo')->where('id_advogado','=', $idAdvogado)->first();
+
+	if(is_null($processo))
+	{
+		return view('colaborador.advogado.remove')
+		->with('advogado', $advogado);
+	}
+	else
+	{	
+		flash()->overlay('Não é possível deletar o advogado '.$advogado->nome.', pois possui vínculo com pelo menos um processo.','Atenção');
+		return redirect('advogado/'.$idAdvogado.'/show');
+	}
+}
+
+public function destroy($idAdvogado)
+{	
+	$advogado = \DB::table('advogado')->where('id_advogado','=', $idAdvogado)->first();
+	/*$processo = \DB::table('processo')->where('id_advogado','=', $idAdvogado)->first();
+
+	\DB::delete('DELETE FROM parte_tem_processo WHERE id_processo ='.$processo->id_processo);
+	\DB::delete('DELETE FROM processo WHERE id_advogado ='.$idAdvogado);*/
+	\DB::delete('DELETE FROM advogado WHERE id_advogado ='.$idAdvogado);
+	\DB::delete('DELETE FROM pessoa_fisica WHERE id_parte ='.$advogado->id_parte);
+	\DB::delete('DELETE FROM parte WHERE id_parte ='.$advogado->id_parte);
+
+	flash()->success('Advogado Excluído com Sucesso!');
+	return redirect('/advogado/');
+}
+
 }

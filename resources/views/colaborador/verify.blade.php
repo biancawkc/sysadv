@@ -22,7 +22,7 @@
                         <div class="form-group" id="cpf-form1" style="display: none;">
                             <label  class="col-md-1 control-label">CPF<span class="asterisk">*</span></label>
                             <div class="col-md-7 form-inline">
-                                <input type="text" class="form-control cpf" name="cpf" id="cpf" />
+                                <input type="text" class="form-control cpf" name="cpf"/>
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                         <div class="form-group" id="cpf-form2" style="display: none;">
                             <label  class="col-md-1 control-label">CPF<span class="asterisk">*</span></label>
                             <div class="col-md-7 form-inline">
-                                <input type="text" class="form-control cpf" name="cpf" id="cpf" />
+                                <input type="text" class="form-control cpf" name="cpf" />
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
                         </div>
@@ -63,10 +63,10 @@
        }
    });
 });
+        $(".cpfForm").submit(function() {
+        $(".cpf").unmask();
+    });
 
- $(".cpfForm").submit(function() {
-    $("#cpf").unmask();
-});
 </script>
 @endsection
 
