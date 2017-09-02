@@ -75,20 +75,6 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript" >
 
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-	$("#colabForm").submit(function() {
-		$("#cpf").unmask();
-		$("#rg").unmask();
-	});
-
-
-
-</script>
 
 @endsection

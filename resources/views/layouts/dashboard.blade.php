@@ -142,15 +142,25 @@
 						<h4><i class="fa fa-bell fa-fw fa-2x"></i> Datas Importantes</h4>
 					</div>
 					<div class="list-group">
+					@if(!$datas->isEmpty())
 					@foreach($datas as $key => $value)
 						<a href="#" class="list-group-item">
 							<i class="fa fa-calendar-times-o fa-fw"></i> {{$value->nome}}
 							 <span class="pull-right text-muted small"><em>{{date('d/m/Y', strtotime($value->dt_etapa))}}</em>
 						</a>
 					@endforeach
+					@else
+					<a href="#" class="list-group-item">
+							<i class="fa fa-calendar-times-o fa-fw"></i> Não possui nenhuma data cadastrada  
+							 <span class="pull-right text-muted small"><em></em>
+						</a>
+					@endif
 					</div>
+
+					@if($num > 9)
 					<!-- /.list-group -->
 					<a href="#" class="btn btn-default btn-block">Mais</a>
+					@endif
 				</div>
 			</div>
 			<br>

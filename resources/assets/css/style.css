@@ -234,5 +234,12 @@ footer {
     margin: 30px auto;
   }
 
+  .add-modal {
+    width: 500px;
+    margin: auto;
+  }
+.add-modal-body {
+    max-height: 600px;
+}
 
 

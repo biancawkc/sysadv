@@ -61,7 +61,7 @@
 				<div class="col-sm-7 form-group">
 					<label>Advogado<span class="asterisk">*</span></label>
 
-					<select class="form-control selectpicker" data-validation="required" data-live-search="true" name="id_advogado">
+					<select class="form-control single-select" data-validation="required" data-live-search="true" name="id_advogado">
 						<option value="">Selecione</option>
 						@foreach($advogados as $advogado)
 						<option value="{{$advogado->id_advogado}}">{{$advogado->nome}}</option>
@@ -84,7 +84,7 @@
 			<div class="row">
 				<div class="col-sm-10 form-group">
 					<label>Cliente<span class="asterisk">*</span></label>
-					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
+					<select class="form-control single-select" name="id_parte[]" data-validation="required" data-live-search="true">
 						<option value="">Selecione</option>
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
@@ -112,7 +112,7 @@
 			<div class="row">
 				<div class="col-sm-10 form-group">
 					<label>Parte adversa<span class="asterisk">*</span></label>
-					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
+					<select class="form-control single-select" name="id_parte[]" data-validation="required" data-live-search="true">
 						<option value="">Selecione</option>
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
@@ -141,7 +141,7 @@
 
 				<div class="col-sm-4 form-group">
 					<label>Justiça<span class="asterisk">*</span></label>
-					<select name="id_justica" class="form-control selectpicker" data-validation="required" data-live-search="true">	
+					<select name="id_justica" class="form-control single-select" data-validation="required" data-live-search="true">	
 						<option value="">Selecione</option>
 						@foreach($justicas as $justica)
 						<option value="{{$justica->id_justica}}">{{$justica->nm_justica}}</option>
@@ -158,7 +158,7 @@
 			<div class="form-group">
 
 					<label>Comarca<span class="asterisk">*</span></label>
-					<select name="id_comarca" class="form-control selectpicker" data-validation="required" data-live-search="true">
+					<select name="id_comarca" class="form-control single-select" data-validation="required" data-live-search="true">
 						<option value="">Selecione</option>
 						@foreach($comarcas as $comarca)
 						<option value="{{$comarca->id_comarca}}">{{$comarca->comarca}}</option>
@@ -169,7 +169,7 @@
 
 				<div class="form-group">
 					<label>Vara<span class="asterisk">*</span></label>
-					<select name="id_vara" class="form-control selectpicker" data-validation="required" data-live-search="true">	
+					<select name="id_vara" class="form-control single-select" data-validation="required" data-live-search="true">	
 						<option value="">Selecione</option>
 						@foreach($varas as $vara)
 						<option value="{{$vara->id_vara}}">{{$vara->vara}}</option>
@@ -212,6 +212,10 @@
 
 @section('content_js')
 <script type="text/javascript" >
+$(document).ready(function() {
+  $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+});
+
 
 	/*$('select').select2();*/
 

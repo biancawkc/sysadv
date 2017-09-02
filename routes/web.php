@@ -32,9 +32,7 @@
 
     Route::get('home', 'HomeController@index');
 
-      Route::get('/r', function(){
-      return view('colaborador.te');
-    });
+      Route::get('agenda', 'HomeController@agenda');
 
     Route::group(['middleware' => 'admin'], function () { 
 

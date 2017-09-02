@@ -4,6 +4,7 @@ $(document).ready(function() {
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
     $('#flash-overlay-modal').modal();
     $('.single-select').select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+   
 
     $.validate({
         lang: 'pt',
@@ -43,6 +44,7 @@ $(document).ready(function() {
         $("#tel").unmask();
         $("#cnpj").unmask();
     });
+
 
     function limpa_formulário_cep() {
                 // Limpa valores do formulário de cep.
