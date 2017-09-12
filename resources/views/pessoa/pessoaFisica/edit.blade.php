@@ -85,28 +85,35 @@
 					</div>
 				</div>
 
-				<div class="row" id="telefones">
+				@foreach($telefone as $ind =>$tel)
+				<div class="row" id="dynamic_field">		
 					<div class="col-sm-4 form-group">
 						<label>Tipo de Telefone<span class="asterisk">*</span></label>
-						<select class="form-control" name="id_tp_telefone" data-validation="required">
-							<option value="">Selecione</option>
+						<select class="form-control" name="id_tp_telefone[]" data-validation="required">
+							<option value="{{$tel->id_tp_telefone}}" selected>{{$tel->tp_telefone}}</option>
 							@foreach($tp_tel as $tels)
+							@if( $tels->id_tp_telefone !== $tel->id_tp_telefone)
 							<option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option>
+							@endif
 							@endforeach
 						</select>
 					</div>	
 
 					<div class="col-sm-4 form-group" >
 						<label>Telefone<span class="asterisk">*</span></label>
-						<input type="text" name="telefone" class="form-control phone_with_ddd" data-validation="required" id="tel">
+						<input class="form-control phone_with_ddd" type="text" name="telefone[]" value="{{$tel->telefone}}">
 					</div>
-
-					<div class="col-sm-4 form-group" style="padding-top: 32px; padding-left: 35px;">
-						<a id="more_fields" class="btn btn-sm btn-success" onclick="add_fields();"> Mais <i class="fa fa-plus" aria-hidden="true"></i> </a>
-
+					@if($ind !== 0)
+					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
+					<button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button>
 					</div>
-					
+					@else
+					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
+						<a name="add" id="add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					</div>	
+					@endif		
 				</div>
+				@endforeach
 
 			</div>
 		</div>
@@ -170,17 +177,14 @@
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
-				<div class="row">
-					<div class="col-sm-4 form-group" >
-						<label>CBO</label>
-						<input type="text" name="cbo" class="form-control" value="{{$profissao->cbo}}">
-					</div>
-
-					<div class="col-sm-8 form-group">
-						<label>Profissão</label>
-						<input type="text" name="nm_profissao" class="form-control" value="{{$profissao->nm_profissao}}">
-					</div>
-
+				<div class="form-group">
+					<label>CBO - Profissão</label>
+					<select class="single-select form-control" name="id_profissao" style="width: 100%;" id="profissao">
+							<option value=""></option>
+							@foreach($profissao as $profs)
+							<option value="{{$profs->id_profissao}}" class="special" data-width="fit">{{$profs->cbo}} - {{$profs->nm_profissao}}</option>
+							@endforeach
+					</select>
 				</div>
 
 				<div class="row">
@@ -191,7 +195,7 @@
 
 					<div class="col-sm-3 form-group" >
 						<label>Remuneração (R$)</label>
-						<input type="text" name="remuneracao" class="form-control" value="{{$profissao->remuneracao}}" >
+						<input type="text" name="remuneracao" class="form-control" value="{{$pessoaFisica->remuneracao}}" >
 					</div>
 				</div>
 
@@ -226,22 +230,23 @@
 
 @section('content_js')
 <script type="text/javascript" >
-
-	//var tel = 2;
-	function add_fields() {
-	//	tel++;
-	var objTo = document.getElementById('telefones')
-	var divtest = document.createElement("div");
-
-	divtest.innerHTML = '<div class="row"></div><div class="col-sm-3 form-group"><label>Tipo de Telefone: </label><select class="form-control" name="id_tp_telefone[]"><option>Selecione</option><option value="1">Celular</option><option value="2">Comercial</option><option value="3">Residencial</option></select></div><div class="col-sm-3 form-group" ><label>Telefone:</label> <input type="text" class="form-control" name="telefone[]" value="" /></div>';
-
-
-
-	objTo.appendChild(divtest)
-}
-
+$(document).ready(function() {
+$(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+   var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone<span class="asterisk">*</span></label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
+});
 $est = {{$pessoaFisica->id_estado_civil}}
 $("#estado_civil").val($est);
+
+$prof = {{$pessoaFisica->id_profissao}}
+$("#profissao").val($prof);
 
 </script>
 

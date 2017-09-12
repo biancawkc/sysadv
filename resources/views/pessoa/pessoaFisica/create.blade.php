@@ -28,9 +28,14 @@
 				<div class="row">
 
 					<div class="col-sm-4 form-group">
-						<label>Data Nasc.<span class="asterisk">*</span></label>
-						<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+						<label>Data Nasc.<span class="asterisk">*</span></label><div class="input-group add-on col-md-12" >
+						<div class="input-group-btn">
+							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+						</div>
+						<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" >
+
 					</div>
+				</div>
 
 
 					<div class="col-sm-4 form-group">
@@ -84,10 +89,10 @@
 				</div>
 			</div>
 
-				<div class="row" id="telefones">
+				<div class="row" id="dynamic_field">
 					<div class="col-sm-4 form-group">
 						<label>Tipo de Telefone<span class="asterisk">*</span></label>
-						<select class="form-control" name="id_tp_telefone" data-validation="required">
+						<select class="form-control" name="id_tp_telefone[]" data-validation="required">
 							<option value="">Selecione</option>
 							@foreach($tp_tel as $tels)
 							<option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option>
@@ -97,11 +102,11 @@
 
 					<div class="col-sm-4 form-group" >
 						<label>Telefone<span class="asterisk">*</span></label>
-						<input type="text" name="telefone" class="form-control phone_with_ddd" data-validation="required" id="tel">
+						<input class="form-control phone_with_ddd" type="text" name="telefone[]">
 					</div>
 
-					<div class="col-sm-4 form-group" style="padding-top: 32px; padding-left: 35px;">
-						<a id="more_fields" class="btn btn-sm btn-success" onclick="add_fields();"> Mais <i class="fa fa-plus" aria-hidden="true"></i> </a>
+					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
+						<a name="add" id="add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
 					</div>
 					
@@ -192,7 +197,16 @@
 	</div>
 
 
-
+                 
+ <!-- 
+                               <table class="table table-bordered" id="dynamic_field">  
+                                    <tr>  
+                                         <td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td>  
+                                         <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
+                                    </tr>  
+                               </table>   -->
+        
+ 
 <br>
 
 <div class="form-group">
@@ -208,18 +222,33 @@
 <br>
 <br>
 </div> 
+
 {!! Form::close() !!}
 @endsection
 
 @section('content_js')
 <script type="text/javascript" >
+$.validate({
+  modules : 'date'
+});
 
 $(document).ready(function() {
   $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+
+   var i=1;  
+      $('#add').click(function(){  
+           i++;  
+           $('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone<span class="asterisk">*</span></label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove();  
+      });  
 });
 
+
 	//var tel = 2;
-	function add_fields() {
+/*	function add_fields() {
 	//	tel++;
 	var objTo = document.getElementById('telefones')
 	var divtest = document.createElement("div");
@@ -229,7 +258,7 @@ $(document).ready(function() {
 
 	objTo.appendChild(divtest)
 }
-
+*/
 </script>
 
 @endsection

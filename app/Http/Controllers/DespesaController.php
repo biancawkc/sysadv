@@ -14,9 +14,14 @@ class DespesaController extends Controller
 		->where('id_processo', $idProcesso)
 		->get();
 
+		$processo = \DB::table('processo')
+		->where('id_processo', $idProcesso)
+		->value('numero');
+
 		return view('despesa.index')
 		->with('despesa', $despesa)
-		->with('idProcesso', $idProcesso);
+		->with('idProcesso', $idProcesso)
+		->with('processo', $processo);
 	}
 
 	public function create($idProcesso)

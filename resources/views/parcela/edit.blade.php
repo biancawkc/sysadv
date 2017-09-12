@@ -26,7 +26,7 @@
 			<div class="col-sm-12">
 				<div class="row">
 					<div class="col-sm-3 form-group">
-						<label>Valor parcela<span class="asterisk">*</span></label>
+						<label>Valor parcela (R$)<span class="asterisk">*</span></label>
 						<input type='number' name="valor" class="form-control currency" data-validation="required" value="{{$parcela->valor}}" />
 					</div>
 
@@ -64,9 +64,11 @@
 							<input name="dt_pag" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$pag}}" data-validation-optional="true" id="enterDate">
 							</div>
 					</div>
+					@if($pag == "")
 					<div class="col-sm-3 form-group">
 						<input id="todayBox" type="checkbox">  &nbsp;Pago Hoje
 					</div>
+					@endif
 				</div>
 				
 			</div>
@@ -83,6 +85,8 @@
 		<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button>&nbsp;&nbsp;&nbsp;
 		@if(!empty($parcela->dt_pag))
 		<a href="{{ URL::to('/parcela/' .$parcela->id_parcela. '/recibo') }}" class="btn btn-lg btn-success">Recibo</a>
+		@else
+		<button class="btn btn-lg btn-success" disabled>Recibo</button>
 		@endif
 	</div>
 	<br>
@@ -100,10 +104,19 @@ $pag = {{$parcela->id_forma_pag}}
 	$("#formaPag").val($pag);
 
 $("#todayBox").change(function() {
-    var dateStr;
-    if (this.checked) {
-        var now = new Date();
-        dateStr = now.getDate() + "/" + (now.getMonth() + 1) + "/" + now.getFullYear();
+	var dateStr;
+	if (this.checked) {
+		var now = new Date();
+		var dd = now.getDate();
+		var mm = now.getMonth()+1;
+		if(dd < 10)
+		{
+			dd='0'+dd;
+		} 
+		if(mm<10){
+			mm='0'+mm;
+		} 
+        dateStr = dd + "/" + mm + "/" + now.getFullYear();
     } else {
         dateStr = "";
     }

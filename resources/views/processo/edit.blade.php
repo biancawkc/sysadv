@@ -40,7 +40,7 @@
 						<div class="input-group-btn">
 							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 						</div>
-						<input name="dt_inicio" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($processo->dt_final))}}" data-validation-optional="true">
+						<input name="dt_final" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($processo->dt_final))}}" data-validation-optional="true">
 					</div>
 				</div>
 
@@ -69,7 +69,7 @@
 				<div class="col-sm-7 form-group">
 					<label>Advogado<span class="asterisk">*</span></label>
 
-					<select class="form-control selectpicker" data-validation="required" data-live-search="true" name="id_advogado" id="advogado">
+					<select class="form-control single-select" data-validation="required" name="id_advogado" id="advogado">
 						<option>Selecione</option>
 						@foreach($advogados as $advogado)
 						<option value="{{$advogado->id_advogado}}">{{$advogado->nome}}</option>
@@ -94,7 +94,7 @@
 			<div class="row">
 				<div class="col-sm-10 form-group">
 					<label>Cliente<span class="asterisk">*</span></label>
-					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
+					<select class="form-control single-select" name="id_parte[]" data-validation="required" >
 						<option value="{{$values->id_parte}}" selected>{{$values->razao_social}}</option>
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
@@ -125,7 +125,7 @@
 			<div class="row">
 				<div class="col-sm-10 form-group">
 					<label>Cliente<span class="asterisk">*</span></label>
-					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
+					<select class="form-control single-select" name="id_parte[]" data-validation="required">
 						<option value="{{$value->id_parte}}" selected>{{$value->nome}}</option>
 						@foreach($pessoaFisica as $pf)
 						@if( $pf->id_parte !== $value->id_parte)
@@ -165,7 +165,7 @@
 			<div class="row">
 				<div class="col-sm-10 form-group">
 					<label>Parte adversa<span class="asterisk">*</span></label>
-					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
+					<select class="form-control single-select" name="id_parte[]" data-validation="required">
 						<option value="{{$values->id_parte}}" selected>{{$values->razao_social}}</option>
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
@@ -192,11 +192,11 @@
 
 			@if(!$pessoaFisicaA->isEmpty())
 			@foreach($pessoaFisicaA as $ind=>$value)
-			<div class="adversa">
-			<div class="row">
+
+			<div class="row adversa">
 				<div class="col-sm-10 form-group">
 					<label>Parte adversa<span class="asterisk">*</span></label>
-					<select class="form-control selectpicker" name="id_parte[]" data-validation="required" data-live-search="true">
+					<select class="form-control single-select" name="id_parte[]" data-validation="required">
 						<option value="{{$value->id_parte}}" selected>{{$value->nome}}</option>
 						@foreach($pessoaFisica as $pf)
 						@if( $pf->id_parte !== $value->id_parte)
@@ -217,7 +217,6 @@
 				@endif
 				</div>
 			</div>
-			</div>
 
 			@endforeach
 			@endif
@@ -234,7 +233,7 @@
 
 				<div class="col-sm-5 form-group">
 					<label>Justiça<span class="asterisk">*</span></label>
-					<select name="id_justica" class="form-control selectpicker" data-validation="required" data-live-search="true" id="justica">	
+					<select name="id_justica" class="form-control single-select" data-validation="required" id="justica">	
 						<option value="">Selecione</option>
 						@foreach($justicas as $justica)
 						<option value="{{$justica->id_justica}}">{{$justica->nm_justica}}</option>
@@ -251,7 +250,7 @@
 			<div class="form-group">
 
 				<label>Comarca<span class="asterisk">*</span></label>
-				<select name="id_comarca" class="form-control selectpicker" data-validation="required" data-live-search="true" id="comarca">
+				<select name="id_comarca" class="form-control single-select" data-validation="required" id="comarca">
 					<option value="">Selecione</option>
 					@foreach($comarcas as $comarca)
 					<option value="{{$comarca->id_comarca}}">{{$comarca->comarca}}</option>
@@ -261,9 +260,15 @@
 
 
 			<div class="form-group">
-				<label>Vara<span class="asterisk">*</span></label>
-				<input type="text" placeholder="" name="vara" class="form-control" data-validation="required"  value="{{$processo->vara}}">
-			</div>
+					<label>Vara<span class="asterisk">*</span></label>
+					<select name="id_vara" class="form-control single-select" data-validation="required" id="vara">	
+						<option value="">Selecione</option>
+						@foreach($varas as $vara)
+						<option value="{{$vara->id_vara}}">{{$vara->vara}}</option>
+						@endforeach
+					</select>
+				</div>
+
 
 
 			<div class="form-group">
@@ -309,25 +314,28 @@
 	$advogado = {{$processo->id_advogado}}
 	$("#advogado").val($advogado);
 
+	$vara = {{$processo->id_vara}}
+	$("#vara").val($vara);
 
 $(document).ready(function(){
+	  $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
     var maxField = 10; //Input fields increment limitation
     var addButton = $('.add_button'); //Add button selector
     var wrapper = $('.adversa'); //Input field wrapper
-    var fieldHTML = '<div class="row"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control selectpicker" data-live-search="true" name="id_parte[]"><option>Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 19px;"><a href="javascript:void(0);" class="remove_button" title="Remove field"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>'; //New input field html 
+    var fieldHTML = '<div class="row"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control single-select" name="id_parte[]"><option>Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 19px;"><a href="javascript:void(0);" class="remove_button" title="Remove field"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>'; //New input field html 
     var x = 1; //Initial field counter is 1
     $(addButton).click(function(){ //Once add button is clicked
-        if(x < maxField){ //Check maximum number of input fields
-            x++; //Increment field counter
+        // if(x < maxField){ //Check maximum number of input fields
+            // x++; //Increment field counter
             $(wrapper).append(fieldHTML); // Add field html
             $('.selectpicker').selectpicker('refresh');
-        }
+        // }
     });
     $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
     	//$("#adversaSelect").val('');
         e.preventDefault();
         $(this).parent('div').parent('div').remove(); //Remove field html
-        x--; //Decrement field counter
+       // x--; //Decrement field counter
     });
 });
     

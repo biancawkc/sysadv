@@ -63,6 +63,8 @@
         Route::post('{idFuncionario}/remove', ['as' => 'funcionario.destroy','uses' => 'FuncionarioController@destroy']); 
       });
 
+        Route::get('relatorio/{idProcesso}','RelatorioController@relatorio');
+
       Route::group(['prefix' => 'advogado'], function(){
 
         Route::get('/', ['as' => 'advogado.index', 'uses' => 'AdvogadoController@index']);
@@ -113,10 +115,10 @@
 
 
 
-Route::get('/financeiro', function(){
-  return view('financeiro.index');
+/*Route::get('/teste', function(){
+  return view('parcela.show_parcelas');
 });
-
+*/
 
 /*Route::get('/adm', function(){
   return view('layouts.dashboard');
@@ -126,6 +128,7 @@ Route::get('pessoa/verify', ['as' => 'pessoa.verify', 'uses' => 'PessoaControlle
 Route::get('pessoa/', ['as' => 'pessoa.index', 'uses' => 'PessoaController@index']);
 
 Route::group(['prefix' => 'pessoaFisica'], function(){
+
   Route::get('/pessoa', ['as' => 'fisica.add', 'uses' => 'PessoaFisicaController@create']);
   Route::post('/addPessoa', ['as' => 'fisica.addPerson', 'uses' => 'PessoaFisicaController@create']);
   Route::post('/add', ['as' => 'fisica.store', 'uses' => 'PessoaFisicaController@store']);
@@ -205,7 +208,8 @@ Route::group(['prefix' => 'despesa'], function(){
 Route::group(['prefix' => 'parcela'], function(){
   Route::get('/{idProcesso}', ['as' => 'parcela.index', 'uses' => 'ParcelaController@index']);
 
-  Route::get('{idProcesso}/create', ['as' => 'parcela.create', 'uses' => 'ParcelaController@create']);
+  Route::get('{idProcesso}/create', ['as' => 'parcela.create', 'uses' => 'ParcelaController@create_f']);
+  Route::post('{idProcesso}/addParcela', ['as' => 'parcela.addParcela', 'uses' => 'ParcelaController@create']);
   Route::post('{idProcesso}/add', ['as' => 'parcela.store', 'uses' => 'ParcelaController@store']);
 
   Route::get('{id}/edit', ['as' => 'parcela.edit', 'uses'=>'ParcelaController@edit']);

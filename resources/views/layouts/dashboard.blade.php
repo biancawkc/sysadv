@@ -150,10 +150,10 @@
 						</a>
 					@endforeach
 					@else
-					<a href="#" class="list-group-item">
+					<label class="list-group-item">
 							<i class="fa fa-calendar-times-o fa-fw"></i> Não possui nenhuma data cadastrada  
 							 <span class="pull-right text-muted small"><em></em>
-						</a>
+					</label>
 					@endif
 					</div>
 

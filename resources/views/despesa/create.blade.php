@@ -12,7 +12,7 @@
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+	<h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-shopping-basket" aria-hidden="true"></i>
 	</h1>
 
 	<div class="col-lg-12 well">
@@ -47,7 +47,7 @@
 	</div>
 
 	<div class="text-center">
-		<a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		<a href="{{ URL::to('/docuemto/'.$idProcesso) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 		&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 	</div>

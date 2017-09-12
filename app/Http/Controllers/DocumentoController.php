@@ -18,9 +18,15 @@ class DocumentoController extends Controller
 		$documentos =  \DB::table('documento')
 		->where('id_processo', $idProcesso)
 		->get();
+
+		$processo = \DB::table('processo')
+		->where('id_processo', $idProcesso)
+		->value('numero');
+
 		return view('documento.index')
 		->with('documentos', $documentos)
-		->with('idProcesso', $idProcesso);
+		->with('idProcesso', $idProcesso)
+		->with('processo', $processo);
 	}
 
 	public function create($idProcesso)

@@ -11,6 +11,10 @@ class PessoaFisicaController extends Controller
 	public function create(Request $request)
 	{  
 		$cpf = $request->cpf;
+		/*$rne = $request->rne;
+		$rg = $request->rg;
+		$pass = $request->passaporte;*/
+		
 		$civil = \App\Models\EstadoCivil::all(['desc_estado_civil', 'id_estado_civil']);
 		$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
 		$profissao = \DB::table('profissao')->get();
@@ -71,8 +75,7 @@ class PessoaFisicaController extends Controller
 			'id_estado_civil'=>'required'
 			]);
 		if ($validator->fails()) {
-			return redirect('pessoaFisica/addPessoa')
-			->with('cpf', $cpf)
+			return redirect('pessoaFisica/create')
 			->withErrors($validator)
 			->withInput();
 		} else {
@@ -81,19 +84,10 @@ class PessoaFisicaController extends Controller
 			$pessoaFisica = new \App\Models\PessoaFisica();
 			$parte = new \App\Models\Parte();
 			$telefone = new \App\Models\Telefone();
-			$profissao = new \App\Models\Profissao();
 
 			$parte->ativo = $request->ativo;
 			$parte->email = $request->email;
 			$parte->save();
-
-			if(!empty($request->nm_profissao))
-			{
-				$profissao->nm_profissao = $request->nm_profissao;
-				$profissao->cbo = $request->cbo;
-				$profissao->remuneracao = $request->remuneracao;
-				$profissao->save();
-			}
 
 			$pessoaFisica->id_parte = $parte->getAttribute("id_parte");
 			$pessoaFisica->nome = $request->nome;
@@ -102,7 +96,8 @@ class PessoaFisicaController extends Controller
 			$pessoaFisica->cpf = $request->cpf;
 			$pessoaFisica->id_estado_civil = $request->id_estado_civil;
 			$pessoaFisica->ctps = $request->ctps;
-			$pessoaFisica->id_profissao = $profissao->getAttribute("id_profissao");
+			$pessoaFisica->remuneracao = $request->remuneracao;
+			$pessoaFisica->id_profissao = $request->id_profissao;
 
 			$str = $request->dt_nasc;
             $data = explode("/", $str);
@@ -120,14 +115,15 @@ class PessoaFisicaController extends Controller
 			$endereco->id_parte = $parte->getAttribute("id_parte");
 			$endereco->save();
 
-			/*foreach ($request->telefone   as  $value) {
-				if(!empty($value)){*/
-					$telefone->telefone = $request->telefone;
-					$telefone->id_tp_telefone = $request->id_tp_telefone;
+			foreach ($request->telefone  as $ind => $value) {
+				if(!empty($value)){
+					$telefone =  new \App\Models\Telefone();
+					$telefone->telefone = $value;
 					$telefone->id_parte = $parte->getAttribute("id_parte");
-					$telefone->save();
-			 /*}
-			}*/
+					$telefone->id_tp_telefone = $request->id_tp_telefone[$ind];
+					$telefone-> save();
+				}
+			}
 
 			flash()->success('Cadastro Inserido com Sucesso!');
 			return redirect('/pessoa/');
@@ -176,7 +172,6 @@ class PessoaFisicaController extends Controller
 
 			$endereco = new \App\Models\Endereco();
 			$telefone = new \App\Models\Telefone();
-			$profissao = new \App\Models\Profissao();
 
 			\App\Models\Parte::where('id_parte', '=', $id)
 			->update(['email' => $request->email]);
@@ -189,13 +184,9 @@ class PessoaFisicaController extends Controller
 					  'rg' => $request->rg,
 					  'id_estado_civil' => $request->id_estado_civil,
 					  'orgao_exp' => $request->orgao_exp,
-					  'dt_nasc' => $request->dt_nasc
+					  'dt_nasc' => $request->dt_nasc,
+					  'ctps' => $request->ctps,
 					]);
-
-			$profissao->nm_profissao = $request->nm_profissao;
-			$profissao->cbo = $request->cbo;
-			$profissao->remuneracao = $request->remuneracao;
-			$profissao->save();
 
 			$endereco->cep = $request->cep;
 			$endereco->logradouro = $request->logradouro;
@@ -207,7 +198,7 @@ class PessoaFisicaController extends Controller
 			$endereco->id_parte = $id;
 			$endereco->save();
 
-			$prof = $profissao->getAttribute("id_profissao");
+			$prof = $profissao->$request->id_profissao;
 
 			\App\Models\PessoaFisica::where('id_parte', '=', $id)
 			->update(['id_profissao' => $prof]);
@@ -233,14 +224,16 @@ class PessoaFisicaController extends Controller
 		$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
 
 		$idEndereco = \DB::table('endereco')->where('id_parte','=', $id)->value('id_endereco');
-		$idTel = \DB::table('telefone')->where('id_parte','=', $id)->value('id_telefone');
+		
+		$telefone =  \DB::table('telefone')
+		->join('tp_telefone', 'telefone.id_tp_telefone','=', 'tp_telefone.id_tp_telefone')
+		->where('telefone.id_parte','=', $id)
+		->get();
 
 		$pessoaFisica = \DB::table('pessoa_fisica')->where('id_parte','=', $id)->first();
+		$profissao = \DB::table('profissao')->get();
 		$endereco =  \App\Models\Endereco::find($idEndereco);
 		$parte =  \App\Models\Parte::find($id);
-		$telefone =  \App\Models\Telefone::find($idTel);
-
-		$profissao = \App\Models\Profissao::find($pessoaFisica->id_profissao);
 
 		$dtNasc = date('d/m/Y', strtotime($pessoaFisica->dt_nasc));
 
@@ -289,7 +282,9 @@ class PessoaFisicaController extends Controller
 				'cpf' => $request->cpf,
 				'dt_nasc' => $request->dt_nasc,
 				'ctps' => $request->ctps,
-				'id_estado_civil' => $request->id_estado_civil
+				'id_estado_civil' => $request->id_estado_civil,
+				'remuneracao' => $request->remuneracao,
+				'id_profissao' => $request->id_profissao				
 				]);
 
 			\DB::table('endereco')
@@ -304,14 +299,6 @@ class PessoaFisicaController extends Controller
 				'numero' => $request->numero
 				]);
 
-
-			\DB::table('profissao')
-			->where('id_profissao','=', $pessoaFisica->id_profissao)
-			->update([
-				'nm_profissao' => $request->nm_profissao,
-				'cbo' => $request->cbo,
-				'remuneracao' => $request->remuneracao
-				]);
 
 				/*foreach ($request->telefone   as  $value) {
 					if(!empty($value)){*/
@@ -330,14 +317,18 @@ class PessoaFisicaController extends Controller
 	public function show($id)
 	{	
 		$idEndereco = \DB::table('endereco')->where('id_parte','=', $id)->value('id_endereco');
-		$idTel = \DB::table('telefone')->where('id_parte','=', $id)->value('id_telefone');
+		/*$idTel = \DB::table('telefone')->where('id_parte','=', $id)->value('id_telefone');*/
 
 		$pessoaFisica = \DB::table('pessoa_fisica')->where('id_parte','=', $id)->first();
 		$endereco = \App\Models\Endereco::where('id_parte', $id)->first();
 		$parte =  \App\Models\Parte::find($id);
-		$telefone =  \App\Models\Telefone::find($idTel);
 
-		$profissao = \App\Models\Profissao::find($pessoaFisica->id_profissao);
+		$telefone =  \DB::table('telefone')
+		->join('tp_telefone', 'telefone.id_tp_telefone','=', 'tp_telefone.id_tp_telefone')
+		->where('telefone.id_parte','=', $id)
+		->get();
+
+		$profissao = \DB::table('profissao')->where('id_profissao','=', $pessoaFisica->id_profissao)->first();
 
 		$civil = \App\Models\EstadoCivil::find($pessoaFisica->id_estado_civil);
 

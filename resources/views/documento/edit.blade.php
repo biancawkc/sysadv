@@ -46,7 +46,7 @@
 	</div>
 
 	<div class="text-center">
-		<a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		<a href="{{ URL::to('/documento/show'.$documento->id_documento) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 		&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button>
 	</div>

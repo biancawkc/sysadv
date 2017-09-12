@@ -19,20 +19,51 @@ class ParcelaController extends Controller
 		$parcela = \DB::table('parcela')
 		->where('id_processo', $idProcesso)
 		->get();
+		
+		$formaPag = \DB::table('forma_pag')->get();
 
 		return view('parcela.index')
 		->with('processo', $processo)
 		->with('parcela', $parcela)
-		->with('idProcesso', $idProcesso);
+		->with('idProcesso', $idProcesso)
+		->with('formaPag', $formaPag);
 	}
 
-	public function create($idProcesso)
+	public function create_f($idProcesso)
 	{	
+
 		$formaPag = \DB::table('forma_pag')->get();
 
 		return view ('parcela.create')
 		->with('idProcesso', $idProcesso)
 		->with('formaPag', $formaPag);
+	}
+
+	public function create(Request $request, $idProcesso)
+	{
+		$primeira = $request->primeira;
+		$demais = $request->demais;
+		$forma = $request->id_forma_pag;
+		$tipo = $request->id_tp_parcela;
+		$porcentagem = $request->porcentagem;
+		$qtd = $request->num_parcelas;
+		$str = $request->dt_venc;
+		$i = 1;
+
+		$data = explode("/", $str);
+		$data = $data[2] . "-" . $data[1] . "-" . $data[0];
+
+		return view('parcela.show_parcelas')
+		->with('primeira', $primeira)
+		->with('demais', $demais)
+		->with('forma', $forma)
+		->with('tipo', $tipo)
+		->with('porcentagem', $porcentagem)
+		->with('qtd', $qtd)
+		->with('idProcesso', $idProcesso)
+		->with('data', $data)
+		->with('i', $i)
+		->with('data', $data);
 	}
 
 	public function store (Request $request, $idProcesso)
@@ -70,27 +101,27 @@ class ParcelaController extends Controller
 			$parcela = new \App\Models\Parcela();
 
 			$parcela->num_parcela = $first;
-			$parcela->valor = $request->valor;
+			$parcela->valor = $request->primeira;
 			$parcela->id_processo = $idProcesso;
 			$parcela->id_forma_pag = $request->id_forma_pag;
 			$parcela->id_tp_parcela = $request->id_tp_parcela;
 			$parcela->porcentagem = $request->porcentagem;
 
-			$str = $request->dt_venc;
+			/*$str = $request->dt_venc;
             $data = explode("/", $str);
-            $data = $data[2] . "-" . $data[1] . "-" . $data[0];
-            $parcela->dt_venc = new \DateTime($data);
+            $data = $data[2] . "-" . $data[1] . "-" . $data[0];*/
+            $parcela->dt_venc = $request->dt_venc;
 			$parcela->save();
 
 			for($j = $d; $i <= $j; $i++ )
 			{	
 				$parcela = new \App\Models\Parcela();
 
-				$str = $request->dt_venc;
+				/*$str = $request->dt_venc;
 				$data = explode("/", $str);
-				$data = $data[2] . "-" . $data[1] . "-" . $data[0];
+				$data = $data[2] . "-" . $data[1] . "-" . $data[0];*/
 
-				$time = strtotime($data);
+				$time = strtotime($request->dt_venc);
 				$date = strtotime('+'.$i.' month', $time);
 				$dt_venc = date("Y-m-d", $date);
 				$first++;
@@ -114,9 +145,9 @@ class ParcelaController extends Controller
 	{	
 		$parcela = \App\Models\Parcela::find($id);
 		$formaPag = \DB::table('forma_pag')->get();
-		if($parcela->dt_pag !== "")
+		if(!is_null($parcela->dt_pag))
 		{
-			$pag = date('d/m/Y', strtotime($parcela->pag));
+			$pag = date('d/m/Y', strtotime($parcela->dt_pag));
 		}
 		else
 		{

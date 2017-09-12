@@ -5,7 +5,10 @@
    <h1 class="col-lg-12 well" >Documentos Cadastrados <i class="fa fa-file-text doc" aria-hidden="true"></i></h1>
    <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
    <br>
-   <a href="{{ URL::to('/documento/' . $idProcesso. '/create') }}" class="btn btn-lg btn-success"> <i class="fa fa-plus-square" aria-hidden="true"></i></a> 
+   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo}}</a> </b></h2>
+   <br>
+   <!-- <a href="{{ URL::to('/documento/' . $idProcesso. '/create') }}" class="btn btn-lg btn-success"> <i class="fa fa-plus-square" aria-hidden="true"></i></a>  -->
+   <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square" aria-hidden="true"></i></a> 
    <br>
    <br>
    <table class="table table-striped table-bordered text-center tblCadastro" >
@@ -89,7 +92,7 @@
             </div>
 
             <div class="text-center">
-              <a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+              <a data-dismiss="modal" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
               &nbsp;&nbsp;&nbsp;
               <button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
             </div>

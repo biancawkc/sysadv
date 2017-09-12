@@ -8,7 +8,7 @@
     <tbody>
      <tr>
        <th class="col-md-3">Nome da ação</th>
-       <td colspan="4">{{$processo->nome_acao}}</td>
+       <td colspan="3">{{$processo->nome_acao}}</td>
      </tr>
 
      <tr>
@@ -35,22 +35,22 @@
 
      <tr>
        <th>Justiça</th>
-       <td colspan="4">{{$justica->nm_justica}}</td>
+       <td colspan="3">{{$justica->nm_justica}}</td>
      </tr>
 
      <tr>
        <th>Comarca</th>
-       <td colspan="4">{{$comarca->comarca}}</td>
+       <td colspan="3">{{$comarca->comarca}}</td>
      </tr>
 
      <tr>
        <th>Vara</th>
-       <td colspan="4">{{$processo->id_vara}}</td>
+       <td colspan="3">{{$processo->id_vara}}</td>
      </tr>
 
      <tr>
       <th>Descrição</th>
-      <td colspan="4">{{$processo->desc_processo}}</td>
+      <td colspan="3">{{$processo->desc_processo}}</td>
     </tr>
 
   </tbody>
@@ -72,7 +72,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Parte Adversa: {{$value -> razao_social}}</h4>
+        <h4 class="modal-title text-center">Cliente: {{$value -> razao_social}}</h4>
       </div>
       <div class="modal-body">
 
@@ -180,7 +180,7 @@
           </tr>
           <tr>
             <th>Data Nasc.</th>
-            <td colspan="4">{{ date('d/m/Y', strtotime($values->dt_nasc)) }}</td>
+            <td colspan="3">{{ date('d/m/Y', strtotime($values->dt_nasc)) }}</td>
           </tr>
         </tbody>
       </table>
@@ -199,7 +199,7 @@
        <tbody>
         <tr>
           <th style="width: 20%">CTPS</th>
-          <td colspan="4">{{$values -> ctps}}</td>
+          <td colspan="3">{{$values -> ctps}}</td>
         </tr>
         <tr>
           <th>CBO</th>
@@ -209,7 +209,7 @@
         </tr>
         <tr>
           <th>Profissão</th>
-          <td colspan="4">{{$values->profis}}</td>
+          <td colspan="3">{{$values->profis}}</td>
         </tr>
       </tbody>
     </table>
@@ -318,11 +318,12 @@
       </tr>
 
       <tr>
-        <th >Logradouro</th>
+        <th>Logradouro</th>
         <td style="width: 50%>{{$value->logradouro}}</td>
         <th>Número</th>
         <td>{{$value->numero}}</td>
       </tr>
+
       <tr>
         <th colspan="1">Complemento</th>
         <td colspan="3">{{$value->complemento}}</td>
@@ -355,7 +356,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title text-center">Cliente: {{$values -> nome}}</h4>
+        <h4 class="modal-title text-center">Parte Adversa: {{$values -> nome}}</h4>
       </div>
       <div class="modal-body">
         <table class="table table-striped table-bordered">
@@ -374,7 +375,7 @@
           </tr>
           <tr>
             <th>Data Nasc.</th>
-            <td colspan="4">{{ date('d/m/Y', strtotime($values->dt_nasc)) }}</td>
+            <td colspan="3">{{ date('d/m/Y', strtotime($values->dt_nasc)) }}</td>
           </tr>
         </tbody>
       </table>
@@ -393,7 +394,7 @@
        <tbody>
         <tr>
           <th style="width: 20%">CTPS</th>
-          <td colspan="4">{{$values -> ctps}}</td>
+          <td colspan="3">{{$values -> ctps}}</td>
         </tr>
         <tr>
           <th>CBO</th>
@@ -403,7 +404,7 @@
         </tr>
         <tr>
           <th>Profissão</th>
-          <td colspan="4">{{$values->profis}}</td>
+          <td colspan="3">{{$values->profis}}</td>
         </tr>
       </tbody>
     </table>
@@ -437,7 +438,7 @@
 </div>
 <div class="modal-footer">
   <a href="{{ URL::to('/pessoaFisica/' . $values->id_parte . '/show')}}" class="btn btn-success" target="_blank">Mais <i class="fa fa-search" aria-hidden="true"></i></a>
-  <button type="button" class="btn btn-default" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
+  <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
 </div>
 </div>
 </div>
@@ -448,11 +449,14 @@
 <p class="text-center">Data de criação: {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} por {{$usuario->username}} </p>
 <br>
 <div class="text-center">
-  <a href="{{ URL::to('/processo/' . $processo->id_processo . '/remove') }}" class="btn btn-lg btn-danger">Deletar <i class="fa fa-trash" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-info">Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-success" target="_blank">Etapas <i class="fa fa-calendar" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="" class="btn btn-lg btn-warning">Docs <i class="fa fa-file-text" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="" class="btn btn-lg btn-warning">Relatório <i class="fa fa-files-o" aria-hidden="true"></i></a>
+  <!-- <a href="{{ URL::to('/processo/' . $processo->id_processo . '/remove') }}" class="btn btn-lg btn-danger">Deletar <i class="fa fa-trash" aria-hidden="true"></i></a>&nbsp;&nbsp; -->
+  <a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-info"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+  <a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-success" target="_blank"> <i class="fa fa-calendar" aria-hidden="true"></i></a>&nbsp;&nbsp;
+  <a href="" class="btn btn-lg btn-warning"> <i class="fa fa-file-text" aria-hidden="true"></i></a>&nbsp;&nbsp;
+  <a href="{{ URL::to('/relatorio/' .$processo->id_processo) }}" class="btn btn-lg btn-warning"> <i class="fa fa-files-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
+  <a target="_blank" href="{{ URL::to('/parcela/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Parcelas">  <i class="fa fa-money" aria-hidden="true"></i>
+  </a>&nbsp;&nbsp;
+  <a target="_blank" href="{{ URL::to('/despesa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Despesas"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a> 
 </div>
 </div>
 <br>

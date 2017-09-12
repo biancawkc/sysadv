@@ -1,6 +1,3 @@
-@extends('layouts.master2')
-
-@section('content')
 @if($errors->any())
 <ul class="alert alert-danger">
 	@foreach($errors->all() as $error)
@@ -84,7 +81,7 @@
 			</div>
 
 			<div class="text-center">
-				<a href="{{ URL::to('/parcela/'.$idProcesso) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+				<a data-dismiss="modal" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 				&nbsp;&nbsp;&nbsp;
 				<button type="submit" class="btn btn-lg btn-info">Gerar Parcelas <i class="fa fa-plus" aria-hidden="true"></i></button>
 				<!-- <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-lg btn-info">Gerar Parcelas</a> -->
@@ -167,7 +164,7 @@
 			</div>
 
 			<div class="text-center">
-				<a href="{{ URL::to('/parcela/'.$idProcesso) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+				<a data-dismiss="modal" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 				&nbsp;&nbsp;&nbsp;
 				<button type="submit" class="btn btn-lg btn-info">Gerar Parcelas <i class="fa fa-plus" aria-hidden="true"></i></button>
 			</div>
@@ -176,7 +173,6 @@
 		</div> 
 		{!! Form::close() !!}
 	</div>
-	@endsection
 
 	@section('content_js')
 	<script type="text/javascript" >

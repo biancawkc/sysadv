@@ -169,7 +169,7 @@
 
 				<div class="form-group">
 					<label>Vara<span class="asterisk">*</span></label>
-					<select name="id_vara" class="form-control single-select" data-validation="required" data-live-search="true">	
+					<select name="id_vara" class="form-control single-select" data-validation="required">	
 						<option value="">Selecione</option>
 						@foreach($varas as $vara)
 						<option value="{{$vara->id_vara}}">{{$vara->vara}}</option>

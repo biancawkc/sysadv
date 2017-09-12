@@ -32,7 +32,7 @@
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 						</div>
 					</div>
 
@@ -99,7 +99,7 @@
 	</div>
 
 	<div class="text-center">
-		<a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		<a href="{{ URL::to('/colaborador/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 		&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 	</div>
@@ -112,23 +112,5 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript" >
-
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-	$("#colabForm").submit(function() {
-		$("#cpf").unmask();
-		$("#rg").unmask();
-	});
-
-
-	$(function () {
-		$('#datetimepicker1').datetimepicker();
-	});
-
-</script>
 
 @endsection

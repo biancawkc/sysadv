@@ -24,8 +24,8 @@
      </tr>
 
      <tr>
-       <th>Data de nascimento</th>
-       <td colspan="3">{{$pessoaFisica->dt_nasc}}</td>
+       <th>Data de Nascimento</th>
+       <td colspan="3">{{ date('d/m/Y', strtotime($pessoaFisica->dt_nasc))}}</td>
      </tr>
   </tbody>
 
@@ -37,10 +37,13 @@
     <td>{{$parte->email}}</td>
   </tr>
 
-  <tr>
-    <th>Telefone</th>
-    <td></td>
-  </tr>
+   @foreach($telefone as $tel)
+   <tr>
+    <th>Telefone {{$tel->tp_telefone}}</th>
+    <td class="phone_with_ddd">{{$tel->telefone}}</td>
+    </tr>
+    @endforeach
+  
 </table>
 
 <table class="table table-striped table-bordered" style="width: 700px;">
@@ -73,15 +76,23 @@
 <table class="table table-striped table-bordered" style="width: 700px;">
   <tr>
     <th class="col-md-3">CBO</th>
+    @if(!is_null($pessoaFisica->id_profissao))
     <td>{{$profissao->nm_profissao}}</td>
+    @else
+    <td> </td>
+    @endif
   </tr>
   <tr>
     <th>Profissão</th>
+    @if(!is_null($pessoaFisica->id_profissao))
     <td>{{$profissao->cbo}}</td>
+     @else
+     <td> </td>
+    @endif
   </tr>
   <tr>
     <th>Remuneracao</th>
-    <td>{{$profissao->remuneracao}}</td>
+    <td>{{$pessoaFisica->remuneracao}}</td>
   </tr>
 </table>
 <div class="text-center">
