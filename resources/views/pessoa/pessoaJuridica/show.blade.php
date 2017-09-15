@@ -35,10 +35,12 @@
     <td>{{$parte->email}}</td>
   </tr>
 
-  <tr>
-    <th>Telefone</th>
-    <td></td>
-  </tr>
+  @foreach($telefone as $tel)
+   <tr>
+    <th>Telefone {{$tel->tp_telefone}}</th>
+    <td class="phone_with_ddd">{{$tel->telefone}}</td>
+    </tr>
+    @endforeach
 </table>
 
 <table class="table table-striped table-bordered" style="width: 700px;">

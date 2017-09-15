@@ -151,7 +151,7 @@
 					@endforeach
 					@else
 					<label class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> Não possui nenhuma data cadastrada  
+							<i class="fa fa-calendar-times-o fa-fw"></i> Não possui datas cadastradas  
 							 <span class="pull-right text-muted small"><em></em>
 					</label>
 					@endif
@@ -222,7 +222,7 @@
 										<i class="fa fa-user-circle-o fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<h4>Funionários</h4>
+										<h4>Funcionários</h4>
 									</div>
 								</div>
 							</div>

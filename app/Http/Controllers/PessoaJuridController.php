@@ -79,21 +79,21 @@ class PessoaJuridController extends Controller
 			$endereco->id_parte = $parte->getAttribute("id_parte");
 			$endereco->save();
 
-			/*foreach ($request->telefone   as  $value) {
-				if(!empty($value)){*/
-					$telefone->telefone = $request->telefone;
-					$telefone->id_tp_telefone = $request->id_tp_telefone;
+			foreach ($request->telefone  as $ind => $value) {
+				if(!empty($value)){
+					$telefone =  new \App\Models\Telefone();
+					$telefone->telefone = $value;
 					$telefone->id_parte = $parte->getAttribute("id_parte");
-					$telefone->save();
-			 /*}
-			}*/
+					$telefone->id_tp_telefone = $request->id_tp_telefone[$ind];
+					$telefone-> save();
+				}
+			}
 
 			flash()->success('Cadastro Inserido com Sucesso!');
 			return redirect('/pessoa/');
-
-		}
+		
 	}
-
+}
 	public function edit($id)
 	{
 		$pessoaJuridica = \App\Models\PessoaJuridica::where('id_parte',$id)->first();
@@ -155,14 +155,17 @@ class PessoaJuridController extends Controller
 			$endereco->numero = $request->numero;
 			$endereco->save();
 
-			/*foreach ($request->telefone   as  $value) {
-				if(!empty($value)){*/
-					/*$telefone->telefone = $request->telefone;
-					$telefone->id_tp_telefone = $request->id_tp_telefone;
+			\DB::delete('DELETE FROM telefone WHERE id_parte ='.$id);
+
+			foreach ($request->telefone  as $ind => $value) {
+				if(!empty($value)){
+					$telefone =  new \App\Models\Telefone();
+					$telefone->telefone = $value;
 					$telefone->id_parte = $parte->getAttribute("id_parte");
-					$telefone->save();*/
-			 /*}
-			}*/
+					$telefone->id_tp_telefone = $request->id_tp_telefone[$ind];
+					$telefone-> save();
+				}
+			}
 
 			flash()->success('Dados Alterado com Sucesso!');
 			return redirect('/pessoaJuridica/'.$id.'edit');
@@ -175,15 +178,16 @@ class PessoaJuridController extends Controller
 		$pessoaJuridica = \App\Models\PessoaJuridica::where('id_parte',$id)->first();
 		$endereco = \App\Models\Endereco::where('id_parte', $id)->first();
 		$parte = \App\Models\Parte::find($id);
-		$telefone = \App\Models\Telefone::where('id_parte', $id)->first();
-		$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
+		$telefone =  \DB::table('telefone')
+		->join('tp_telefone', 'telefone.id_tp_telefone','=', 'tp_telefone.id_tp_telefone')
+		->where('telefone.id_parte','=', $id)
+		->get();
 
 		return view('pessoa.pessoaJuridica.show')
 		->with('pessoaJuridica', $pessoaJuridica)
 		->with('endereco', $endereco)
 		->with('parte', $parte)
-		->with('telefone', $telefone)
-		->with('tp_tel', $tp_tel);
+		->with('telefone', $telefone);
 	}
 
 	public function remove($id)

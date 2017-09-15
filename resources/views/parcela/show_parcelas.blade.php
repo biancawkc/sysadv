@@ -8,7 +8,7 @@
  <input type="hidden" name="porcentagem" value="{{$porcentagem}}">
  <input type="hidden" name="dt_venc" value="{{$data}}">
  <input type="hidden" name="num_parcelas" value="{{$qtd}}">
-
+ <input type="hidden" name="juros" value="{{$juros}}">
 
  <div class="container-custom">
  @if($tipo == 1)
@@ -48,6 +48,8 @@
  	-->
  </tbody>
 </table>
+<p>Será cobrado <b>{{$juros}}%</b> acima do valor da(s) parcela(s) por dia de atraso de pagamento.</p>
+<br>
 <div class="text-center">
 				<a href="{!! URL::previous() !!}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 				&nbsp;&nbsp;&nbsp;

@@ -20,12 +20,18 @@ class Parcela extends Model {
               'id_processo',
               'id_tp_parcela',
               'valor_ganho',
-              'porcentagem'   
+              'porcentagem',
+              'juros',
+              'multa',
+              'desconto',
+              'dias_atraso'   
     ];
     
     protected $primaryKey = "id_parcela";
     
-    public $timestamps = false;
+    /*public $timestamps = false;*/
+    const CREATED_AT = 'dt_criacao';
+    const UPDATED_AT = 'dt_atualizacao';
 
      public function formaPag()
     {

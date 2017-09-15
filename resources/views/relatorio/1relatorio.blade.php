@@ -1,4 +1,4 @@
-<html>
+		<html>
 		<head>
 			<title>Relatório</title>
 			<link rel="icon" type="image/png" href="{{ asset ('../resources/assets/images/rw.png')}}" />
@@ -187,14 +187,14 @@
 					@endforeach
 					@endif
 
-					@if(!is_null($pessoaFisicaC)) 
+					<!-- @if(!is_null($pessoaFisicaC)) 
 					@foreach($pessoaFisicaC as $k => $values)
 					
-					<table class="table" style="width: 100%">
-	
+					<table class="table table-striped table-bordered">
+						<tbody>
 							<tr>
 								<th style="width: 25%">Nome</th>
-								<td colspan="3">{{$values->nome}}</td>
+								<td colspan="3">{{$value->nome}}</td>
 							</tr>
 							<tr>
 								<th style="width: 20%">RG</th>
@@ -210,22 +210,26 @@
 							</tr>
 							<tr>
 								<th>Data Nasc.</th>
-								<td colspan="3">{{ date('d/m/Y', strtotime($values->dt_nasc)) }}</td>
+								<td colspan="4">{{ date('d/m/Y', strtotime($values->dt_nasc)) }}</td>
 							</tr>
-				
+						</tbody>
+					</table>
+					<table class="table table-striped table-bordered">
 						<tr>
 							<th class="col-md-4">Email</th>
-							<td colspan="3">{{$values->email}}</td>
+							<td>{{$values->email}}</td>
 						</tr>
 
 						<tr>
 							<th>Telefone(s)</th>
-							<td colspan="3">{{$values->telefones}}</td>
+							<td>{{$values->telefones}}</td>
 						</tr>
-
+					</table>
+					<table class="table table-striped table-bordered">
+						<tbody>
 							<tr>
 								<th style="width: 20%">CTPS</th>
-								<td colspan="3">{{$values -> ctps}}</td>
+								<td colspan="4">{{$values -> ctps}}</td>
 							</tr>
 							<tr>
 								<th>CBO</th>
@@ -235,10 +239,12 @@
 							</tr>
 							<tr>
 								<th>Profissão</th>
-								<td colspan="3">{{$values->profis}}</td>
+								<td colspan="4">{{$values->profis}}</td>
 							</tr>
-						<tr>
-		
+						</tbody>
+					</table>
+					<table class="table table-striped table-bordered">
+						<tbody>
 							<th style="width: 20%">CEP</th>
 							<td>{{$values->cep}}</td>
 							<th>Bairro</th>
@@ -262,10 +268,11 @@
 							<th>Complemento</th>
 							<td>{{$values->complemento}}</td>
 						</tr>
+					</tbody>
 				</table>
 
 				@endforeach
-				@endif
+				@endif -->
 				<br>
 				<h3>Parte(s) Adversa(s)</h3>
 				@if (!is_null($pessoaJuridicaA))
@@ -330,13 +337,9 @@
 				@endforeach
 				@endif
 
-				@if(!is_null($pessoaFisicaA)) 
+				<!-- @if(!is_null($pessoaFisicaA)) 
 				@foreach($pessoaFisicaA as $key => $values)
-				<table class="table" style="width: 100%">
-					<tr>
-						<th style="width: 25%">Nome</th>
-						<td colspan="3">{{$values->nome}}</td>
-					</tr>
+				<table class="table table-striped table-bordered" style="width: 700px;">
 					<tr>
 						<th style="width: 25%">RG</th>
 						<td>{{$values -> rg}}</td>
@@ -404,15 +407,14 @@
 					</tr>
 				</table>
 				@endforeach
-				@endif
+				@endif -->
 				<br>
 				<h3>Etapas</h3>
 				<table class="table" style="width: 100%">
 					<tr>					
 						<th>Nome</th>						
 						<th>Data Início</th>						
-						<th>Data Final</th>		
-						<th>Descrição</th>				
+						<th>Data Final</th>						
 					</tr>
 					
 					@if(!$etapa->isEmpty()) 
@@ -492,7 +494,7 @@
 					<td colspan="4" class=""><b>Total à receber: R$ {{$parcelaRece}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class=""><b>Total pago: R$ {{$parcelaHsum}}</b></td>
+					<td colspan="4" class=""><b>Total recebido: R$ {{$parcelaHsum}}</b></td>
 					</tr>
 					@elseif($parcelaH->isEmpty())
 					<tr>
@@ -531,7 +533,7 @@
 					<td colspan="4" class=""><b>Total à receber: R$ {{$parcelaGRece}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class=""><b>Total pago: R$ {{$parcelaGsum}}</b></td>
+					<td colspan="4" class=""><b>Total recebido: R$ {{$parcelaGsum}}</b></td>
 					</tr>
 					@elseif($parcelaG->isEmpty())
 					<tr>

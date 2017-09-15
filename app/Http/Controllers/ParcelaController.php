@@ -47,6 +47,7 @@ class ParcelaController extends Controller
 		$tipo = $request->id_tp_parcela;
 		$porcentagem = $request->porcentagem;
 		$qtd = $request->num_parcelas;
+		$juros = $request->juros;
 		$str = $request->dt_venc;
 		$i = 1;
 
@@ -63,7 +64,8 @@ class ParcelaController extends Controller
 		->with('idProcesso', $idProcesso)
 		->with('data', $data)
 		->with('i', $i)
-		->with('data', $data);
+		->with('data', $data)
+		->with('juros', $juros);
 	}
 
 	public function store (Request $request, $idProcesso)
@@ -102,6 +104,7 @@ class ParcelaController extends Controller
 
 			$parcela->num_parcela = $first;
 			$parcela->valor = $request->primeira;
+			$parcela->juros = $request->juros;
 			$parcela->id_processo = $idProcesso;
 			$parcela->id_forma_pag = $request->id_forma_pag;
 			$parcela->id_tp_parcela = $request->id_tp_parcela;
@@ -128,6 +131,7 @@ class ParcelaController extends Controller
 
 				$parcela->num_parcela = $first;
 				$parcela->valor = $request->valor;
+				$parcela->juros = $request->juros;
 				$parcela->dt_venc = $dt_venc;
 				$parcela->id_processo = $idProcesso;
 				$parcela->id_forma_pag = $request->id_forma_pag;
@@ -153,10 +157,31 @@ class ParcelaController extends Controller
 		{
 			$pag = "";
 		}
+
+		if(is_null($parcela->multa))
+		{
+			$multa = 0;
+		}
+		elseif(!is_null($parcela->multa))
+		{
+			$multa = $parcela->multa;
+		}
+
+		if(is_null($parcela->desconto))
+		{
+			$desconto = 0;
+		}
+		elseif (!is_null($parcela->desconto)) {
+			$desconto = $parcela->desconto;
+		}
+
+		$valorF = (float)$parcela->valor + $multa - $desconto;
+
 		return view ('parcela.edit')
 		->with('formaPag', $formaPag)
 		->with('parcela', $parcela)
-		->with('pag', $pag);	
+		->with('pag', $pag)
+		->with('valorF', $valorF);	
 	}
 
 	public function update (Request $request, $id)
@@ -174,6 +199,10 @@ class ParcelaController extends Controller
 
 			$parcela->num_parcela = $request->num_parcela;
 			$parcela->valor = $request->valor;
+			$parcela->juros = $request->juros;
+			$parcela->desconto = $request->desconto;
+			$parcela->dias_atraso = $request->dias_atraso;
+			$parcela->multa = $request->multa;
 			$parcela->id_forma_pag = $request->id_forma_pag;
 			$parcela->id_tp_parcela = $request->id_tp_parcela;
 
@@ -229,7 +258,27 @@ class ParcelaController extends Controller
 
 		$fis="";
 		$jurid="";
+		$multa="";
+		$desconto="";
 
+		if(is_null($parcela->multa))
+		{
+			$multa = 0;
+		}
+		elseif(!is_null($parcela->multa))
+		{
+			$multa = $parcela->multa;
+		}
+
+		if(is_null($parcela->desconto))
+		{
+			$desconto = 0;
+		}
+		elseif (!is_null($parcela->desconto)) {
+			$desconto = $parcela->desconto;
+		}
+
+		$valorF = (float)$parcela->valor + $multa - $desconto;
 		
 		if(!empty($clienteJurid))
 		{	
@@ -258,12 +307,12 @@ class ParcelaController extends Controller
 		}
 
 		$f = new NumberFormatter("pt_BR", NumberFormatter::SPELLOUT);
-		$valor = ucfirst($f->format($parcela->valor));
+		$valor = ucfirst($f->format($valorF));
 		
-		$decimal = substr_count($parcela->valor,'.');
+		$decimal = substr_count($valorF,'.');
 		if($decimal == 1)
 		{
-			$separa = explode('.',$parcela->valor);
+			$separa = explode('.',$valorF);
 			$valores = ucfirst($f->format($separa[0]))." reais e ".$f->format($separa[1])." centavos";
 		}elseif ($decimal == 0) {
 			$valores = $valor." reais";
@@ -277,7 +326,8 @@ class ParcelaController extends Controller
 		->with('valores', $valores)
 		->with('jurid', $jurid)
 		->with('fis', $fis)
-		->with('processo', $processo);
+		->with('processo', $processo)
+		->with('valorF', $valorF);
 	}
 
 }

@@ -6,10 +6,9 @@
     <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
     <br>
     <br>
-     <table class="table table-striped table-bordered text-center tblCadastro" >
+     <table class="table table-striped table-bordered  tblCadastro" >
         <thead>
             <tr>
-             <th>ID</th>
              <th>Nome Completo</th>
              <th>CPF</th>
              <th>Ações</th>
@@ -19,10 +18,9 @@
         @if (!$advogados->isEmpty())
         @foreach($advogados as $key => $value)
         <tr>
-            <td>{!! $value->id_advogado !!}</td>
             <td>{!! $value->nome !!}</td>
             <td class="cpf">{!!  $value->cpf  !!}</td>
-            <td>
+            <td class="text-center">
                 <a href="{{ URL::to('/advogado/' . $value->id_advogado . '/show') }}" target="_blank" class="btn btn-lg btn-success"> <i class="fa fa-info-circle fa-1x" aria-hidden="true"></i></a>    
             </td>
         </tr>

@@ -20,7 +20,7 @@
 				</tr>
 				</table> 
 				<span style="text-align: center;"><h2>RECIBO</h2></span>
-				<span style="padding-left: 40px;">Parcela <b>Nº  {{$parcela->num_parcela}}</b> </span><span style="margin-left: 420px;">Valor: R$ {{$parcela->valor}}</span> 
+				<span style="padding-left: 40px;">Parcela <b>Nº  {{$parcela->num_parcela}}</b> </span><span style="margin-left: 420px;">Valor: R$ {{$valorF}}</span> 
 				<hr>
 				<br>
 				<p style="margin-left: 10px; margin-right:10px;">
@@ -31,7 +31,7 @@
 				com vencimento em {{date('d/m/Y', strtotime($parcela->dt_venc))}}.<br>
 				Para maior clareza firmamos o presente <br><br>
 				
-				<span style="margin-left: 200px;">Ponta Grossa, {{strftime('%d de %B de %Y', strtotime('today'))}}</span><br><br>				
+				<span style="margin-left: 200px;">Ponta Grossa, {{strftime('%d de %B de %Y', strtotime($parcela->dt_pag))}}</span><br><br>				
 				Assinatura: __________________________________________________<br><br>
 				</p>
 			</div>

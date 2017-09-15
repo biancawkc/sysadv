@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="form-group" id="p-form" style="display: none;">
-                        <label class="col-md-2 control-label">Documento:</label>
+                        <label class="col-md-2 control-label">Documento<span class="asterisk">*</span></label>
                        <div class="col-md-4">
                                 <select class="form-control" name="doc" id="doc">
                                     <option value="sel">Selecione</option>
@@ -111,17 +111,20 @@
             $('#cpf-form').show();  
             $('#cnpj-form').hide();
             $('#p-form').hide();  
+            $('#errorMsg').hide();  
        }
 
        if($(this).attr('id') == 'jur') {
             $('#cpf-form').hide();
             $('#cnpj-form').show();
             $('#p-form').hide();  
+            $('#errorMsg').hide();  
        }
         if($(this).attr('id') == 'men') {
             $('#cpf-form').hide();
             $('#cnpj-form').hide();
             $('#p-form').show(); 
+            $('#errorMsg').hide();  
        }
 
    });

@@ -203,14 +203,15 @@ class PessoaFisicaController extends Controller
 			\App\Models\PessoaFisica::where('id_parte', '=', $id)
 			->update(['id_profissao' => $prof]);
 
-				/*foreach ($request->telefone   as  $value) {
-					if(!empty($value)){*/
-						$telefone->telefone = $request->telefone;
-						$telefone->id_tp_telefone = $request->id_tp_telefone;
-						$telefone->id_parte = $id;
-						$telefone->save();
-			 /*}
-			}*/
+				foreach ($request->telefone  as $ind => $value) {
+				if(!empty($value)){
+					$telefone =  new \App\Models\Telefone();
+					$telefone->telefone = $value;
+					$telefone->id_parte = $parte->getAttribute("id_parte");
+					$telefone->id_tp_telefone = $request->id_tp_telefone[$ind];
+					$telefone-> save();
+				}
+			}
 
 
 			flash()->success('Cadastro Inserido com Sucesso!');
@@ -235,6 +236,8 @@ class PessoaFisicaController extends Controller
 		$endereco =  \App\Models\Endereco::find($idEndereco);
 		$parte =  \App\Models\Parte::find($id);
 
+		$numTel = count($telefone);
+
 		$dtNasc = date('d/m/Y', strtotime($pessoaFisica->dt_nasc));
 
 		return view('pessoa.pessoaFisica.edit')
@@ -245,7 +248,8 @@ class PessoaFisicaController extends Controller
 		->with('endereco', $endereco)
 		->with('telefone', $telefone)
 		->with('profissao',$profissao)
-		->with('dtNasc', $dtNasc);
+		->with('dtNasc', $dtNasc)
+		->with('numTel', $numTel);
 	}
 
 	function update(Request $request, $id)
@@ -274,13 +278,18 @@ class PessoaFisicaController extends Controller
 			\App\Models\Parte::where('id_parte', '=', $id)
 			->update(['email' => $request->email]);
 
+			$str = $request->dt_nasc;
+			$data = explode("/", $str);
+			$data = $data[2] . "-" . $data[1] . "-" . $data[0];
+
 			\DB::table('pessoa_fisica')
 			->where('id_parte','=', $id)
 			->update([
 				'nome' => $request->nome,
 				'orgao_exp' => $request->orgao_exp,
 				'cpf' => $request->cpf,
-				'dt_nasc' => $request->dt_nasc,
+				'rg' => $request->rg,
+				'dt_nasc' => $data,
 				'ctps' => $request->ctps,
 				'id_estado_civil' => $request->id_estado_civil,
 				'remuneracao' => $request->remuneracao,
@@ -299,15 +308,17 @@ class PessoaFisicaController extends Controller
 				'numero' => $request->numero
 				]);
 
+				\DB::delete('DELETE FROM telefone WHERE id_parte ='.$id);
 
-				/*foreach ($request->telefone   as  $value) {
-					if(!empty($value)){*/
-					/*	$telefone->telefone = $request->telefone;
-						$telefone->id_tp_telefone = $request->id_tp_telefone;
-						$telefone->id_parte = $id;
-						$telefone->save();*/
-			 /*}
-			}*/
+				foreach ($request->telefone  as $ind => $value) {
+				if(!empty($value)){
+					$telefone =  new \App\Models\Telefone();
+					$telefone->telefone = $value;
+					$telefone->id_parte = $id;
+					$telefone->id_tp_telefone = $request->id_tp_telefone[$ind];
+					$telefone-> save();
+				}
+			}
 
 			flash()->success('Dados Alterados com Sucesso!');
 			return redirect('pessoaFisica/'.$id.'/edit');

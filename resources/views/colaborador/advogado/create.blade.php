@@ -8,7 +8,7 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>'advogado.store', 'id'=>'form','autocomplete'=>'off' ]) !!}
+{!! Form::open(['route'=>'advogado.store', 'class'=>'form','autocomplete'=>'off' ]) !!}
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -106,5 +106,9 @@
 @endsection
 
 @section('content_js')
-
+<script type="text/javascript">
+	$.validate({
+  modules : 'date'
+});
+</script>
 @endsection

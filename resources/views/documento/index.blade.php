@@ -111,7 +111,11 @@
 @endsection
 
 @section('content_js')
-
+<script type="text/javascript">
+  $.validate({
+  modules : 'file'
+});
+</script>
 @endsection
 
 

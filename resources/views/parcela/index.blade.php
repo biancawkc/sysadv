@@ -12,12 +12,12 @@
    <table class="table table-striped table-bordered text-center tblCadastro" >
     <thead>
       <tr>
-       <th>Nº</th>
-       <th>Valor</th>
-       <th>Data Vencimento</th>
-       <th>Data Pagamento</th>
-       <th>Forma de Pagamento</th>
-       <th>Tipo</th>
+       <th class="col-md-1">Nº</th>
+       <th class="col-md-2">Valor</th>
+       <th class="col-md-2">Data Vencimento</th>
+       <th class="col-md-2">Data Pagamento</th>
+       <!-- <th>Forma de Pagamento</th> -->
+       <th class="col-md-2">Tipo</th>
        <th>Ações</th>
      </tr>
    </thead>
@@ -33,8 +33,12 @@
       @else
       <td>-</td>
       @endif
-      <td></td>
-      <td></td>
+      @if($value->id_tp_parcela == 1)
+      <td>Honorários</td>
+      @elseif($value->id_tp_parcela == 2)
+      <td>Ganho de Causa</td>
+      @endif
+     
       <td><a href="{{ URL::to('/parcela/' . $value->id_parcela . '/edit') }}" class="btn btn-lg btn-info" data-toggle="tooltip" data-placement="top" title="Atualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
         @if( $value->dt_pag == NULL)
         <button class="btn btn-lg btn-info" data-toggle="tooltip" data-placement="top" title="Recibo" disabled><i class="fa fa-file-o" aria-hidden="true"></i></button> 

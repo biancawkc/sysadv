@@ -102,7 +102,7 @@
 
 					<div class="col-sm-4 form-group" >
 						<label>Telefone<span class="asterisk">*</span></label>
-						<input class="form-control phone_with_ddd" type="text" name="telefone[]">
+						<input class="form-control phone_with_ddd" type="text" name="telefone[]" data-validation="required">
 					</div>
 
 					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
@@ -234,31 +234,24 @@ $.validate({
 
 $(document).ready(function() {
   $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
-
    var i=1;  
+   var maxField = 3;
       $('#add').click(function(){  
+      	$('.phone_with_ddd').mask('(00) 0000-00000');
+      	  	if(i < maxField){ 
            i++;  
            $('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone<span class="asterisk">*</span></label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
+           	$('.phone_with_ddd').mask('(00) 0000-00000');
+       }
       });  
       $(document).on('click', '.btn_remove', function(){  
            var button_id = $(this).attr("id");   
-           $('#row'+button_id+'').remove();  
+           $('#row'+button_id+'').remove(); 
+           i--; 
       });  
 });
 
 
-	//var tel = 2;
-/*	function add_fields() {
-	//	tel++;
-	var objTo = document.getElementById('telefones')
-	var divtest = document.createElement("div");
-
-	divtest.innerHTML = '<div class="row"></div><div class="col-sm-3 form-group"><label>Tipo de Telefone: </label><select class="form-control" name="id_tp_telefone[]"><option>Selecione</option><option value="1">Celular</option><option value="2">Comercial</option><option value="3">Residencial</option></select></div><div class="col-sm-3 form-group" ><label>Telefone:</label> <input type="text" class="form-control" name="telefone[]" value="" /></div>';
-
-
-	objTo.appendChild(divtest)
-}
-*/
 </script>
 
 @endsection

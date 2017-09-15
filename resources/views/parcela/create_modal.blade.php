@@ -70,6 +70,11 @@
 									<input name="dt_venc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa"  id="dt" onchange="parcela();">
 								</div>
 							</div>
+
+							<div class="col-sm-3 form-group">
+								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
+								<input type='text' name="juros" class="form-control" data-validation="required number"/>
+							</div>
 						</div>
 
 					</div>
@@ -135,6 +140,11 @@
 							</div> -->
 							<input type='hidden' name="primeira" data-validation="required" id="parcela" />
 							<input type='hidden' name="demais" data-validation="required" id="demais" />
+
+							<div class="col-sm-3 form-group">
+								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
+								<input type='text' name="juros" class="form-control" data-validation="required number"/>
+							</div>
 
 							<div class="col-sm-4 form-group">
 								<label>Forma de pagamento<span class="asterisk">*</span></label>

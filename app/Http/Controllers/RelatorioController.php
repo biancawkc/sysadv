@@ -11,7 +11,8 @@ use Redirect;
 class RelatorioController extends Controller
 {
 	public function relatorio($idProcesso)
-	{
+	{	
+
 		$html = "";
 		$html = $this->montarRelatorio($idProcesso);
 		$pdf = \App::make('dompdf.wrapper');
@@ -20,8 +21,9 @@ class RelatorioController extends Controller
 	}
 
 	public function montarRelatorio($idProcesso)
-	{
-		$html = "";
+	{	
+		$html ="";
+		$processo = "";
 		$processo = \App\Models\Processo::find($idProcesso);
 
 
@@ -77,25 +79,25 @@ class RelatorioController extends Controller
 			['parcela.id_tp_parcela', '=', 2],
 			])->sum('valor');
 
-		$despesa =  \DB::table('despesa')
+		$despesa =  DB::table('despesa')
 		->where('id_processo', $idProcesso)
 		->get();
 
-		$etapa =  \DB::table('etapa_processo')
+		$etapa =  DB::table('etapa_processo')
 		->where('id_processo', $idProcesso)
 		->get();
 
-		$despesaTotal = DB::table('despesa')
-		->where('id_processo', $idProcesso)->sum('valor');
+		 $despesaTotal = DB::table('despesa')
+		 ->where('id_processo', $idProcesso)->sum('valor');
 
-		$idComarca = \DB::table('processo')->where('id_processo', $idProcesso)->value('id_comarca');
-		$comarca = \App\Models\Comarca::find($idComarca);
+		 $idComarca = DB::table('processo')->where('id_processo', $idProcesso)->value('id_comarca');
+		 $comarca = \App\Models\Comarca::find($idComarca);
 
-		$idJustica = \DB::table('processo')->where('id_processo', $idProcesso)->value('id_justica');
-		$justica = \App\Models\Justica::find($idJustica);
+		 $idJustica = DB::table('processo')->where('id_processo', $idProcesso)->value('id_justica');
+		 $justica = \App\Models\Justica::find($idJustica);
 
-		$idEstadoProcesso = \DB::table('processo')->where('id_processo', $idProcesso)->value('id_estado_processo');
-		$estadoProcesso = \App\Models\EstadoProcesso::find($idEstadoProcesso);
+		 $idEstadoProcesso = DB::table('processo')->where('id_processo', $idProcesso)->value('id_estado_processo');
+		 $estadoProcesso = \App\Models\EstadoProcesso::find($idEstadoProcesso);
 
 		$pessoaJuridicaC = NULL;
 
@@ -123,7 +125,6 @@ class RelatorioController extends Controller
 			");
 
 
-
 		$pessoaFisicaC = NULL;
 
 		$pessoaFisicaC = DB::select("SELECT parte_tem_processo.*, 
@@ -144,12 +145,12 @@ class RelatorioController extends Controller
 			AS estados,
 			(SELECT profissao.nm_profissao FROM profissao
 			INNER JOIN pessoa_fisica ON 
-			profissao.id_profissao = pessoa_fisica.id_estado_civil
+			profissao.id_profissao = pessoa_fisica.id_profissao
 			WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
 			AS profis,
 			(SELECT profissao.cbo FROM profissao
 			INNER JOIN pessoa_fisica ON 
-			profissao.id_profissao = pessoa_fisica.id_estado_civil
+			profissao.id_profissao = pessoa_fisica.id_profissao
 			WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
 			AS cbo
 			FROM parte_tem_processo 
@@ -210,12 +211,12 @@ class RelatorioController extends Controller
 			AS estados,
 			(SELECT profissao.nm_profissao FROM profissao
 			INNER JOIN pessoa_fisica ON 
-			profissao.id_profissao = pessoa_fisica.id_estado_civil
+			profissao.id_profissao = pessoa_fisica.id_profissao
 			WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
 			AS profis,
 			(SELECT profissao.cbo FROM profissao
 			INNER JOIN pessoa_fisica ON 
-			profissao.id_profissao = pessoa_fisica.id_estado_civil
+			profissao.id_profissao = pessoa_fisica.id_profissao
 			WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
 			AS cbo
 			FROM parte_tem_processo 
@@ -230,17 +231,17 @@ class RelatorioController extends Controller
 
 			");
 
-		return View::make('relatorio.relatorio', compact(['processo', 'comarca', 'justica','pessoaFisicaC','pessoaJuridicaC','pessoaFisicaA', 'pessoaJuridicaA', 'estadoProcesso', 'parcelaH', 'parcelaG', 'parcelaHsum', 'parcelaRece', 'parcelaHtotal', 'parcelaGsum', 'parcelaGRece', 'parcelaGtotal', 'despesa','despesaTotal','etapa']));
-		/*->with('processo', $processo)
-		->with('comarca', $comarca)
-		->with('justica', $justica)
-		->with('pessoaFisicaC', $pessoaFisicaC)
-		->with('pessoaJuridicaC', $pessoaJuridicaC)
-		->with('pessoaFisicaA', $pessoaFisicaA)
-		->with('pessoaJuridicaA', $pessoaJuridicaA)
-		->with('estadoProcesso', $estadoProcesso)
-		->with('parcelaH', $parcelaH);
-*/
+		return View::make('relatorio.relatorio', compact(['processo', 'estadoProcesso', 'comarca', 'justica','pessoaJuridicaC', 'pessoaFisicaC','pessoaFisicaA', 'pessoaJuridicaA',  'parcelaH', 'parcelaG', 'parcelaHsum', 'parcelaRece', 'parcelaHtotal', 'parcelaGsum', 'parcelaGRece', 'parcelaGtotal', 'despesa','despesaTotal','etapa']));
+		/*return view('relatorio.relatorio')
+		->with('processo', $processo);*/
+		// ->with('comarca', $comarca)
+		// ->with('justica', $justica)
+		// ->with('pessoaFisicaC', $pessoaFisicaC)
+		// ->with('pessoaJuridicaC', $pessoaJuridicaC)
+		// ->with('pessoaFisicaA', $pessoaFisicaA)
+		// ->with('pessoaJuridicaA', $pessoaJuridicaA)
+		// ->with('estadoProcesso', $estadoProcesso)
+		// ->with('parcelaH', $parcelaH);
 	}
 
 }

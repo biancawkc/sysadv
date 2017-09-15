@@ -22,7 +22,9 @@ class Despesa extends Model {
     
     protected $primaryKey = "id_despesa";
     
-    public $timestamps = false;
+    /*public $timestamps = false;*/
+    const CREATED_AT = 'dt_criacao';
+    const UPDATED_AT = 'dt_atualizacao';
 
     
 

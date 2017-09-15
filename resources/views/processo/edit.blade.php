@@ -91,7 +91,11 @@
 			@if(!$pessoaJuridicaC->isEmpty())
 			@foreach($pessoaJuridicaC as $index=>$values)
 
-			<div class="row">
+			@if($index == 0)
+				<div class="row" id="cliente">
+				@else
+				<div class="row"  id="row00{{$index}}">
+				@endif
 				<div class="col-sm-10 form-group">
 					<label>Cliente<span class="asterisk">*</span></label>
 					<select class="form-control single-select" name="id_parte[]" data-validation="required" >
@@ -107,12 +111,11 @@
 					</select>
 					<input type="hidden" name="participacao[]" value="c">
 				</div>
-				<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 19px;">
-				@if($index !== 0)
-					<a class="btn btn-sm btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a> &nbsp;&nbsp;
-				@endif
-					<a id="more_fields" class="btn btn-sm btn-success" onclick="add_fields();"><i class="fa fa-plus" aria-hidden="true"></i> </a>
-
+				<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 40px;">
+					@if($index !== 0)
+					<button type="button" name="remove" id="00{{$index}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
+					@endif
+					<a id="addCl" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 				</div>
 			</div>
 
@@ -122,7 +125,11 @@
 			@if(!$pessoaFisicaC->isEmpty())
 			@foreach($pessoaFisicaC as $ind=>$value)
 
-			<div class="row">
+				@if($pessoaJuridicaC->isEmpty() && $ind == 0)
+				<div class="row" id="cliente">
+				@else
+				<div class="row"  id="row01{{$ind}}">
+				@endif
 				<div class="col-sm-10 form-group">
 					<label>Cliente<span class="asterisk">*</span></label>
 					<select class="form-control single-select" name="id_parte[]" data-validation="required">
@@ -138,13 +145,14 @@
 					</select>
 					<input type="hidden" name="participacao[]" value="c">
 				</div>
-				<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 19px;">
-				@if(!$pessoaJuridicaC->isEmpty())
-					<a class="btn btn-sm btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a> &nbsp;&nbsp;
-				@elseif($pessoaJuridicaC->isEmpty() && $ind !== 0)
-					<a class="btn btn-sm btn-danger"><i class="fa fa-times" aria-hidden="true"></i></a> &nbsp;&nbsp;
-				@endif
-					<a id="more_fields" class="btn btn-sm btn-success" onclick="add_fields();"><i class="fa fa-plus" aria-hidden="true"></i> </a>
+				<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 40px;">
+					@if(!$pessoaJuridicaC->isEmpty())
+					<button type="button" name="remove" id="01{{$index}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
+					@elseif($pessoaJuridicaC->isEmpty() && $ind !== 0)
+					<button type="button" name="remove" id="01{{$index}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
+					@elseif($pessoaJuridicaC->isEmpty() && $ind == 0)
+					<a id="addCl" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					@endif
 				</div>
 			</div>
 
@@ -161,105 +169,111 @@
 		<div class="col-sm-12">
 			@if(!$pessoaJuridicaA->isEmpty())
 			@foreach($pessoaJuridicaA as $index=>$values)
-
-			<div class="row">
-				<div class="col-sm-10 form-group">
-					<label>Parte adversa<span class="asterisk">*</span></label>
-					<select class="form-control single-select" name="id_parte[]" data-validation="required">
-						<option value="{{$values->id_parte}}" selected>{{$values->razao_social}}</option>
-						@foreach($pessoaFisica as $pf)
-						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
-						@endforeach
-						@foreach($pessoaJuridica as $pj)
-						@if( $pj->id_parte !== $values->id_parte)
-						<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
+			@if($index == 0)
+			<div class="row" id="adversa">
+				@else
+				<div class="row"  id="row1{{$index}}">
+					@endif
+					<div class="col-sm-10 form-group">
+						<label>Parte adversa<span class="asterisk">*</span></label>
+						<select class="form-control single-select" name="id_parte[]" data-validation="required">
+							<option value="{{$values->id_parte}}" selected>{{$values->razao_social}}</option>
+							@foreach($pessoaFisica as $pf)
+							<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
+							@endforeach
+							@foreach($pessoaJuridica as $pj)
+							@if( $pj->id_parte !== $values->id_parte)
+							<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
+							@endif
+							@endforeach
+						</select>
+						<input type="hidden" name="participacao[]" value="a">
+					</div>
+					<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 40px;">
+						@if($index !== 0)
+						<button type="button" name="remove" id="1{{$index}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
+						@elseif($index == 0)
+						<a name="add" id="add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 						@endif
-						@endforeach
-					</select>
-					<input type="hidden" name="participacao[]" value="a">
+					</div>
 				</div>
-				<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 19px;">
-				@if($index !== 0)
-					<a href="javascript:void(0);" class="btn btn-sm btn-danger remove_button"><i class="fa fa-times" aria-hidden="true"></i></a> &nbsp;&nbsp;
-				@elseif($index == 0)
-					<a href="javascript:void(0);" class="btn btn-sm btn-success add_button" ><i class="fa fa-plus" aria-hidden="true"></i> </a>
+
+				@endforeach
 				@endif
-				</div>
-			</div>
 
-			@endforeach
-			@endif
-
-			@if(!$pessoaFisicaA->isEmpty())
-			@foreach($pessoaFisicaA as $ind=>$value)
-
-			<div class="row adversa">
-				<div class="col-sm-10 form-group">
-					<label>Parte adversa<span class="asterisk">*</span></label>
-					<select class="form-control single-select" name="id_parte[]" data-validation="required">
-						<option value="{{$value->id_parte}}" selected>{{$value->nome}}</option>
-						@foreach($pessoaFisica as $pf)
-						@if( $pf->id_parte !== $value->id_parte)
-						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
-						@endif
-						@endforeach
-						@foreach($pessoaJuridica as $pj)
-						<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
-						@endforeach
-					</select>
-					<input type="hidden" name="participacao[]" value="a">
-				</div>
-				<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 19px;">
+				@if(!$pessoaFisicaA->isEmpty())
+				@foreach($pessoaFisicaA as $ind=>$value)
 				@if($pessoaJuridicaA->isEmpty() && $ind == 0)
-					<a href="javascript:void(0);" class="btn btn-sm btn-success add_button" ><i class="fa fa-plus" aria-hidden="true"></i> </a> &nbsp;&nbsp;
-				@elseif(!$pessoaJuridicaA->isEmpty() || $ind !== 0)
-					<a href="javascript:void(0);" class="remove_button" ><i class="fa fa-times" aria-hidden="true"></i></a>
-				@endif
+				<div class="row" id="adversa">
+				@else
+				<div class="row"  id="row0{{$ind}}">
+				@endif	
+					<div class="col-sm-10 form-group">
+						<label>Parte adversa<span class="asterisk">*</span></label>
+						<select class="form-control single-select" name="id_parte[]" data-validation="required">
+							<option value="{{$value->id_parte}}" selected>{{$value->nome}}</option>
+							@foreach($pessoaFisica as $pf)
+							@if( $pf->id_parte !== $value->id_parte)
+							<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
+							@endif
+							@endforeach
+							@foreach($pessoaJuridica as $pj)
+							<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
+							@endforeach
+						</select>
+						<input type="hidden" name="participacao[]" value="a">
+					</div>
+					<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 40px;">
+						@if($pessoaJuridicaA->isEmpty() && $ind == 0)
+						<a name="add" id="add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a> &nbsp;&nbsp;
+						@elseif(!$pessoaJuridicaA->isEmpty() || $ind !== 0)
+						<button type="button" name="remove" id="0{{$ind}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button>
+						@endif
+					</div>
 				</div>
+
+				@endforeach
+				@endif
+
+
 			</div>
-
-			@endforeach
-			@endif
-
-
 		</div>
 	</div>
-</div>
 
-<div class="col-lg-12 well">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="row">
+	<div class="col-lg-12 well">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="row">
 
-				<div class="col-sm-5 form-group">
-					<label>Justiça<span class="asterisk">*</span></label>
-					<select name="id_justica" class="form-control single-select" data-validation="required" id="justica">	
+					<div class="col-sm-5 form-group">
+						<label>Justiça<span class="asterisk">*</span></label>
+						<select name="id_justica" class="form-control single-select" data-validation="required" id="justica">	
+							<option value="">Selecione</option>
+							@foreach($justicas as $justica)
+							<option value="{{$justica->id_justica}}">{{$justica->nm_justica}}</option>
+							@endforeach
+						</select>
+					</div>
+					<div class="col-sm-7 form-group">
+						<label>Ação<span class="asterisk">*</span></label>
+						<input type="text" name="nome_acao" class="form-control" value="{{$processo->nome_acao}}">
+
+					</div>
+				</div>
+
+				<div class="form-group">
+
+					<label>Comarca<span class="asterisk">*</span></label>
+					<select name="id_comarca" class="form-control single-select" data-validation="required" id="comarca">
 						<option value="">Selecione</option>
-						@foreach($justicas as $justica)
-						<option value="{{$justica->id_justica}}">{{$justica->nm_justica}}</option>
+						@foreach($comarcas as $comarca)
+						<option value="{{$comarca->id_comarca}}">{{$comarca->comarca}}</option>
 						@endforeach
 					</select>
 				</div>
-				<div class="col-sm-7 form-group">
-					<label>Ação<span class="asterisk">*</span></label>
-					<input type="text" name="nome_acao" class="form-control" value="{{$processo->nome_acao}}">
-					
-				</div>
-			</div>
-
-			<div class="form-group">
-
-				<label>Comarca<span class="asterisk">*</span></label>
-				<select name="id_comarca" class="form-control single-select" data-validation="required" id="comarca">
-					<option value="">Selecione</option>
-					@foreach($comarcas as $comarca)
-					<option value="{{$comarca->id_comarca}}">{{$comarca->comarca}}</option>
-					@endforeach
-				</select>
-			</div>
 
 
-			<div class="form-group">
+				<div class="form-group">
 					<label>Vara<span class="asterisk">*</span></label>
 					<select name="id_vara" class="form-control single-select" data-validation="required" id="vara">	
 						<option value="">Selecione</option>
@@ -271,29 +285,29 @@
 
 
 
-			<div class="form-group">
-				<label>Descrição<span class="asterisk">*</span></label>
-				<textarea class="form-control" rows="5" name="desc_processo" data-validation="required">{{$processo->desc_processo}}</textarea>
-			</div>
+				<div class="form-group">
+					<label>Descrição<span class="asterisk">*</span></label>
+					<textarea class="form-control" rows="5" name="desc_processo" data-validation="required">{{$processo->desc_processo}}</textarea>
+				</div>
 
+			</div>
 		</div>
 	</div>
-</div>
 
-<br>
+	<br>
 
-<div class="form-group">
-	<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
-</div>
+	<div class="form-group">
+		<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
+	</div>
 
 
-<div class="text-center">
-	<a href="{{ URL::to('/processo/'.$processo->id_processo.'/show') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
-	&nbsp;&nbsp;&nbsp;
-	<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button>
-</div>
-<br>
-<br>
+	<div class="text-center">
+		<a href="{{ URL::to('/processo/'.$processo->id_processo.'/show') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		&nbsp;&nbsp;&nbsp;
+		<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button>
+	</div>
+	<br>
+	<br>
 
 
 </div> 
@@ -317,28 +331,34 @@
 	$vara = {{$processo->id_vara}}
 	$("#vara").val($vara);
 
-$(document).ready(function(){
-	  $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
-    var maxField = 10; //Input fields increment limitation
-    var addButton = $('.add_button'); //Add button selector
-    var wrapper = $('.adversa'); //Input field wrapper
-    var fieldHTML = '<div class="row"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control single-select" name="id_parte[]"><option>Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 19px;"><a href="javascript:void(0);" class="remove_button" title="Remove field"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>'; //New input field html 
-    var x = 1; //Initial field counter is 1
-    $(addButton).click(function(){ //Once add button is clicked
-        // if(x < maxField){ //Check maximum number of input fields
-            // x++; //Increment field counter
-            $(wrapper).append(fieldHTML); // Add field html
-            $('.selectpicker').selectpicker('refresh');
-        // }
-    });
-    $(wrapper).on('click', '.remove_button', function(e){ //Once remove button is clicked
-    	//$("#adversaSelect").val('');
-        e.preventDefault();
-        $(this).parent('div').parent('div').remove(); //Remove field html
-       // x--; //Decrement field counter
-    });
-});
-    
+	$(document).ready(function() {
+		$(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+
+		  var x=10;  
+      $('#addCl').click(function(){  
+           x++;  
+           $('#cliente').after('<div class="row" id="cl'+x+'"> <div class="col-sm-10 form-group"><label>Cliente</label><select class="form-control single-select" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="c"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a id="'+x+'" class="btn btn-danger btn_removeCl"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
+           $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+      });  
+      $(document).on('click', '.btn_removeCl', function(){  
+           var button_id = $(this).attr("id");   
+           $('#cl'+button_id+'').remove(); 
+      });  
+
+
+		var i=1;  
+		$('#add').click(function(){  
+			i++;  
+			$('#adversa').after('<div class="row" id="row'+i+'"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control single-select" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
+			$(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+		});  
+		$(document).on('click', '.btn_remove', function(){  
+			var button_id = $(this).attr("id");   
+			$('#row'+button_id+'').remove(); 
+		});  
+	});
+
+
 </script>
 
 @endsection

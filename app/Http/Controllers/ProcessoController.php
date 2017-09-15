@@ -106,10 +106,17 @@ class ProcessoController extends Controller
 			$data = $data[2] . "-" . $data[1] . "-" . $data[0];
 			$processo->dt_inicio = new \DateTime($data);
 
+			if(!is_null($request->dt_final))
+			{
 			$str2 = $request->dt_final;
 			$date = explode("/", $str2);
 			$date = $date[2] . "/" . $date[1] . "/" . $date[0];
 			$processo->dt_final = new \DateTime($date);
+			}
+			else
+			{
+				$processo->dt_final = $request->dt_final;
+			}
 			$processo->save();
 
 			foreach ($request->id_parte  as $ind => $val) {
@@ -207,12 +214,12 @@ class ProcessoController extends Controller
 							AS estados,
 							(SELECT profissao.nm_profissao FROM profissao
 							INNER JOIN pessoa_fisica ON 
-							profissao.id_profissao = pessoa_fisica.id_estado_civil
+							profissao.id_profissao = pessoa_fisica.id_profissao
 							WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
 							AS profis,
 							(SELECT profissao.cbo FROM profissao
 							INNER JOIN pessoa_fisica ON 
-							profissao.id_profissao = pessoa_fisica.id_estado_civil
+							profissao.id_profissao = pessoa_fisica.id_profissao
 							WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
 							AS cbo
 							FROM parte_tem_processo 
@@ -297,12 +304,12 @@ class ProcessoController extends Controller
                                 			AS estados,
                                 			(SELECT profissao.nm_profissao FROM profissao
                                 			INNER JOIN pessoa_fisica ON 
-                                			profissao.id_profissao = pessoa_fisica.id_estado_civil
+                                			profissao.id_profissao = pessoa_fisica.id_profissao
                                 			WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
                                 			AS profis,
                                 			(SELECT profissao.cbo FROM profissao
                                 			INNER JOIN pessoa_fisica ON 
-                                			profissao.id_profissao = pessoa_fisica.id_estado_civil
+                                			profissao.id_profissao = pessoa_fisica.id_profissao
                                 			WHERE parte_tem_processo.id_parte = pessoa_fisica.id_parte)
                                 			AS cbo
                                 			FROM parte_tem_processo 
