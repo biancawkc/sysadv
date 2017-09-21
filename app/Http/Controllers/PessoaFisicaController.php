@@ -62,7 +62,7 @@ class PessoaFisicaController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|max:200',
-			'rg' => 'required|max:9',
+			'rg' => 'required|max:10|unique:pessoa_fisica,rg',
 			'orgao_exp' => 'required|max:10',
 			'cpf' => 'required|max:13|unique:pessoa_fisica,cpf',
 			'ativo' =>'required',
@@ -139,13 +139,15 @@ class PessoaFisicaController extends Controller
 		$parte =  \App\Models\Parte::find($id);
 		$e = $pessoaFisica->id_estado_civil;
 		$dtNasc = date('d/m/Y', strtotime($pessoaFisica->dt_nasc));
+		$profissao = \DB::table('profissao')->get();
 		return view('pessoa.pessoaFisica.review')
 		->with('civil', $civil)
 		->with('tp_tel', $tp_tel)
 		->with('pessoaFisica', $pessoaFisica)
 		->with('parte', $parte)
 		->with('e', $e)
-		->with('dtNasc', $dtNasc);
+		->with('dtNasc', $dtNasc)
+		->with('profissao', $profissao);
 	}
 
 	function updateReview(Request $request, $id)
@@ -190,6 +192,8 @@ class PessoaFisicaController extends Controller
 					  'orgao_exp' => $request->orgao_exp,
 					  'dt_nasc' => $data,
 					  'ctps' => $request->ctps,
+					  'remuneracao' => $request->remuneracao,
+					  'id_profissao' => $request->id_profissao
 					]);
 
 			$endereco->cep = $request->cep;
@@ -202,16 +206,11 @@ class PessoaFisicaController extends Controller
 			$endereco->id_parte = $id;
 			$endereco->save();
 
-			$prof = $profissao->$request->id_profissao;
-
-			\App\Models\PessoaFisica::where('id_parte', '=', $id)
-			->update(['id_profissao' => $prof]);
-
 				foreach ($request->telefone  as $ind => $value) {
 				if(!empty($value)){
 					$telefone =  new \App\Models\Telefone();
 					$telefone->telefone = $value;
-					$telefone->id_parte = $parte->getAttribute("id_parte");
+					$telefone->id_parte = $id;
 					$telefone->id_tp_telefone = $request->id_tp_telefone[$ind];
 					$telefone-> save();
 				}
@@ -219,7 +218,7 @@ class PessoaFisicaController extends Controller
 
 
 			flash()->success('Cadastro Inserido com Sucesso!');
-			return redirect('pessoaFisica/'.$id.'/review');
+			return redirect('/pessoa');
 		}
 	}
 
@@ -360,6 +359,22 @@ class PessoaFisicaController extends Controller
 		$pessoaFisica = \DB::table('pessoa_fisica')->where('id_parte','=', $id)->first();
 
 		$processo = \DB::table('parte_tem_processo')->where('id_parte','=', $id)->first();
+
+		$funcionario = \DB::table('funcionario')->where('id_parte','=', $id)->first();
+
+		$advogado = \DB::table('advogado')->where('id_parte','=', $id)->first();
+
+		if(is_null($funcionario) && is_null($advogado))
+		{
+			return view('pessoa.pessoaFisica.remove')
+			->with('pessoaFisica', $pessoaFisica);
+		}
+		else
+		{
+			flash()->overlay('Não é possível deletar os dados de '.$pessoaFisica->nome.', pois está cadastrado como colaborador.','Atenção');
+			return redirect('pessoaFisica/'.$id.'/show');
+		}
+
 
 		if(is_null($processo))
 		{

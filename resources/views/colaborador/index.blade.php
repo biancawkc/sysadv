@@ -22,7 +22,7 @@
             <td>{!! $value->nome !!}</td>
             <td class="cpf">{!!  $value->cpf  !!}</td>
             <td>Funcionário</td>
-            <td>
+            <td class="text-center">
                 <a href="{{ URL::to('/funcionario/' . $value->id_funcionario. '/show') }}" target="_blank" class="btn btn-lg btn-primary"> <i class="fa fa-info-circle fa-1x" aria-hidden="true"></i></a>       
             </td>
         </tr>

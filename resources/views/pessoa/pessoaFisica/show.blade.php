@@ -11,14 +11,14 @@
 
      <tr>
        <th>RG</th>
-       <td>{{$pessoaFisica->rg}}</td>
+       <td class="rg">{{$pessoaFisica->rg}}</td>
        <th class="col-md-3"> Órg. Emiss.</th>
        <td>{{$pessoaFisica->orgao_exp}}</td>
      </tr>
 
      <tr>
        <th>CPF</th>
-       <td>{{$pessoaFisica->cpf}}</td>
+       <td class="cpf">{{$pessoaFisica->cpf}}</td>
        <th>Estado Civil</th>
        <td>{{$civil->desc_estado_civil}}</td>
      </tr>

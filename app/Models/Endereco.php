@@ -18,7 +18,8 @@ class Endereco extends Model {
               'complemento',
               'bairro',
               'uf',
-              'cidade'
+              'cidade',
+              'numero'
         
     ];
     

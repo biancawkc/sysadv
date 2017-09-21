@@ -158,7 +158,7 @@
 					</div>
 
 					@if($num > 9)
-					<!-- /.list-group -->
+					<br>
 					<a href="{{URL::to('/agenda')}}" class="btn btn-default btn-block">Mais</a>
 					@endif
 				</div>

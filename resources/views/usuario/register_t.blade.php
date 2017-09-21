@@ -86,7 +86,7 @@
 			<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
 		</div>
 		<div class="text-center">
-	<a href="{{ URL::to('/colaboradores') }}" class="btn btn-lg btn-danger">Cancelar <i class="fa fa-undo" aria-hidden="true"></i></a>
+	<a href="{{ URL::to('/colaboradores') }}" class="btn btn-lg btn-danger">Depois <i class="fa fa-undo" aria-hidden="true"></i></a>
 	&nbsp;&nbsp;&nbsp;
 	<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>

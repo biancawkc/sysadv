@@ -24,10 +24,7 @@ class PessoaFisica extends Model {
               'id_profissao',
               'id_estado_civil',
               'id_profissao',
-              'remuneracao',
-              'rne',
-              'passaporte'
-        
+              'remuneracao'        
     ];
     
    // protected $primaryKey = "id_parte";
