@@ -28,7 +28,7 @@
 						<div class="input-group-btn">
 							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 						</div>
-						<input name="dt_inicio" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($processo->dt_inicio))}}">
+						<input name="dt_inicio" type="text" class="form-control date" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($processo->dt_inicio))}}" id="dtIni" readonly>
 
 					</div>
 				</div>
@@ -40,11 +40,14 @@
 						<div class="input-group-btn">
 							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 						</div>
-						<input name="dt_final" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($processo->dt_final))}}" data-validation-optional="true">
+						<input name="dt_final" type="text" class="form-control date" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$dt_final}}" data-validation-optional="true" id="dtFn" readonly>
 					</div>
 				</div>
+				<div class="col-sm-1 form-group" style="padding-top: 28px; padding-left: -15px;">
+					<a type="button" class="btn btn-md btn-info" id="clearDates" data-toggle="tooltip" data-placement="top" title="Limpar Data Final"><i class="fa fa-eraser" aria-hidden="true"></i></a>
+				</div>
 
-				<div class="col-sm-4 form-group" style="padding-left: 42px;">
+				<div class="col-sm-3 form-group" style="padding-left: 42px;">
 					@if ($processo->justica_grat == 1)
 					<input type="checkbox" value="1" name="justica_grat" checked>  Justiça gratuita
 					@else
@@ -235,7 +238,6 @@
 				@endforeach
 				@endif
 
-
 			</div>
 		</div>
 	</div>
@@ -272,7 +274,6 @@
 					</select>
 				</div>
 
-
 				<div class="form-group">
 					<label>Vara<span class="asterisk">*</span></label>
 					<select name="id_vara" class="form-control single-select" data-validation="required" id="vara">	
@@ -282,8 +283,6 @@
 						@endforeach
 					</select>
 				</div>
-
-
 
 				<div class="form-group">
 					<label>Descrição<span class="asterisk">*</span></label>
@@ -356,7 +355,29 @@
 			var button_id = $(this).attr("id");   
 			$('#row'+button_id+'').remove(); 
 		});  
-	});
+
+		/*$('#dtIni').datepicker({
+				dateFormat: "dd/mm/yy",
+				changeMonth: true,
+				changeYear: true
+			});*/
+
+			$(document).on('focus', '#dtFn', function(){  
+
+				var dtIni = document.getElementById("dtIni").value;
+				$('#dtFn').datepicker({
+					dateFormat: "dd/mm/yy",
+					changeMonth: true,
+					changeYear: true,
+					minDate: dtIni
+				});
+			}); 
+			$('#clearDates').on('click', function(){
+				document.getElementById("dtFn").value= "";
+			}); 
+
+
+		});
 
 
 </script>

@@ -22,7 +22,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" autofocus data-validation="required" value="{{$pessoaFisica->nome}}">
+					<input type="text" placeholder="" name="nome" class="form-control" value="{{$pessoaFisica->nome}}" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" >
 				</div>	
 
 				<div class="row">

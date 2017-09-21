@@ -23,7 +23,7 @@
             <!-- <td>{!! $value->id_processo !!}</td> -->
             <td>{!! $value->numero !!}</td>
             <td>{!! date('d/m/Y', strtotime($value->dt_inicio)) !!}</td>
-            <td>{!! $value->id_estado_processo !!}</td>
+            <td>{!! $value->desc_est_processo !!}</td>
             <td class="text-center"> 
                 <a target="_blank" href="{{ URL::to('/processo/' . $value->id_processo . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> &nbsp;&nbsp;   
                 <a target="_blank" href="{{ URL::to('/etapa/' . $value->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i> </a>&nbsp;&nbsp;   

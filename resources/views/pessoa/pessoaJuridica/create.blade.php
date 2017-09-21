@@ -21,17 +21,16 @@
 
 				<div class="form-group">
 					<label>Razão Social <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="razao_social" class="form-control" data-validation="required" autofocus>
+					<input type="text" placeholder="" name="razao_social" class="form-control" data-validation="required" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" autofocus>
 				</div>
 
 				<div class="form-group">
 					<label>Nome Fantasia</label>
-					<input type="text" placeholder="" name="nm_fantasia" class="form-control" autofocus>
+					<input type="text" placeholder="" name="nm_fantasia" class="form-control">
 				</div>
 
 
 				<div class="row">
-
 					<div class="col-sm-4 form-group">
 						<label>CNPJ <span class="asterisk">*</span></label>						
 						<input type='text' name="cnpj" class="form-control cnpj" data-validation="required" value="{{$cnpj}}" readonly id="cnpj" />
@@ -62,10 +61,10 @@
 				</div>
 			</div>
 
-				<div class="row" id="telefones">
+				<div class="row" id="dynamic_field">
 					<div class="col-sm-4 form-group">
-						<label>Tipo de Telefone <span class="asterisk">*</span></label>
-						<select class="form-control" name="id_tp_telefone" data-validation="required">
+						<label>Tipo de Telefone<span class="asterisk">*</span></label>
+						<select class="form-control" name="id_tp_telefone[]" data-validation="required">
 							<option value="">Selecione</option>
 							@foreach($tp_tel as $tels)
 							<option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option>
@@ -74,12 +73,12 @@
 					</div>	
 
 					<div class="col-sm-4 form-group" >
-						<label>Telefone <span class="asterisk">*</span></label>
-						<input type="text" name="telefone" class="form-control phone_with_ddd" data-validation="required" id="tel">
+						<label>Telefone<span class="asterisk">*</span></label>
+						<input class="form-control phone_with_ddd" type="text" name="telefone[]" data-validation="required">
 					</div>
 
-					<div class="col-sm-4 form-group" style="padding-top: 32px; padding-left: 35px;">
-						<a id="more_fields" class="btn btn-sm btn-success" onclick="add_fields();"> Mais <i class="fa fa-plus" aria-hidden="true"></i> </a>
+					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
+						<a name="add" id="add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 
 					</div>
 					
@@ -107,7 +106,7 @@
 					</div>
 						<div class="col-sm-2 form-group null">
 						<label>Número</label>
-						<input type="text" placeholder="" name="numero" class="form-control">
+						<input type="text" placeholder="" name="numero" class="form-control" data-validation="number" data-validation-optional="true">
 					</div>
 
 				</div>
@@ -188,41 +187,24 @@
 
 @section('content_js')
 <script type="text/javascript" >
-
-	var tel = 1;
-	var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-	function add_fields() {
-		tel++;
-		var objTo = document.getElementById('telefones')
-		var divtest = document.createElement("div");
-
-
-		divtest.innerHTML = '<div class="row input_fields_wrap"></div><div class="col-sm-3 form-group"><label>Tipo de Telefone: </label><select class="form-control" name="id_tp_telefone"><option>Selecione</option><option value="1">Celular</option><option value="2">Comercial</option><option value="3">Residencial</option></select></div><div class="col-sm-3 form-group" ><label>Telefone:</label> <input type="text" class="form-control" name="telefone[]" value="" /></div>';
-
-		if(tel < 4){ 
-		objTo.appendChild(divtest)
-	}
-	}
-
-
-/*	$(document).ready(function() {
-    var max_fields      = 3; //maximum input boxes allowed
-    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
-    var add_button      = $(".add_field_button"); //Add button ID
-    
-    var x = 1; //initlal text box count
-    $(add_button).click(function(e){ //on add input button click
-        e.preventDefault();
-        if(x < max_fields){ //max input box allowed
-            x++; //text box increment
-            $(wrapper).append('<div><input type="text" name="mytext[]"/><a href="#" class="remove_field">X</a></div>'); //add input box
-        }
-    });
-    
-    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
-        e.preventDefault(); $(this).parent('div').remove(); x--;
-    })
-});*/
+$(document).ready(function() {
+  $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+   var i=1;  
+   var maxField = 3;
+      $('#add').click(function(){  
+      	$('.phone_with_ddd').mask('(00) 0000-00000');
+      	  	if(i < maxField){ 
+           i++;  
+           $('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone<span class="asterisk">*</span></label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
+           	$('.phone_with_ddd').mask('(00) 0000-00000');
+       }
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#row'+button_id+'').remove(); 
+           i--; 
+      });  
+});
 
 </script>
 

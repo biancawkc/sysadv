@@ -8,7 +8,7 @@ use Redirect;
 
 class AdvogadoController extends Controller
 {	
-	public function index()
+	/*public function index()
 	{
 		$advogados =  \DB::table('pessoa_fisica')
 		->join('advogado', 'pessoa_fisica.id_parte', '=', 'advogado.id_parte')
@@ -16,7 +16,7 @@ class AdvogadoController extends Controller
 
 		return view('colaborador.advogado.index')
 		->with('advogados', $advogados);
-	}
+	}*/
 
 	public function create(Request $request)
 	{  

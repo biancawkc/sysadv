@@ -18,25 +18,26 @@
                         <br>
                         <label for="msg" class="errorMsg">{{ $msg }}</label>
                         <br>
-                        {!! Form::open(['route'=>'advogado.addColab' , 'class'=>'form-horizontal', 'class'=>'cpfForm']) !!}
                         <div class="form-group" id="cpf-form1" style="display: none;">
+                            {!! Form::open(['route'=>'advogado.addColab' , 'class'=>'form-horizontal cpfForm', 'autocomplete'=>'off']) !!}
                             <label  class="col-md-1 control-label">CPF<span class="asterisk">*</span></label>
                             <div class="col-md-7 form-inline">
-                                <input type="text" class="form-control cpf" name="cpf"/>
+                                <input type="text" class="form-control cpf" name="cpf" data-validation="cpf"/>
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
+                             {!! Form::close() !!}
                         </div>
-                        {!! Form::close() !!}
-
-                        {!! Form::open(['route'=>'funcionario.addColab' , 'class'=>'form-horizontal', 'class'=>'cpfForm']) !!}
+                       
                         <div class="form-group" id="cpf-form2" style="display: none;">
+                            {!! Form::open(['route'=>'funcionario.addColab' , 'class'=>'form-horizontal cpfForm', 'autocomplete'=>'off']) !!}
                             <label  class="col-md-1 control-label">CPF<span class="asterisk">*</span></label>
                             <div class="col-md-7 form-inline">
-                                <input type="text" class="form-control cpf" name="cpf" />
+                                <input type="text" class="form-control cpf" name="cpf" data-validation="cpf"/>
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
+                            {!! Form::close() !!}
                         </div>
-                        {!! Form::close() !!}
+                        
                     </div>
                 </div>
             </div>
@@ -62,10 +63,11 @@
             $('#cpf-form2').show();  
        }
    });
-});
-        $(".cpfForm").submit(function() {
+
+   $(".cpfForm").submit(function() {
         $(".cpf").unmask();
     });
+});
 
 </script>
 @endsection

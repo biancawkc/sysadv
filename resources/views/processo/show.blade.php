@@ -14,9 +14,9 @@
      <tr>
        <th>Justiça gratuita</th>
        @if($processo->justica_grat == "1")
-       <td>Sim</td>
+       <td class="col-md-3">Sim</td>
        @else
-       <td>Não</td>
+       <td class="col-md-3">Não</td>
        @endif
        <th class="col-md-3">Ação gratuita </th>
        @if($processo->acao_grat == "1")
@@ -29,8 +29,12 @@
      <tr>
        <th>Data de início</th>
        <td>{{ date('d/m/Y', strtotime($processo->dt_inicio))}} </td>
-       <th>Data final</th>
+       <th class="col-md-3">Data final</th>
+        @if(!is_null($processo->dt_final))
        <td>{{ date('d/m/Y', strtotime($processo->dt_final))}}</td>
+       @else
+       <td></td>
+       @endif
      </tr>
 
      <tr>
@@ -84,7 +88,7 @@
            </tr>
            <tr>
             <th>CNPJ</th>
-            <td>{{$value->cnpj}}</td>
+            <td class="cnpj">{{$value->cnpj}}</td>
           </tr>
           <tr>
             <th>Inscrição estadual</th>
@@ -111,7 +115,7 @@
     <table class="table table-striped table-bordered">
       <tr>
         <th style="width: 20%">CEP</th>
-        <td>{{$value->cep}}</td>
+        <td class="cep">{{$value->cep}}</td>
         <th>Bairro</th>
         <td>{{$value->bairro}}</td>
       </tr>
@@ -168,13 +172,13 @@
          <tbody>
           <tr>
             <th style="width: 20%">RG</th>
-            <td>{{$values -> rg}}</td>
+            <td class="rg">{{$values -> rg}}</td>
             <th style="width: 20%">Orgão Exp.</th>
             <td>{{$values -> orgao_exp}}</td>
           </tr>
           <tr>
             <th>CPF</th>
-            <td>{{$values -> cpf}}</td>
+            <td class="cpf">{{$values -> cpf}}</td>
             <th>Estado civil</th>
             <td>{{$values -> estados}}</td>
           </tr>
@@ -216,7 +220,7 @@
     <table class="table table-striped table-bordered">
      <tbody>
       <th style="width: 20%">CEP</th>
-      <td>{{$values->cep}}</td>
+      <td class="cep">{{$values->cep}}</td>
       <th>Bairro</th>
       <td>{{$values->bairro}}</td>
     </tr>
@@ -278,7 +282,7 @@
            </tr>
            <tr>
             <th>CNPJ</th>
-            <td>{{$value->cnpj}}</td>
+            <td class="cnpj">{{$value->cnpj}}</td>
           </tr>
           <tr>
             <th>Inscrição estadual</th>
@@ -305,7 +309,7 @@
     <table class="table table-striped table-bordered">
       <tr>
         <th style="width: 20%">CEP</th>
-        <td>{{$value->cep}}</td>
+        <td class="cep">{{$value->cep}}</td>
         <th>Bairro</th>
         <td>{{$value->bairro}}</td>
       </tr>
@@ -319,7 +323,7 @@
 
       <tr>
         <th>Logradouro</th>
-        <td style="width: 50%>{{$value->logradouro}}</td>
+        <td style="width: 50%">{{$value->logradouro}}</td>
         <th>Número</th>
         <td>{{$value->numero}}</td>
       </tr>
@@ -363,13 +367,13 @@
          <tbody>
           <tr>
             <th style="width: 20%">RG</th>
-            <td>{{$values -> rg}}</td>
+            <td class="rg">{{$values -> rg}}</td>
             <th style="width: 20%">Orgão Exp.</th>
             <td>{{$values -> orgao_exp}}</td>
           </tr>
           <tr>
             <th>CPF</th>
-            <td>{{$values -> cpf}}</td>
+            <td class="cpf">{{$values -> cpf}}</td>
             <th>Estado civil</th>
             <td>{{$values -> estados}}</td>
           </tr>
@@ -411,7 +415,7 @@
     <table class="table table-striped table-bordered">
      <tbody>
       <th style="width: 20%">CEP</th>
-      <td>{{$values->cep}}</td>
+      <td class="cep">{{$values->cep}}</td>
       <th>Bairro</th>
       <td>{{$values->bairro}}</td>
     </tr>
@@ -450,10 +454,10 @@
 <br>
 <div class="text-center">
   <!-- <a href="{{ URL::to('/processo/' . $processo->id_processo . '/remove') }}" class="btn btn-lg btn-danger">Deletar <i class="fa fa-trash" aria-hidden="true"></i></a>&nbsp;&nbsp; -->
-  <a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-info"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-success" target="_blank"> <i class="fa fa-calendar" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="" class="btn btn-lg btn-warning"> <i class="fa fa-file-text" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/relatorio/' .$processo->id_processo) }}" class="btn btn-lg btn-warning"> <i class="fa fa-files-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
+  <a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+  <a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" target="_blank" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i></a>&nbsp;&nbsp;
+  <a href="{{ URL::to('/documento/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos"> <i class="fa fa-file-text" aria-hidden="true"></i></a>&nbsp;&nbsp;
+  <a href="{{ URL::to('/relatorio/' .$processo->id_processo) }}" target="_blank" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Relatórios"> <i class="fa fa-files-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
   <a target="_blank" href="{{ URL::to('/parcela/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Parcelas">  <i class="fa fa-money" aria-hidden="true"></i>
   </a>&nbsp;&nbsp;
   <a target="_blank" href="{{ URL::to('/despesa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Despesas"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a> 

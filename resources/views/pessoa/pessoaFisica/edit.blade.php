@@ -72,8 +72,6 @@
 		</div>
 	</div>
 
-
-
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
@@ -198,7 +196,7 @@
 
 					<div class="col-sm-3 form-group" >
 						<label>Remuneração (R$)</label>
-						<input type="text" name="remuneracao" class="form-control" value="{{$pessoaFisica->remuneracao}}" >
+						<input type="text" name="remuneracao" class="form-control" value="{{$pessoaFisica->remuneracao}}" onkeyup="this.value = this.value.replace(/,/g, '.');" data-validation="number" data-validation-allowing="float" data-validation-optional="true">
 					</div>
 				</div>
 
@@ -207,9 +205,6 @@
 		</div>
 
 	</div>
-
-
-
 	<br>
 
 	<div class="form-group">

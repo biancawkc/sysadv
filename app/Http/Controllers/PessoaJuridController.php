@@ -99,8 +99,11 @@ class PessoaJuridController extends Controller
 		$pessoaJuridica = \App\Models\PessoaJuridica::where('id_parte',$id)->first();
 		$endereco = \App\Models\Endereco::where('id_parte', $id)->first();
 		$parte = \App\Models\Parte::find($id);
-		$telefone = \App\Models\Telefone::where('id_parte', $id)->first();
 		$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
+		$telefone =  \DB::table('telefone')
+		->join('tp_telefone', 'telefone.id_tp_telefone','=', 'tp_telefone.id_tp_telefone')
+		->where('telefone.id_parte','=', $id)
+		->get();
 
 		return view('pessoa.pessoaJuridica.edit')
 		->with('pessoaJuridica', $pessoaJuridica)
@@ -129,31 +132,29 @@ class PessoaJuridController extends Controller
 			->withInput();
 		} else {	
 
-			$pessoaJuridica = \App\Models\PessoaJuridica::where('id_parte',$id)->first();
-			$endereco = \App\Models\Endereco::where('id_parte', $id)->first();
-			$parte = \App\Models\Parte::where('id_parte',$id)->first();
-			$telefone = \App\Models\Telefone::where('id_parte', $id)->first();
-			$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
+			\App\Models\Parte::where('id_parte', '=', $id)
+			->update(['email' => $request->email]);
 
-			$parte->ativo = $request->ativo;
-			$parte->email = $request->email;
-			$parte->save();
+			\DB::table('pessoa_juridica')
+			->where('id_parte','=', $id)
+			->update([
+				'razao_social' => $request->razao_social,
+				'nm_fantasia' => $request->nm_fantasia,
+				'ins_estadual' => $request->ins_estadual,
+				'desc_atividades' => $request->desc_atividades			
+				]);
 
-			$pessoaJuridica->razao_social = $request->razao_social;
-			$pessoaJuridica->nm_fantasia = $request->nm_fantasia;
-			$pessoaJuridica->ins_estadual = $request->ins_estadual;
-			$pessoaJuridica->desc_atividades = $request->desc_atividades;
-			$pessoaJuridica->cnpj = $request->cnpj;
-			$pessoaJuridica->save();
-
-			$endereco->cep = $request->cep;
-			$endereco->logradouro = $request->logradouro;
-			$endereco->complemento = $request->complemento;
-			$endereco->bairro = $request->bairro;
-			$endereco->uf = $request->uf;
-			$endereco->cidade = $request->cidade;
-			$endereco->numero = $request->numero;
-			$endereco->save();
+			\DB::table('endereco')
+			->where('id_parte','=', $id)
+			->update([
+				'cep' => $request->cep,
+				'logradouro' => $request->logradouro,
+				'complemento' => $request->complemento,
+				'bairro' => $request->bairro,
+				'uf' => $request->uf,
+				'cidade' => $request->cidade,
+				'numero' => $request->numero
+				]);
 
 			\DB::delete('DELETE FROM telefone WHERE id_parte ='.$id);
 
@@ -161,7 +162,7 @@ class PessoaJuridController extends Controller
 				if(!empty($value)){
 					$telefone =  new \App\Models\Telefone();
 					$telefone->telefone = $value;
-					$telefone->id_parte = $parte->getAttribute("id_parte");
+					$telefone->id_parte = $id;
 					$telefone->id_tp_telefone = $request->id_tp_telefone[$ind];
 					$telefone-> save();
 				}

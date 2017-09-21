@@ -21,7 +21,7 @@
 				<div class="row">
 					<div class="col-sm-3 form-group">
 						<label>Valor<span class="asterisk">*</span></label>
-						<input name="valor" type="number" class="form-control">		
+						<input name="valor" type="text" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.')">		
 					</div>
 					<div class="col-sm-5 form-group">
 						<label>Data<span class="asterisk">*</span></label>
@@ -59,18 +59,5 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript" >
-
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-
-	$(function () {
-		$('#datetimepicker1').datetimepicker();
-	});
-
-</script>
 
 @endsection

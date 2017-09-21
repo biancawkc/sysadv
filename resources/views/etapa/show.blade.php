@@ -9,8 +9,8 @@
   <table class="table table-striped table-bordered" style="width: 700px;">
     <tbody>
      <tr>
-       <th>Instância</th>
-       <td class="col-md-8">{{$etapa->instancia}}</td>
+       <th>Nome</th>
+       <td class="col-md-8">{{$nmEtapa}}</td>
      </tr>
 
      <tr>

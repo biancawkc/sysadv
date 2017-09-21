@@ -22,7 +22,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" data-validation="required" value="{{$pessoaFisica->nome}}">
+					<input type="text" placeholder="" name="nome" class="form-control" value="{{$pessoaFisica->nome}}" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" >
 				</div>	
 
 				<div class="row">
@@ -97,7 +97,7 @@
 	</div>
 
 	<div class="text-center">
-		<a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		<a href="{{ URL::to('colaborador/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 		&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 	</div>
@@ -110,19 +110,7 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript" >
-
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-	$("#colabForm").submit(function() {
-		$("#cpf").unmask();
-		$("#rg").unmask();
-	});
-
-
+<script type="text/javascript">
 	$civil = {{ $e }}
 	$('#estado_civil').val($civil)
 

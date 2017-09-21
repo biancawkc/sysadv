@@ -14,6 +14,7 @@ class ProcessoController extends Controller
 	public function index()
 	{
 		$processos =  \DB::table('processo')
+		->join('estado_processo','estado_processo.id_estado_processo', '=', 'processo.id_estado_processo')
 		->get();
 
 		return view('processo.index')
@@ -351,6 +352,16 @@ class ProcessoController extends Controller
                                 	public function edit($id)
                                 	{
                                 		$processo = \App\Models\Processo::find($id);
+
+                                		if(!is_null($processo->dt_final))
+                                		{
+                                			$dt_final = date('d/m/Y', strtotime($processo->dt_final));
+                                		}else
+                                		{
+                                			$dt_final = "";
+                                		}
+
+
                                 		$varas = \DB::table('vara')->get();
 
                                 		$idEstadoProcesso = \DB::table('processo')->where('id_processo', $id)->value('id_estado_processo');
@@ -426,7 +437,8 @@ class ProcessoController extends Controller
 						->with('pessoaJuridica', $pessoaJuridica)
 						->with('comarcas', $comarcas)
 						->with('justicas', $justicas)
-						->with('varas', $varas);
+						->with('varas', $varas)
+						->with('dt_final', $dt_final);
 						/*->with('clientes', $clientes)*/;
 					}
 

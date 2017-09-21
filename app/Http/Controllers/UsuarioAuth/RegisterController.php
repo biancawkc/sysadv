@@ -5,23 +5,14 @@ namespace App\Http\Controllers\UsuarioAuth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-//Validator facade used in validator method
 use Illuminate\Support\Facades\Validator;
-
-//Seller Model
 use App\Models\Usuario;
-
-//Auth Facade used in guard
 use Auth;
-
 
 class RegisterController extends Controller
 {
-
 	protected $redirectPath = 'home';
 
-	//shows registration form to seller
   public function showRegistrationForm($idPessoa)
   { 
     $funcionario= "";
@@ -78,22 +69,20 @@ class RegisterController extends Controller
     
   }
 
-  //Handles registration request for seller
   public function register(Request $request)
   {
-       //Validates data
     $this->validator($request->all())->validate();
 
-       //Create seller
     $usuario = $this->create($request->all());
 
         //Authenticates seller
-    $this->guard()->login($usuario);
+   // $this->guard()->login($usuario);
 
-    return redirect($this->redirectPath);
+   // return redirect($this->redirectPath);
+    flash()->success('Usuário Cadastrado Com Sucesso!');
+    return redirect('/usuario');
   }
 
-    //Validates user's Input
   protected function validator(array $data)
   {
     return Validator::make($data, [
@@ -105,7 +94,6 @@ class RegisterController extends Controller
       ]);
   }
 
-    //Create a new seller instance after a validation.
   protected function create(array $data)
   {
     $func= \DB::table('funcionario')->where('id_parte', $data['id_parte'])->first();
@@ -130,7 +118,6 @@ class RegisterController extends Controller
       ]);
   }
 
-     //Get the guard to authenticate Seller
   protected function guard()
   {
    return Auth::guard('web_usuario');

@@ -23,7 +23,7 @@
             <td class="col-md-4">{!! $value->razao_social !!}</td>
             <td class="cnpj">{!! $value->cnpj!!}</td>
             <td class="text-center">
-             <a target="_blank" href="{{ URL::to('/pessoaJuridica/' . $value->id_parte . '/show') }}" class="btn btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> 
+             <a target="_blank" href="{{ URL::to('/pessoaJuridica/' . $value->id_parte . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> 
             </td>
         </tr>
         @endforeach
@@ -35,7 +35,7 @@
             <td class="col-md-4">{!! $val->nome !!}</td>
             <td class="cpf col-md-4">{!! $val->cpf!!}</td>
             <td class="col-md-4 text-center">
-              <a target="_blank" href="{{ URL::to('/pessoaFisica/' . $val->id_parte . '/show') }}" class="btn btn-lg btn-success" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>   
+              <a target="_blank" href="{{ URL::to('/pessoaFisica/' . $val->id_parte . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>   
             </td>
         </tr>
         @endforeach

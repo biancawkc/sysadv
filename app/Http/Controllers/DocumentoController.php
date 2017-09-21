@@ -141,11 +141,15 @@ class DocumentoController extends Controller
 	public function destroy($id)
 	{
 		$documento = \App\Models\Documento::find($id);
+		$processo = $documento->id_processo;
 
 		$path = base_path().'/public/documento/'.$documento->documento;
 		File::delete($path);
 
 		$documento->delete();
+
+		flash()->success('Documento Excluído com Sucesso!');
+		return redirect('documento/'.$processo);
 	}
 
 }

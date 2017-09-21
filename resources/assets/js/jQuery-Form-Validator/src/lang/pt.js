@@ -11,6 +11,8 @@
 
   'use strict';
 
+  $.formUtils.registerLoadedModule('lang/pt');
+
   $(window).bind('validatorsLoaded', function() {
 
     $.formUtils.LANG = {
@@ -25,8 +27,8 @@
       lengthBadStart: 'Sua resposta deve incluir entre ',
       lengthBadEnd: ' caracteres',
       lengthTooLongStart: 'Sua resposta tem mais que ',
-      lengthTooShortStart: 'Sua resposta tem menos que',
-      notConfirmed: 'As informações digitadas não puderam ser confirmadas',
+      lengthTooShortStart: 'A senha digitada tem menos que ',
+      notConfirmed: 'A confirmação de senha não confere',
       badDomain: 'O domínio digitado não é válido',
       badUrl: 'A URL digitada não é válida',
       badCustomVal: 'Os dados digitados não são válidos',
@@ -56,7 +58,8 @@
       imageRatioNotAccepted : 'A proporção da imagem (largura x altura) não é válida',
       badBrazilTelephoneAnswer: 'O número de telefone digitado é inválido',
       badBrazilCEPAnswer: 'O CEP digitado é inválido',
-      badBrazilCPFAnswer: 'O CPF digitado é inválido'
+      badBrazilCPFAnswer: 'O CPF digitado é inválido',
+      badBrazilCNPJAnswer: 'O CNPJ digitado é inválido'
     };
 
   });

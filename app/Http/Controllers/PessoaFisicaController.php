@@ -179,12 +179,16 @@ class PessoaFisicaController extends Controller
 			\App\Models\Parte::where('id_parte', '=', $id)
 			->update(['ativo' => $request->ativo]);
 
+			$str = $request->dt_nasc;
+			$data = explode("/", $str);
+			$data = $data[2] . "-" . $data[1] . "-" . $data[0];
+
 			\App\Models\PessoaFisica::where('id_parte', '=', $id)
 			->update(['nome' =>$request->nome,
 					  'rg' => $request->rg,
 					  'id_estado_civil' => $request->id_estado_civil,
 					  'orgao_exp' => $request->orgao_exp,
-					  'dt_nasc' => $request->dt_nasc,
+					  'dt_nasc' => $data,
 					  'ctps' => $request->ctps,
 					]);
 
@@ -273,7 +277,6 @@ class PessoaFisicaController extends Controller
 			->withErrors($validator)
 			->withInput();
 		} else {
-			$pessoaFisica = \DB::table('pessoa_fisica')->where('id_parte','=', $id)->first();
 
 			\App\Models\Parte::where('id_parte', '=', $id)
 			->update(['email' => $request->email]);

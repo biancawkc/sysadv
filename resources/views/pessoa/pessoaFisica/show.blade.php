@@ -76,7 +76,7 @@
   <tr>
     <th class="col-md-3">CBO</th>
     @if(!is_null($pessoaFisica->id_profissao))
-    <td>{{$profissao->nm_profissao}}</td>
+    <td>{{$profissao->cbo}}</td>
     @else
     <td> </td>
     @endif
@@ -84,7 +84,7 @@
   <tr>
     <th>Profissão</th>
     @if(!is_null($pessoaFisica->id_profissao))
-    <td>{{$profissao->cbo}}</td>
+    <td>{{$profissao->nm_profissao}}</td>
      @else
      <td> </td>
     @endif

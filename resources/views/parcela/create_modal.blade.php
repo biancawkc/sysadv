@@ -35,12 +35,12 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor total parcela<span class="asterisk">*</span></label>
-								<input type='text' name="total" class="form-control" data-validation="required" id="total" onkeyup="parcela();" />
+								<input type='text' name="total" class="form-control" data-validation="number" data-validation-allowing="float" id="total" onkeyup="this.value = this.value.replace(/,/g, '.'); parcela();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
 								<label>Nº parcelas<span class="asterisk">*</span></label>				
-								<input type='text' name="num_parcelas" value="1" class="form-control" data-validation="required number" id="num" onkeyup="parcela();"/>
+								<input type='text' name="num_parcelas" value="1" class="form-control" data-validation="required number" id="num" onkeyup="this.value = this.value.replace(/0/g, '1'); parcela();"/>
 							</div>
 							<input type="hidden" name="primeira" id="parcel1">
 							<input type="hidden" name="demais" id="par">
@@ -67,13 +67,13 @@
 									<div class="input-group-btn">
 										<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 									</div>
-									<input name="dt_venc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa"  id="dt" onchange="parcela();">
+									<input name="dt_venc" type="text" class="form-control date dtParcel" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa"  id="dt" onchange="parcela();">
 								</div>
 							</div>
 
 							<div class="col-sm-3 form-group">
 								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
-								<input type='text' name="juros" class="form-control" data-validation="required number"/>
+								<input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
 							</div>
 						</div>
 
@@ -114,7 +114,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor Ação (R$)<span class="asterisk">*</span></label>
-								<input type='number' name="valor_acao" class="form-control money" data-validation="required" id="valor_acao"  onkeyup="porcent();"/>
+								<input type='text' name="valor_acao" class="form-control" data-validation="number" id="valor_acao" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.'); porcent();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
@@ -124,7 +124,7 @@
 
 							<div class="col-sm-2 form-group">
 								<label>Nº parcelas<span class="asterisk">*</span></label>				
-								<input type='number' name="num_parcelas" value="1" class="form-control" data-validation="required" id="num_parcelas"  onkeyup="porcent();"/>
+								<input type='number' name="num_parcelas" value="1" class="form-control" data-validation="required" id="num_parcelas" onkeyup="this.value = this.value.replace(/0/g, '1'); porcent();"/>
 							</div>
 
 							<div class="col-sm-4 form-group">
@@ -143,7 +143,7 @@
 
 							<div class="col-sm-3 form-group">
 								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
-								<input type='text' name="juros" class="form-control" data-validation="required number"/>
+								<input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float"  onkeyup="this.value = this.value.replace(/,/g, '.');"/>
 							</div>
 
 							<div class="col-sm-4 form-group">
@@ -161,7 +161,7 @@
 									<div class="input-group-btn">
 										<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 									</div>
-									<input name="dt_venc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+									<input name="dt_venc" type="text" class="form-control datepicker date dtParcel" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 								</div>
 							</div>
 						</div>

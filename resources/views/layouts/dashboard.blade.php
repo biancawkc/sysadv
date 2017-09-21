@@ -144,9 +144,9 @@
 					<div class="list-group">
 					@if(!$datas->isEmpty())
 					@foreach($datas as $key => $value)
-						<a href="#" class="list-group-item">
-							<i class="fa fa-calendar-times-o fa-fw"></i> {{$value->nome}}
-							 <span class="pull-right text-muted small"><em>{{date('d/m/Y', strtotime($value->dt_etapa))}}</em>
+						<a target="_blank" href="{{URL::to('etapa/'.$value->id_processo.'/show')}}" class="list-group-item">
+							<i class="fa fa-calendar-times-o fa-fw"></i> {{$value->nm_etapa}}
+							 <span class="pull-right text-muted small"><em>{{date('d/m/Y', strtotime($value->dt_prazo))}}</em>
 						</a>
 					@endforeach
 					@else
@@ -159,7 +159,7 @@
 
 					@if($num > 9)
 					<!-- /.list-group -->
-					<a href="#" class="btn btn-default btn-block">Mais</a>
+					<a href="{{URL::to('/agenda')}}" class="btn btn-default btn-block">Mais</a>
 					@endif
 				</div>
 			</div>

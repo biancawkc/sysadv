@@ -1,19 +1,118 @@
 $(document).ready(function() {
-
-    //$( '.datepicker' ).datepicker();
-    var dateToday = new Date(); 
-    $('.datepicker').datepicker({
-        todayBtn: "linked",
-        language: "pt-BR",
-        todayHighlight: true,
-        weekStart: 0,
-        minDate: dateToday
+    $( ".datepicker" ).datepicker({
+        dateFormat: 'dd/mm/yy'
     });
+
+    $(".dtParcel").datepicker({
+        dateFormat: 'dd/mm/yy',
+        minDate: 0
+    });
+
+    $(".dtIni").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function (date) {
+            var date2 = $('.dtIni').datepicker('getDate');
+            date2.setDate(date2.getDate());
+               // $('#dtFn').datepicker('setDate', date2);
+                //sets minDate to dt1 date + 1
+                $('.dtFn').datepicker('option', 'minDate', date2);
+            }
+        });
+
+    $('.dtFn').datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        onClose: function () {
+            var dt1 = $('.dtIni').datepicker('getDate');
+            console.log(dt1);
+            var dt2 = $('.dtFn').datepicker('getDate');
+            /*if (dt2 < dt1) {
+                //var minDate = $('.dtFn').datepicker('option', 'minDate');
+               //$('.dtFn').datepicker('setDate', minDate);
+            }*/
+        }
+    });
+
+      $(".etapaIni").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        minDate: 0,
+        onSelect: function (date) {
+            var date2 = $('.etapaIni').datepicker('getDate');
+            date2.setDate(date2.getDate());
+               // $('#dtFn').datepicker('setDate', date2);
+                //sets minDate to dt1 date + 1
+                $('.etapaFn').datepicker('option', 'minDate', date2);
+            }
+        });
+
+    $('.etapaFn').datepicker({
+        dateFormat: "dd/mm/yy",
+        onClose: function () {
+            var dt1 = $('.etapaIni').datepicker('getDate');
+            console.log(dt1);
+            var dt2 = $('.etapaFn').datepicker('getDate');
+            /*if (dt2 < dt1) {
+                var minDate = $('.dtFn').datepicker('option', 'minDate');
+                $('.dtFn').datepicker('setDate', minDate);
+            }*/
+        }
+    });
+
+   
+    ( function( factory ) {
+        if ( typeof define === "function" && define.amd ) {
+
+        // AMD. Register as an anonymous module.
+        define( [ "../widgets/datepicker" ], factory );
+    } else {
+
+        // Browser globals
+        factory( jQuery.datepicker );
+    }
+}( function( datepicker ) {
+
+    datepicker.regional[ "pt-BR" ] = {
+        closeText: "Fechar",
+        prevText: "&#x3C;Anterior",
+        nextText: "Próximo&#x3E;",
+        currentText: "Hoje",
+        monthNames: [ "Janeiro","Fevereiro","Março","Abril","Maio","Junho",
+        "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro" ],
+        monthNamesShort: [ "Jan","Fev","Mar","Abr","Mai","Jun",
+        "Jul","Ago","Set","Out","Nov","Dez" ],
+        dayNames: [
+        "Domingo",
+        "Segunda-feira",
+        "Terça-feira",
+        "Quarta-feira",
+        "Quinta-feira",
+        "Sexta-feira",
+        "Sábado"
+        ],
+        dayNamesShort: [ "Dom","Seg","Ter","Qua","Qui","Sex","Sáb" ],
+        dayNamesMin: [ "Dom","Seg","Ter","Qua","Qui","Sex","Sáb" ],
+        weekHeader: "Sm",
+        dateFormat: "dd/mm/yy",
+        firstDay: 0,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: "" };
+        datepicker.setDefaults( datepicker.regional[ "pt-BR" ] );
+
+        return datepicker.regional[ "pt-BR" ];
+
+    } ) );
+
     $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
     $('#flash-overlay-modal').modal();
     $('.single-select').select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+    $('.error-alert').delay(3000).fadeOut(350);
     
-
     $.validate({
         lang: 'pt',
         modules : 'brazil'
@@ -126,28 +225,7 @@ $(document).ready(function() {
 
             $('[data-toggle="tooltip"]').tooltip(); 
 
-            
-            function ValidarCNPJ(ObjCnpj){
-                var cnpj = ObjCnpj.value;
-                var valida = new Array(6,5,4,3,2,9,8,7,6,5,4,3,2);
-                var dig1= new Number;
-                var dig2= new Number;
-
-                exp = /\.|\-|\//g
-                cnpj = cnpj.toString().replace( exp, "" ); 
-                var digito = new Number(eval(cnpj.charAt(12)+cnpj.charAt(13)));
-
-                for(i = 0; i<valida.length; i++){
-                    dig1 += (i>0? (cnpj.charAt(i-1)*valida[i]):0);  
-                    dig2 += cnpj.charAt(i)*valida[i];       
-                }
-                dig1 = (((dig1%11)<2)? 0:(11-(dig1%11)));
-                dig2 = (((dig2%11)<2)? 0:(11-(dig2%11)));
-
-                if(((dig1*10)+dig2) != digito)  
-                    document.getElementById('erro_cnpj').innerHTML = "* CNPJ inválido";
-
-            }
+        
 
 
         });

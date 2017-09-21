@@ -43,6 +43,7 @@ class UsuarioResetPasswordNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+        ->subject('Alteração / Recuperação de Senha')
         ->line('Você está recebendo este email porque foi feito um pedido para alterar sua senha do sistema de gerenciamento da RW Advocacia.')
         ->action('Redefinir Senha', url('password/reset', $this->token))
         ->line('Se você não solicitou uma reinicialização da senha, nenhuma ação adicional será necessária.');

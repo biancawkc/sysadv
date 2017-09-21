@@ -20,8 +20,8 @@
 			<div class="col-sm-12">
 
 				<div class="form-group">
-					<label>Nome Completo <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control"  data-validation="required">
+					<label>Nome Completo<span class="asterisk">*</span></label>
+					<input type="text" placeholder="" name="nome" class="form-control" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" autofocus>
 				</div>	
 
 				<div class="row">
@@ -32,12 +32,12 @@
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+							<input name="dt_nasc" type="text" class="form-control datepicker date" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 						</div>
 					</div>
 
 					<div class="col-sm-4 form-group">
-						<label>Estado Civil <span class="asterisk">*</span></label>
+						<label>Estado Civil<span class="asterisk">*</span></label>
 						<select class="form-control" name="id_estado_civil" data-validation="required">
 							<option value="">Selecione</option>
 							@foreach($civil as $civ)
@@ -47,7 +47,7 @@
 					</div>
 
 					<div class="col-sm-4 form-group">
-						<label>CPF <span class="asterisk">*</span></label>
+						<label>CPF<span class="asterisk">*</span></label>
 						<input type="text" placeholder="" name="cpf" class="form-control cpf" value="{{ $cpf }}" readonly data-validation="required" id="cpf">
 					</div>
 
@@ -56,7 +56,7 @@
 				<div class="row">
 
 					<div class="col-sm-4 form-group">
-						<label>RG <span class="asterisk">*</span></label>
+						<label>RG<span class="asterisk">*</span></label>
 						<input type="text" placeholder="" name="rg" class="form-control rg" value="" data-validation="required" id="rg">
 					</div>
 
@@ -75,7 +75,7 @@
 					</div>	
 
 					<div class="col-sm-4 form-group">
-						<label>Data de Admissão <span class="asterisk">*</span></label>
+						<label>Data de Admissão<span class="asterisk">*</span></label>
 						<div class="input-group add-on col-md-12" >
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
@@ -112,5 +112,9 @@
 @endsection
 
 @section('content_js')
-
+<script type="text/javascript">
+	$.validate({
+  modules : 'date'
+});
+</script>
 @endsection

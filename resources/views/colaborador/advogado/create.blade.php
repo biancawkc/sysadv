@@ -21,7 +21,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" data-validation="required">
+					<input type="text" placeholder="" name="nome" class="form-control" autofocus data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" >
 				</div>	
 
 				<div class="row">
@@ -32,7 +32,7 @@
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+							<input name="dt_nasc" type="text" class="form-control datepicker date" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 						</div>
 					</div>
 

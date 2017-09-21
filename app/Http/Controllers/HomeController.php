@@ -9,9 +9,10 @@ class HomeController extends Controller
     public function index()
     {
     	$datas =  \DB::table('etapa_processo')
+        ->join('etapa', 'etapa.id_etapa','=', 'etapa_processo.id_etapa')
     	->orderBy('dt_etapa','asc')
-    	->whereDate('dt_etapa','<=', $date = date('Y-m-d'))
-    	->where('dt_prazo', '=', NULL)
+    	->whereDate('dt_etapa','>=', date('Y-m-d'))
+    	//->where('dt_prazo', '=', NULL)
 		->limit(9)
 		->get();
 

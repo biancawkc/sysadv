@@ -21,7 +21,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control"  data-validation="required">
+					<input type="text" placeholder="" name="nome" class="form-control" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" autofocus> 
 				</div>
 
 
@@ -29,13 +29,13 @@
 
 					<div class="col-sm-4 form-group">
 						<label>Data Nasc.<span class="asterisk">*</span></label><div class="input-group add-on col-md-12" >
-						<div class="input-group-btn">
-							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
-						</div>
-						<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" >
+							<div class="input-group-btn">
+								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+							</div>
+							<input name="dt_nasc" type="text" class="form-control datepicker date" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" >
 
+						</div>
 					</div>
-				</div>
 
 
 					<div class="col-sm-4 form-group">
@@ -57,8 +57,6 @@
 				</div>
 
 				<div class="row">
-
-
 					<div class="col-sm-4 form-group">
 						<label>RG<span class="asterisk">*</span></label>
 						<input type="text" placeholder="" name="rg" class="form-control rg" value="" data-validation="required" id="rg">
@@ -67,7 +65,7 @@
 
 					<div class="col-sm-2 form-group">
 						<label>Órg. Emiss.<span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="orgao_exp" class="form-control" value="" data-validation="required">
+						<input type="text" placeholder="" name="orgao_exp" class="form-control" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$">
 					</div>	
 
 				</div>
@@ -82,12 +80,12 @@
 		<div class="row">
 			<div class="col-sm-12">
 
-			<div class="row">
-				<div class="col-sm-10 form-group">
-					<label>Email<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="email" class="form-control"  data-validation="required email">
+				<div class="row">
+					<div class="col-sm-10 form-group">
+						<label>Email<span class="asterisk">*</span></label>
+						<input type="text" placeholder="" name="email" class="form-control"  data-validation="required email">
+					</div>
 				</div>
-			</div>
 
 				<div class="row" id="dynamic_field">
 					<div class="col-sm-4 form-group">
@@ -107,7 +105,6 @@
 
 					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
 						<a name="add" id="add" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
-
 					</div>
 					
 				</div>
@@ -132,9 +129,9 @@
 						<label>Logradouro<span class="asterisk">*</span></label>
 						<input type="text" placeholder="" name="logradouro" id="rua" class="form-control" value="" data-validation="required" >
 					</div>
-						<div class="col-sm-2 form-group null">
+					<div class="col-sm-2 form-group null">
 						<label>Número</label>
-						<input type="text" placeholder="" name="numero" class="form-control" value="">
+						<input type="text" placeholder="" name="numero" class="form-control" data-validation="number" data-validation-optional="true">
 					</div>
 
 				</div>
@@ -174,10 +171,10 @@
 				<div class="form-group">
 					<label>CBO - Profissão</label>
 					<select class="single-select form-control" name="id_profissao" style="width: 100%;">
-							<option value=""></option>
-							@foreach($profissao as $profs)
-							<option value="{{$profs->id_profissao}}" class="special" data-width="fit">{{$profs->cbo}} - {{$profs->nm_profissao}}</option>
-							@endforeach
+						<option value=""></option>
+						@foreach($profissao as $profs)
+						<option value="{{$profs->id_profissao}}" class="special" data-width="fit">{{$profs->cbo}} - {{$profs->nm_profissao}}</option>
+						@endforeach
 					</select>
 				</div>
 
@@ -189,7 +186,7 @@
 
 					<div class="col-sm-3 form-group" >
 						<label>Remuneração (R$)</label>
-						<input type="text" name="remuneracao" class="form-control" >
+						<input type="text" name="remuneracao" class="form-control" onkeyup="this.value = this.value.replace(/,/g, '.');" data-validation="number" data-validation-allowing="float" data-validation-optional="true">
 					</div>
 				</div>
 			</div>
@@ -197,30 +194,19 @@
 	</div>
 
 
-                 
- <!-- 
-                               <table class="table table-bordered" id="dynamic_field">  
-                                    <tr>  
-                                         <td><input type="text" name="name[]" placeholder="Enter your Name" class="form-control name_list" /></td>  
-                                         <td><button type="button" name="add" id="add" class="btn btn-success">Add More</button></td>  
-                                    </tr>  
-                               </table>   -->
-        
- 
-<br>
-
-<div class="form-group">
-	<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
-</div>
+	<br>
+	<div class="form-group">
+		<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
+	</div>
 
 
-<div class="text-center">
-	<a href="{{ URL::to('/pessoa/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
-	&nbsp;&nbsp;&nbsp;
-	<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
-</div>
-<br>
-<br>
+	<div class="text-center">
+		<a href="{{ URL::to('/pessoa/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		&nbsp;&nbsp;&nbsp;
+		<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
+	</div>
+	<br>
+	<br>
 </div> 
 
 {!! Form::close() !!}
@@ -228,28 +214,28 @@
 
 @section('content_js')
 <script type="text/javascript" >
-$.validate({
-  modules : 'date'
-});
+	$.validate({
+		modules : 'date'
+	});
 
-$(document).ready(function() {
-  $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
-   var i=1;  
-   var maxField = 3;
-      $('#add').click(function(){  
-      	$('.phone_with_ddd').mask('(00) 0000-00000');
-      	  	if(i < maxField){ 
-           i++;  
-           $('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone<span class="asterisk">*</span></label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
-           	$('.phone_with_ddd').mask('(00) 0000-00000');
-       }
-      });  
-      $(document).on('click', '.btn_remove', function(){  
-           var button_id = $(this).attr("id");   
-           $('#row'+button_id+'').remove(); 
-           i--; 
-      });  
-});
+	$(document).ready(function() {
+		$(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+		var i=1;  
+		var maxField = 3;
+		$('#add').click(function(){  
+			$('.phone_with_ddd').mask('(00) 0000-00000');
+			if(i < maxField){ 
+				i++;  
+				$('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone<span class="asterisk">*</span></label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
+				$('.phone_with_ddd').mask('(00) 0000-00000');
+			}
+		});  
+		$(document).on('click', '.btn_remove', function(){  
+			var button_id = $(this).attr("id");   
+			$('#row'+button_id+'').remove(); 
+			i--; 
+		});  
+	});
 
 
 </script>

@@ -16,8 +16,13 @@ class FuncionarioController extends Controller
 		->join('pessoa_fisica', 'pessoa_fisica.id_parte', '=', 'funcionario.id_parte')
 		->get();
 
-		return view('colaborador.funcionario.index')
-		->with('funcionarios', $funcionarios);
+		$advogados =  \DB::table('pessoa_fisica')
+		->join('advogado', 'pessoa_fisica.id_parte', '=', 'advogado.id_parte')
+		->get();
+
+		return view('colaborador.index')
+		->with('funcionarios', $funcionarios)
+		->with('advogados', $advogados);
 	}
 
 
@@ -77,7 +82,6 @@ class FuncionarioController extends Controller
 		if ($validator->fails()) {
 			return redirect('funcionario/create')
 			->withErrors($validator)
-			->with('cpf',$cpf)
 			->withInput();
 		} else {
 			$funcionario = new \App\Models\Funcionario();

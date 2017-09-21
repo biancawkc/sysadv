@@ -21,7 +21,7 @@
 
     Route::get('password/reset', 'UsuarioAuth\ForgotPasswordController@showLinkRequestForm');
     Route::post('password/email', 'UsuarioAuth\ForgotPasswordController@sendResetLinkEmail');
-
+    
     Route::get('password/reset/{token}', 'UsuarioAuth\ResetPasswordController@showResetForm');
     Route::post('password/reset', 'UsuarioAuth\ResetPasswordController@reset');
   });
@@ -36,7 +36,9 @@
 
     Route::group(['middleware' => 'admin'], function () { 
 
-       Route::get('cadastrar_usuario/{idPessoa}', 'UsuarioAuth\RegisterController@showRegistrationForm');
+        Route::get('/colaboradores', ['as' => 'funcionario.index', 'uses' => 'FuncionarioController@index']);
+
+        Route::get('cadastrar_usuario/{idPessoa}', 'UsuarioAuth\RegisterController@showRegistrationForm');
         Route::get('cadastrar_usuario/', 'UsuarioAuth\RegisterController@showRegisterForm');
         Route::post('cadastrar_usuario/', 'UsuarioAuth\RegisterController@register');
 
@@ -45,7 +47,6 @@
         Route::get('colaborador/verify', ['as' => 'funcionario.verify', 'uses' => 'FuncionarioController@verify']);
         Route::group(['prefix' => 'funcionario'], function(){
 
-        Route::get('/', ['as' => 'funcionario.index', 'uses' => 'FuncionarioController@index']);
         Route::get('/create', ['as' => 'funcionario.add', 'uses' => 'FuncionarioController@create']);
 
         Route::post('/addColab', ['as' => 'funcionario.addColab', 'uses' => 'FuncionarioController@create']);
@@ -67,7 +68,7 @@
 
       Route::group(['prefix' => 'advogado'], function(){
 
-        Route::get('/', ['as' => 'advogado.index', 'uses' => 'AdvogadoController@index']);
+       /* Route::get('/', ['as' => 'advogado.index', 'uses' => 'AdvogadoController@index']);*/
         Route::get('/create', ['as' => 'advogado.add', 'uses' => 'AdvogadoController@create']);
 
         Route::post('/addColab', ['as' => 'advogado.addColab', 'uses' => 'AdvogadoController@create']);
@@ -110,6 +111,11 @@
         Route::get('{id}/remove', ['as' => 'despesa.remove', 'uses' => 'DespesaController@remove']);
         Route::post('{id}/destroy', ['as' => 'despesa.destroy','uses' => 'DespesaController@destroy']);
       });
+
+      Route::group(['prefix' => 'documento'], function(){
+       Route::get('{id}/remove', ['as' => 'documento.remove', 'uses' => 'DocumentoController@remove']);
+       Route::post('{id}/remove', ['as' => 'documento.destroy','uses' => 'DocumentoController@destroy']);
+     });
 
     });
 

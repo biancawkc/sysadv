@@ -77,8 +77,6 @@
     <script src="{{asset('../vendor/components/jquery/jquery-migrate.min.js')}}"></script>
     <script src="{{asset('../vendor/datatables/datatables/media/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{asset('../resources/assets/Portuguese.json')}}"></script>
-    <script src="{{asset('../vendor/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-    <script src="{{asset('../vendor/eternicode/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js')}}"></script>
     <script src="{{asset('../resources/assets/js/inc.js')}}"></script>
     <script src="{{asset('../resources/assets/js/jQuery-Form-Validator/form-validator/jquery.form-validator.min.js')}}"></script>
     <script src="{{asset('../resources/assets/js/jquery.mask.js')}}"></script>

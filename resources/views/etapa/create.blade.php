@@ -18,17 +18,6 @@
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
-
-				<div class="form-group">
-					<label>Nome<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" data-validation="required">
-				</div>	
-
-				<div class="form-group">
-					<label>Instância<span class="asterisk">*</span></label>					
-					<input type='text' name="instancia" class="form-control" data-validation="required"/>
-				</div>
-
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label>Data início<span class="asterisk">*</span></label>
@@ -36,7 +25,7 @@
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_etapa" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+							<input name="dt_etapa" type="text" class="form-control date etapaIni" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" readonly>
 						</div>
 					</div>
 					<div class="col-sm-4 form-group">
@@ -45,10 +34,20 @@
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_prazo" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+							<input name="dt_prazo" type="text" class="form-control date etapaFn" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" readonly>
 						</div>
 					</div>
 				</div>
+
+				<div class="form-group">
+					<label>Nome<span class="asterisk">*</span></label>
+					<select class="form-control single-select" name="id_etapa" data-validation="required">
+						<option value="">Selecione</option>
+						@foreach($nmEtapas as $nmEtapa)
+						<option value="{{$nmEtapa->id_etapa}}">{{$nmEtapa->nm_etapa}}</option>
+						@endforeach						
+					</select>
+				</div>	
 
 				<div class="form-group">
 					<label>Descrição<span class="asterisk">*</span></label>
@@ -75,6 +74,8 @@
 @endsection
 
 @section('content_js')
-
+<script type="text/javascript">
+	$(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+</script>
 
 @endsection

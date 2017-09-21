@@ -204,6 +204,10 @@ footer {
 {
   color:#3385ff;
 }
+.despesa
+{
+  color: #cc6600;
+}
 .null
 {
   padding-top: 4px;
@@ -246,3 +250,39 @@ footer {
     background-color: #404040 !important;
     border-color:  #404040 !important;
 }
+
+.datepicker,.dtParcel, .etapaIni,.etapaFn {
+  z-index: 1600 !important; 
+}
+
+.navbar .navbar-nav > li > a {
+  color:#1a1a1a;
+  font-size: 15px;
+}
+
+.navbar-default {
+  background-color: #6DBDD6;
+}
+
+.navbar-default a:hover {
+  color: transparent;
+}
+.navbar-default .nav > li > a:hover {
+  background-color: transparent;
+}
+.navbar .navbar-nav > li.open > a {
+  background-color: transparent;
+}
+.navbar .navbar-nav > li.open > a:hover,
+.navbar .navbar-nav > li.open > a:focus {
+  background-color: transparent;
+}
+
+#erro_cnpj{
+font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; 
+display: block; 
+color: #b94a48;
+margin-top: 5px;
+margin-bottom: 10px;
+line-height: 140%;
+font-size: 14px;"}

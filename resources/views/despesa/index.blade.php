@@ -2,7 +2,7 @@
  @section('content')
  <div class="container">
    @include('flash::message')
-   <h1 class="col-lg-12 well" >Despesas Cadastradas <i class="fa fa-shopping-basket" aria-hidden="true"></i></h1>
+   <h1 class="col-lg-12 well" >Despesas Cadastradas <i class="fa fa-shopping-basket despesa" aria-hidden="true"></i></h1>
    <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
    <br>
    <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo}}</a> </b></h2>
@@ -28,15 +28,11 @@
       <td>{!! date('d/m/Y', strtotime($value->dt_despesa)) !!}</td>
       <td>{!! $value->desc_despesa !!}</td>
       <td>
-        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/edit') }}" class="btn btn-lg btn-info"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
+        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/edit') }}" class="btn btn-lg btn-primary"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
         <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/remove') }}" class="btn btn-lg btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></a> 
       </td>
     </tr>
     @endforeach
-    @else
-    <td colspan="3">
-      Não há registros
-    </td>
     @endif
   </tbody>
 </table>
@@ -64,7 +60,7 @@
                   <div class="row">
                     <div class="col-sm-3 form-group">
                       <label>Valor<span class="asterisk">*</span></label>
-                      <input name="valor" type="number" class="form-control">   
+                      <input name="valor" type="text" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.')">   
                     </div>
                     <div class="col-sm-5 form-group">
                       <label>Data<span class="asterisk">*</span></label>
@@ -72,7 +68,7 @@
                         <div class="input-group-btn">
                           <a class="btn btn-default"><i class="fa fa-calendar"></i></a>
                         </div>
-                        <input name="dt_despesa" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+                        <input name="dt_despesa" type="text" class="form-control  datepicker date" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
                       </div>
                     </div>
                   </div>
@@ -97,7 +93,6 @@
             <br>
             <br>
           </div> 
-
           {!! Form::close() !!}
         </div>
       </div>

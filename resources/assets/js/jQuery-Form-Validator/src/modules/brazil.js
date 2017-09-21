@@ -31,7 +31,10 @@
           var remainder2 = 0;
 
           // skip special cases
-          if (cpf.length !== 11 || cpf === '00000000000') {
+          if (cpf.length !== 11 || cpf === '00000000000' || cpf === '11111111111' || cpf === '22222222222'
+          || cpf === '33333333333' || cpf === '44444444444' || cpf === '55555555555' ||
+           cpf === '66666666666' || cpf === '77777777777' || cpf === '88888888888' || cpf === '99999999999') 
+          {
               return false;
           }
 
@@ -68,6 +71,39 @@
   });
 
   $.formUtils.addValidator({
+      name : 'cnpj',
+      validatorFunction : function(string) {
+
+        var cnpj = string.value;//b
+        var valida = new Array(6,5,4,3,2,9,8,7,6,5,4,3,2); //c
+        var dig1= 0; //d
+        var dig2= 0; //e 
+
+        exp = /\.|\-|\//g //f
+        cnpj = cnpj.toString().replace( exp, "" ); 
+        var digito = new Number(eval(cnpj.charAt(12)+cnpj.charAt(13))); //g
+
+        for(i = 0; i<valida.length; i++){
+                dig1 += (i>0? (cnpj.charAt(i-1)*valida[i]):0);  
+                dig2 += cnpj.charAt(i)*valida[i];       
+        }
+        dig1 = (((dig1%11)<2)? 0:(11-(dig1%11)));
+        dig2 = (((dig2%11)<2)? 0:(11-(dig2%11)));
+
+        if(((dig1*10)+dig2) != digito) 
+        {
+          return false;
+        } 
+
+        return true;
+
+      },
+      errorMessage : '',
+      errorMessageKey: 'badBrazilCNPJAnswer'
+
+  });
+
+  $.formUtils.addValidator({
       name : 'brphone',
       validatorFunction : function(string) {
 
@@ -93,6 +129,7 @@
       errorMessageKey: 'badBrazilTelephoneAnswer'
 
   });
+
 
   $.formUtils.addValidator({
       name : 'cep',

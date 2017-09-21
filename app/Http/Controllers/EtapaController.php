@@ -12,6 +12,7 @@ class EtapaController extends Controller
 	public function index($idProcesso)
 	{
 		$etapas =  \DB::table('etapa_processo')
+		->join('etapa', 'etapa.id_etapa','=', 'etapa_processo.id_etapa')
 		->where('id_processo', $idProcesso)
 		->get();
 
@@ -19,22 +20,26 @@ class EtapaController extends Controller
 		->where('id_processo', $idProcesso)
 		->value('numero');
 
+		$nmEtapas = \DB::table('etapa')->get();
+
 		return view('etapa.index')
 		->with('etapas', $etapas)
 		->with('idProcesso', $idProcesso)
-		->with('processo', $processo);
+		->with('processo', $processo)
+		->with('nmEtapas', $nmEtapas);
 	}
 
 	public function create($idProcesso)
-	{	
+	{	$nmEtapas = \DB::table('etapa')->get();
 		return view ('etapa.create')
-		->with('idProcesso', $idProcesso);
+		->with('idProcesso', $idProcesso)
+		->with('nmEtapas',$nmEtapas);
 	}
 
 	public function store (Request $request, $idProcesso)
 	{
 		$validator = Validator::make($request->all(), [
-			'nome' => 'required|max:150',
+			'id_etapa' => 'required',
 			'desc_etapa' => 'required|max:500',
 			'dt_etapa' => 'required',
 			'dt_prazo' => 'required'
@@ -47,9 +52,8 @@ class EtapaController extends Controller
 			
 			$etapa = new \App\Models\EtapaProcesso();
 
-			$etapa->nome = $request->nome;
+			$etapa->id_etapa = $request->id_etapa;
 			$etapa->desc_etapa = $request->desc_etapa;
-			$etapa->instancia = $request->instancia;
 			$etapa->id_processo = $idProcesso;
 
 			$str = $request->dt_etapa;
@@ -71,25 +75,31 @@ class EtapaController extends Controller
 	public function show($id)
 	{	
 		$etapa = \App\Models\EtapaProcesso::find($id);
+
+		$nmEtapa = \App\Models\Etapa::where('id_etapa','=',$etapa->id_etapa)->value('nm_etapa');
+
 		$processo = \App\Models\Processo::where('id_processo','=',$etapa->id_processo)->value('numero');
 
 		return view ('etapa.show')
 		->with('etapa', $etapa)
-		->with('processo', $processo);
+		->with('processo', $processo)
+		->with('nmEtapa',$nmEtapa);
 	}
 
 	public function edit($id)
 	{	
 		$etapa = \App\Models\EtapaProcesso::find($id);
+		$nmEtapas = \DB::table('etapa')->get();
 
 		return view ('etapa.edit')
-		->with('etapa', $etapa);
+		->with('etapa', $etapa)
+		->with('nmEtapas', $nmEtapas);
 	}
 
 	public function update (Request $request, $id)
 	{
 		$validator = Validator::make($request->all(), [
-			'nome' => 'required|max:150',
+			'id_etapa' => 'required',
 			'desc_etapa' => 'required|max:500',
 			'dt_etapa' => 'required',
 			'dt_prazo' => 'required'
@@ -102,9 +112,8 @@ class EtapaController extends Controller
 			
 			$etapa = \App\Models\EtapaProcesso::find($id);
 
-			$etapa->nome = $request->nome;
+			$etapa->id_etapa = $request->id_etapa;
 			$etapa->desc_etapa = $request->desc_etapa;
-			$etapa->instancia = $request->instancia;
 			
 			$str = $request->dt_etapa;
 			$data = explode("/", $str);

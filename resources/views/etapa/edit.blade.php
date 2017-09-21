@@ -19,24 +19,14 @@
 		<div class="row">
 			<div class="col-sm-12">
 
-				<div class="form-group">
-					<label>Nome<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" data-validation="required" value="{{$etapa->nome}}">
-				</div>	
-
-				<div class="form-group">
-							<label>Instância<span class="asterisk">*</span></label>					
-							<input type='text' name="instancia" class="form-control" data-validation="required" value="{{$etapa->instancia}}" />
-					</div>
-
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label>Data início<span class="asterisk">*</span></label>
 						<div class="input-group add-on col-md-12" >
-						<div class="input-group-btn">
+							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_etapa" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($etapa->dt_etapa))}}">
+							<input name="dt_etapa" type="text" class="form-control date" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($etapa->dt_etapa))}}" id="dtIni" readonly>
 							
 						</div>
 					</div>
@@ -44,15 +34,25 @@
 					<div class="col-sm-4 form-group">
 						<label>Data final<span class="asterisk">*</span></label>
 						<div class="input-group add-on col-md-12" >
-						<div class="input-group-btn">
+							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_prazo" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($etapa->dt_prazo))}}">
+							<input name="dt_prazo" type="text" class="form-control date" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($etapa->dt_prazo))}}" id="dtFn" readonly>
 							
 						</div>
 					</div>
 
 				</div>
+
+				<div class="form-group">
+					<label>Nome<span class="asterisk">*</span></label>
+					<select class="form-control single-select" name="id_etapa" data-validation="required" id="etapa">
+						<option value="">Selecione</option>
+						@foreach($nmEtapas as $nmEtapa)
+						<option value="{{$nmEtapa->id_etapa}}">{{$nmEtapa->nm_etapa}}</option>
+						@endforeach						
+					</select>
+				</div>	
 				
 				<div class="form-group">
 					<label>Descrição<span class="asterisk">*</span></label>
@@ -80,18 +80,25 @@
 
 @section('content_js')
 <script type="text/javascript" >
+	$et = {{$etapa->id_etapa}}
+	$("#etapa").val($et);
+	
+$(document).ready(function() {
+	$(document).on('focus', '#dtFn', function(){  
 
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
+		var dtIni = document.getElementById("dtIni").value;
+		$('#dtFn').datepicker({
+			dateFormat: "dd/mm/yy",
+			changeMonth: true,
+			changeYear: true,
+			minDate: dtIni
+		});
+	}); 
+	$('#clearDates').on('click', function(){
+		document.getElementById("dtFn").value= "";
+	}); 
 
-	$("#colabForm").submit(function() {
-		$("#cpf").unmask();
-		$("#rg").unmask();
-	});
-
-
+});
 
 </script>
 

@@ -61,10 +61,9 @@
 								<div class="input-group-btn">
 									<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 								</div>
-								<input name="dt_pag" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$pag}}" data-validation-optional="true" id="dtPag" onchange="GetDays()">
+								<input name="dt_pag" type="text" class="form-control dtParcel" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$pag}}" data-validation-optional="true" id="dtPag" onchange="GetDays()">
 							</div>
-						</div>
-						
+						</div>			
 					</div>
 
 					<div class="row">
@@ -85,11 +84,9 @@
 
 						<div class="col-sm-3 form-group null">
 							<label>Desconto (R$)</label>				
-							<input type='text' name="desconto" class="form-control" data-validation="number" data-validation-optional="true" value="{{$parcela->desconto}}" id="desconto" onkeyup="GetDays()"/>
+							<input type='text' name="desconto" class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true" value="{{$parcela->desconto}}" id="desconto" onkeyup="this.value = this.value.replace(/,/g, '.'); GetDays();"/>
 						</div>
-
 					</div>
-
 				</div>
 			</div>
 		</div>
@@ -129,7 +126,6 @@
 	$pag = {{$parcela->id_forma_pag}}
 	$("#formaPag").val($pag);
 
-
 	function GetDays(){
 		var dtPag = document.getElementById("dtPag").value;
 		var dtVenc = document.getElementById("dtVenc").value;
@@ -150,7 +146,8 @@
 		if(desconto == "")
 		{
 			var dc = 0;
-		} else 
+		} 
+		else 
 		{
 			var dc = desconto;
 		}
@@ -168,12 +165,19 @@
 			document.getElementById("atual").style.display="none";
 		} 
 
-		if(dif < 0 && desconto !== "") 
+		if( desconto !== "") 
 		{
 			document.getElementById("show").style.display="block";
 			document.getElementById("atualizado").innerHTML=desct;
 			document.getElementById("atual").style.display="none";
 		}
+
+		if(desconto == "")
+		{
+			document.getElementById("show").style.display="none";
+			document.getElementById("atual").style.display="block";
+		}
+
 		if(dif < 0 && desconto == "" )
 		{
 			document.getElementById("atraso").value= "";

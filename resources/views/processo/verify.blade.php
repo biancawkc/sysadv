@@ -11,7 +11,7 @@
                         <div class="form-group">
                             <label  class="col-md-3 control-label">Nº do Processo: <span class="asterisk">*</span></label>
                             <div class="col-md-8 form-inline">
-                                <input type="text" class="form-control" name="numero"/>
+                                <input type="text" class="form-control" name="numero" data-validation="required"/>
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
                              <label for="msg" class="errorMsg" id="errorMsg">{{ $msg }}</label>

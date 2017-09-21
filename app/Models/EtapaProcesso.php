@@ -14,12 +14,11 @@ class EtapaProcesso extends Model {
     protected $table = "etapa_processo";
     protected $fillable = [
              
-              'nome',
               'desc_etapa',
-              'instancia',
               'dt_etapa',
               'dt_prazo',
-              'id_processo'
+              'id_processo',
+              'id_etapa'
         
     ];
     

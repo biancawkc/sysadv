@@ -35,7 +35,8 @@
         @endif
       </td>
       <td>
-        <a href="{{ URL::to('/documento/' . $value->id_documento. '/edit') }}" class="btn btn-md btn-info">Editar</a>
+         <a href="{{ URL::to('/documento/' . $value->id_documento . '/edit') }}" class="btn btn-lg btn-primary"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
+         <a href="{{ URL::to('/documento/' . $value->id_documento . '/remove') }}" class="btn btn-lg btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></a> 
       </td>
     </tr>
     @endforeach
