@@ -21,7 +21,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control"  data-validation="required" value="{{$funcionario->nome}}">
+					<input type="text" placeholder="" name="nome" class="form-control"  data-validation="required custom"  data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{{$funcionario->nome}}">
 				</div>	
 
 				<div class="row">
@@ -31,7 +31,7 @@
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($funcionario->dt_nasc))}}">
+							<input name="dt_nasc" type="text" class="form-control datepicker date" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($funcionario->dt_nasc))}}">
 						</div>
 					</div>
 
@@ -75,12 +75,22 @@
 
 					<div class="col-sm-4 form-group">
 						<label>Data de Admissão <span class="asterisk">*</span></label>
-						<input type="text" placeholder="dd/mm/aaaa" name="dt_admissao" class="form-control" data-validation=" required" value="{{$funcionario->dt_admissao}}">
+						<div class="input-group add-on col-md-12" >
+							<div class="input-group-btn">
+								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+							</div>
+						<input type="text" placeholder="dd/mm/aaaa" name="dt_admissao" class="form-control date" data-validation=" required" value="{{date('d/m/Y', strtotime($funcionario->dt_admissao))}}" readonly id="dtIni">
+					</div>
 					</div>	
 
-					<div class="col-sm-4 form-group">
+					<div class="col-sm-4 form-group null">
 						<label>Data de Demissão</label>
-						<input type="text" placeholder="dd/mm/aaaa" name="dt_demissao" class="form-control" value="{{$funcionario->dt_demissao}}">
+						<div class="input-group add-on col-md-12" >
+							<div class="input-group-btn">
+								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
+							</div>
+						<input type="text" placeholder="dd/mm/aaaa" name="dt_demissao" class="form-control date" value="{{$dt_final}}" id="dtFn" readonly>
+					</div>
 					</div>	
 
 				</div>
@@ -114,5 +124,16 @@
 <script type="text/javascript">
 	$est = {{$funcionario->id_estado_civil}}
 	$("#estado_civil").val($est);
+
+	$(document).on('focus', '#dtFn', function(){  
+
+				var dtIni = document.getElementById("dtIni").value;
+				$('#dtFn').datepicker({
+					dateFormat: "dd/mm/yy",
+					changeMonth: true,
+					changeYear: true,
+					minDate: dtIni
+				});
+			}); 
 </script>
 @endsection

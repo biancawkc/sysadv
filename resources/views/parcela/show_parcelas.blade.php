@@ -9,6 +9,7 @@
  <input type="hidden" name="dt_venc" value="{{$data}}">
  <input type="hidden" name="num_parcelas" value="{{$qtd}}">
  <input type="hidden" name="juros" value="{{$juros}}">
+ <input type="hidden" name="valor_acao" value="{{valor_acao}}">
 
  <div class="container-custom">
  @if($tipo == 1)

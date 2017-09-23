@@ -161,7 +161,7 @@
 									<div class="input-group-btn">
 										<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 									</div>
-									<input name="dt_venc" type="text" class="form-control datepicker date dtParcel" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+									<input name="dt_venc" type="text" class="form-control date dtParcel" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
 								</div>
 							</div>
 						</div>

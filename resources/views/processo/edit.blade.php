@@ -10,13 +10,11 @@
 @endif
 {!! Form::open(['route'=>['processo.update', $processo->id_processo], 'method'=>'put', 'class'=>'form']) !!}
 @include('flash::message')
-<input type="hidden" name="id_estado_processo" value="1">
 <div class="container-custom">
 	<input type="hidden" name="ativo" value="0">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Editar Processo <i class="fa fa-file processo" aria-hidden="true"></i>
 	</h1>
-
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
@@ -292,7 +290,24 @@
 			</div>
 		</div>
 	</div>
+	<div class="col-lg-12 well">
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="row">
+					<div class="col-sm-7 form-group">
+						<label>Status do processo<span class="asterisk">*</span></label>
 
+						<select class="form-control single-select" data-validation="required" name="id_estado_processo" id="status">
+							<option>Selecione</option>
+							@foreach($status as $stage)
+							<option value="{{$stage->id_estado_processo}}">{{$stage->desc_est_processo}}</option>
+							@endforeach
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<br>
 
 	<div class="form-group">
@@ -329,6 +344,9 @@
 
 	$vara = {{$processo->id_vara}}
 	$("#vara").val($vara);
+
+	$status = {{$estadoProcesso->id_estado_processo}}
+	$("#status").val($status);
 
 	$(document).ready(function() {
 		$(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});

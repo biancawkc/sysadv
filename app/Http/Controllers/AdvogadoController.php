@@ -132,7 +132,7 @@ class AdvogadoController extends Controller
 			'id_estado_civil'=>'required'
 			]);
 		if ($validator->fails()) {
-			return redirect('pessoaFisica/'.$id.'/review')
+			return redirect('advogado/'.$id.'/review')
 			->withErrors($validator)
 			->withInput();
 		} else {

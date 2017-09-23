@@ -49,7 +49,7 @@
 
      <tr>
        <th>Vara</th>
-       <td colspan="3">{{$processo->id_vara}}</td>
+       <td colspan="3">{{$vara->vara}}</td>
      </tr>
 
      <tr>

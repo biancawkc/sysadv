@@ -28,8 +28,8 @@
       <td>{!! date('d/m/Y', strtotime($value->dt_despesa)) !!}</td>
       <td>{!! $value->desc_despesa !!}</td>
       <td>
-        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/edit') }}" class="btn btn-lg btn-primary"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
-        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/remove') }}" class="btn btn-lg btn-danger"> <i class="fa fa-trash" aria-hidden="true"></i></a> 
+        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a> &nbsp;&nbsp;
+        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/remove') }}" class="btn btn-lg btn-danger" data-toggle="tooltip" data-placement="top" title="Deletar"> <i class="fa fa-trash" aria-hidden="true"></i></a> 
       </td>
     </tr>
     @endforeach

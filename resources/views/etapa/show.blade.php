@@ -32,10 +32,11 @@
 
 <div class="text-center">
 @if (Auth::guard('web_usuario')->user()->administrador)
-<a href="{{ URL::to('/etapa/' . $etapa->id_etapa_processo . '/remove') }}" class="btn btn-lg btn-danger">Excluir <i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+<a href="{{ URL::to('etapa/'.$etapa->id_processo)}}" class="btn btn-lg btn-primary">Voltar <i class="fa fa-repeat" aria-hidden="true"></i></i></a>&nbsp;&nbsp;
+<a href="{{ URL::to('/etapa/' . $etapa->id_etapa_processo . '/edit') }}" class="btn btn-lg btn-info">Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+<a href="{{ URL::to('/etapa/' . $etapa->id_etapa_processo . '/remove') }}" class="btn btn-lg btn-danger">Excluir <i class="fa fa-trash-o" aria-hidden="true"></i></a>
 @endif
-<a href="{{ URL::to('etapa/'.$etapa->id_processo)}}" class="btn btn-lg btn-info">Voltar <i class="fa fa-repeat" aria-hidden="true"></i></i></a>&nbsp;&nbsp;
-<a href="{{ URL::to('/etapa/' . $etapa->id_etapa_processo . '/edit') }}" class="btn btn-lg btn-info">Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+
 </div>
 </div>
 <br>

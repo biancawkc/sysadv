@@ -22,7 +22,7 @@
 
 				<div class="form-group">
 					<label>Razão Social <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="razao_social" class="form-control" data-validation="required"  value="{{$pessoaJuridica->razao_social}}">
+					<input type="text" placeholder="" name="razao_social" class="form-control" data-validation="required custom"  data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" value="{{$pessoaJuridica->razao_social}}">
 				</div>
 
 				<div class="form-group">

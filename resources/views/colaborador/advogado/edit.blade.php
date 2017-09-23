@@ -21,7 +21,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" data-validation="required" value="{{$advogado->nome}}">
+					<input type="text" placeholder="" name="nome" class="form-control"  value="{{$advogado->nome}}" data-validation="required custom"  data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
 				</div>	
 
 				<div class="row">
@@ -32,7 +32,7 @@
 						<div class="input-group-btn">
 							<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 						</div>
-						<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($advogado->dt_nasc))}}">
+						<input name="dt_nasc" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="birthdate" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($advogado->dt_nasc))}}">
 
 					</div>
 
@@ -107,6 +107,10 @@
 @section('content_js')
 
 <script type="text/javascript">
+
+	$.validate({
+  modules : 'date'
+});
 
 	$est = {{$advogado->id_estado_civil}}
 	$("#estado_civil").val($est);

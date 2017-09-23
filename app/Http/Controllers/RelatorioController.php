@@ -25,6 +25,7 @@ class RelatorioController extends Controller
 		$html ="";
 		$processo = "";
 		$processo = \App\Models\Processo::find($idProcesso);
+		$vara = \App\Models\Vara::find($processo->id_vara);
 
 
 		$parcelaH = DB::table('parcela')
@@ -84,6 +85,7 @@ class RelatorioController extends Controller
 		->get();
 
 		$etapa =  DB::table('etapa_processo')
+		->join('etapa','etapa.id_etapa','=', 'etapa_processo.id_etapa')
 		->where('id_processo', $idProcesso)
 		->get();
 
@@ -231,7 +233,7 @@ class RelatorioController extends Controller
 
 			");
 
-		return View::make('relatorio.relatorio', compact(['processo', 'estadoProcesso', 'comarca', 'justica','pessoaJuridicaC', 'pessoaFisicaC','pessoaFisicaA', 'pessoaJuridicaA',  'parcelaH', 'parcelaG', 'parcelaHsum', 'parcelaRece', 'parcelaHtotal', 'parcelaGsum', 'parcelaGRece', 'parcelaGtotal', 'despesa','despesaTotal','etapa']));
+		return View::make('relatorio.relatorio', compact(['processo', 'estadoProcesso', 'comarca', 'justica','pessoaJuridicaC', 'pessoaFisicaC','pessoaFisicaA', 'pessoaJuridicaA',  'parcelaH', 'parcelaG', 'parcelaHsum', 'parcelaRece', 'parcelaHtotal', 'parcelaGsum', 'parcelaGRece', 'parcelaGtotal', 'despesa','despesaTotal','etapa','vara']));
 		/*return view('relatorio.relatorio')
 		->with('processo', $processo);*/
 		// ->with('comarca', $comarca)

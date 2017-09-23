@@ -6,7 +6,7 @@
         <div class="col-md-12">
         <br><br>
             <div class=" well text-center">
-                <h3>Deseja excluir a etapa a seguir?</h3>
+                <h3>Deseja excluir a etapa?</h3>
                 <br>
                 <div class="text-center">
                     <a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-info">Não <i class="fa fa-undo" aria-hidden="true"></i></a>

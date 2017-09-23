@@ -2,7 +2,7 @@
  @section('content')
  <div class="container">
    @include('flash::message')
-   <h1 class="col-lg-12 well">Parcelas de Pagamento <i class="fa fa-money" aria-hidden="true"></i></h1>
+   <h1 class="col-lg-12 well">Parcelas de Pagamento <i class="fa fa-money parcela" aria-hidden="true"></i></h1>
    <br>
    <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo->numero}}</a> </b></h2>
    <br>

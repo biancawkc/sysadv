@@ -109,7 +109,7 @@
 			@if(!empty($parcela->dt_pag))
 			<a target="_blank" href="{{ URL::to('/parcela/' .$parcela->id_parcela. '/recibo') }}" class="btn btn-lg btn-success">Recibo</a>
 			@else
-			<button class="btn btn-lg btn-success" disabled>Recibo</button>
+			<button class="btn btn-lg btn-success" disabled>Recibo <i class="fa fa-sticky-note-o" aria-hidden="true"></i></button>
 			@endif
 		</div>
 		<br>

@@ -74,7 +74,7 @@ class FuncionarioController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|max:200',
-			'rg' => 'required|max:9',
+			'rg' => 'required|max:10',
 			'orgao_exp' => 'required|max:10',
 			'cpf' => 'required|max:13|unique:pessoa_fisica,cpf',
 			'id_estado_civil' => 'required'
@@ -140,13 +140,13 @@ class FuncionarioController extends Controller
 	{	
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|max:200',
-			'rg' => 'required|max:9',
+			'rg' => 'required|max:10',
 			'orgao_exp' => 'required|max:10',
 			'cpf' => 'required|max:13',
 			'id_estado_civil'=>'required'
 			]);
 		if ($validator->fails()) {
-			return redirect('pessoaFisica/'.$id.'/review')
+			return redirect('funcionario/'.$id.'/review')
 			->withErrors($validator)
 			->withInput();
 		} else {
@@ -155,7 +155,12 @@ class FuncionarioController extends Controller
 	->update(['ativo' => $request->ativo]);*/
 
 	$funcionario = new \App\Models\Funcionario();
-	$funcionario->dt_admissao = $request->dt_admissao;
+
+	$str2 = $request->dt_admissao;
+	$data2 = explode("/", $str2);
+	$data2 = $data2[2] . "-" . $data2[1] . "-" . $data2[0];
+	$funcionario->dt_admissao = new \DateTime($data2);
+
 	$funcionario->qualificacoes = $request->qualificacoes;
 	$funcionario->id_parte = $id;
 	$funcionario->save();
@@ -177,7 +182,7 @@ class FuncionarioController extends Controller
 
 
 	flash()->success('Cadastro Inserido com Sucesso!');
-	return redirect('funcionario/'.$id.'/review');
+	return redirect('/colaboradores');
 }
 }
 
@@ -191,10 +196,19 @@ public function edit($idFuncionario)
 	$civil = \App\Models\EstadoCivil::all(['desc_estado_civil', 'id_estado_civil']);
 	$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
 
+	if(!is_null($funcionario->dt_demissao))
+	{
+		$dt_final = date('d/m/Y', strtotime($funcionario->dt_demissao));
+	}else
+	{
+		$dt_final = "";
+	}
+
 	return view('colaborador.funcionario.edit')
 	->with('funcionario', $funcionario)
 	->with('civil', $civil)
-	->with('tp_tel', $tp_tel);
+	->with('tp_tel', $tp_tel)
+	->with('dt_final', $dt_final);
 }
 
 public function update(Request $request, $idFuncionario)
@@ -229,8 +243,16 @@ public function update(Request $request, $idFuncionario)
 			'id_estado_civil' => $request->id_estado_civil
 			]);
 
-		$funcionario->dt_admissao = $request->dt_admissao;
-		$funcionario->dt_demissao = $request->dt_demissao;
+		$str2 = $request->dt_admissao;
+		$date = explode("/", $str2);
+		$date = $date[2] . "-" . $date[1] . "-" . $date[0];
+
+		$str3 = $request->dt_demissao;
+		$date1 = explode("/", $str3);
+		$date1 = $date1[2] . "-" . $date1[1] . "-" . $date1[0];
+
+		$funcionario->dt_admissao = $date;
+		$funcionario->dt_demissao = $date1;
 		$funcionario->qualificacoes = $request->qualificacoes;
 		$funcionario->save();
 

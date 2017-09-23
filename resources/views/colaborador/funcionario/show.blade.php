@@ -14,28 +14,28 @@
      
      <tr>
        <th>RG</th>
-       <td>{{$funcionario->rg}}</td>
+       <td class="rg">{{$funcionario->rg}}</td>
        <th class="col-md-3"> Órg. Emiss.</th>
        <td>{{$funcionario->orgao_exp}}</td>
      </tr>
 
      <tr>
        <th>CPF</th>
-       <td>{{$funcionario->cpf}}</td>
+       <td class="cpf">{{$funcionario->cpf}}</td>
        <th>Estado Civil</th>
        <td>{{$civil->desc_estado_civil}}</td>
      </tr>
 
      <tr>
        <th>Data de nascimento</th>
-       <td colspan="3">{{$funcionario->dt_nasc}}</td>
+       <td colspan="3">{{date('d/m/Y', strtotime($funcionario->dt_nasc))}}</td>
      </tr>
 
      <tr>
        <th>Data de Admissão</th>
-       <td>{{$funcionario->dt_admissao}}</td>
+       <td>{{date('d/m/Y', strtotime($funcionario->dt_admissao))}}</td>
        <th>Data de Demissão</th>
-       <td>{{$funcionario->dt_demissao}}</td>
+       <td>{{date('d/m/Y', strtotime($funcionario->dt_demissao))}}</td>
      </tr>
      <tr>
        <th>Qualificações</th>

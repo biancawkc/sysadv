@@ -70,7 +70,7 @@
 									<div class="input-group-btn">
 										<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 									</div>
-									<input name="dt_venc" type="text" class="form-control dtParcel datepicker date" data-date-format="dd/mm/yyyy" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa"  id="dt" onchange="parcela();">
+									<input name="dt_venc" type="text" class="form-control dtParcel datepicker date" data-date-format="dd/mm/yyyy" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa"  id="dt" onchange="parcela();" readonly>
 								</div>
 							</div>
 
@@ -163,7 +163,7 @@
 									<div class="input-group-btn">
 										<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 									</div>
-									<input name="dt_venc" type="text" class="form-control dtParcel datepicker date" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa">
+									<input name="dt_venc" type="text" class="form-control dtParcel date" data-validation="date required" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" readonly>
 								</div>
 							</div>
 						</div>

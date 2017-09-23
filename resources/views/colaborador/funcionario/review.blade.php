@@ -8,7 +8,7 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>['funcionario.updateReview', $parte->id_parte], 'method'=>'post', 'id'=>'colabForm']) !!}
+{!! Form::open(['route'=>['funcionario.updateReview', $parte->id_parte], 'method'=>'post', 'class'=>'form']) !!}
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="ativo" value="">
@@ -79,7 +79,7 @@
 
 					<div class="col-sm-4 form-group">
 						<label>Data de Admissão <span class="asterisk">*</span></label>
-						<input type="text" placeholder="dd/mm/aaaa" name="dt_admissao" class="form-control" value="" data-validation=" required">
+						<input type="text" placeholder="dd/mm/aaaa" name="dt_admissao" class="form-control datepicker date" value="" data-validation=" date required" data-validation-format="dd/mm/yyyy">
 					</div>	
 
 				</div>
@@ -113,10 +113,6 @@
 <script type="text/javascript">
 	$civil = {{ $e }}
 	$('#estado_civil').val($civil)
-
-	$(function () {
-		$('#datetimepicker1').datetimepicker();
-	});
 
 </script>
 

@@ -112,7 +112,7 @@
 
 						<tr>
 							<th>Vara</th>
-							<td colspan="3">{{$processo->id_vara}}</td>
+							<td colspan="3">{{$vara->vara}}</td>
 						</tr>
 
 						<tr>
@@ -235,7 +235,7 @@
 							</tr>
 							<tr>
 								<th>Profissão</th>
-								<td colspan="3">{{$values->profis}}</td>
+								<td colspan="3">{{ucfirst(strtolower($values->profis))}}</td>
 							</tr>
 						<tr>
 		
@@ -376,7 +376,7 @@
 					</tr>
 					<tr>
 						<th>Profissão</th>
-						<td colspan="3">{{$values->profis}}</td>
+						<td colspan="3">{{ucfirst(strtolower($values->profis))}}</td>
 					</tr>
 					<tr>
 						<th>CEP</th>
@@ -418,7 +418,7 @@
 					@if(!$etapa->isEmpty()) 
 					@foreach($etapa as  $etapas)
 					<tr>
-						<td>{{$etapas->nome}} </td>
+						<td>{{$etapas->nm_etapa}} </td>
 						<td>{{ date('d/m/Y', strtotime($etapas -> dt_etapa))}}</td>
 						<td>{{ date('d/m/Y', strtotime($etapas -> dt_prazo))}}</td>
 						<td>{{$etapas->desc_etapa}} </td>
@@ -427,7 +427,7 @@
 					
 					@elseif($etapa->isEmpty())
 					<tr>
-					<td colspan="3" class="center"><b>Não possui etapas cadastradas</b></td>
+					<td colspan="4" class="center"><b>Não possui etapas cadastradas</b></td>
 					</tr>
 					@endif
 				</table>
@@ -496,7 +496,7 @@
 					</tr>
 					@elseif($parcelaH->isEmpty())
 					<tr>
-					<td colspan="4" class="center">Não possui parcelas honorários cadastradas</td>
+					<td colspan="4" class="center"><b>Não possui parcelas honorários cadastradas</b></td>
 					</tr>
 					@endif
 				</table>
@@ -535,7 +535,7 @@
 					</tr>
 					@elseif($parcelaG->isEmpty())
 					<tr>
-					<td colspan="4" class="center">Não possui parcelas ganho de causa cadastradas</td>
+					<td colspan="4" class="center"><b>Não possui parcelas ganho de causa cadastradas</b></td>
 					</tr>
 					@endif
 

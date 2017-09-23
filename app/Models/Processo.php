@@ -23,7 +23,8 @@ class Processo extends Model {
               'id_justica',
               'id_estado_processo',
               'id_comarca',
-              'id_advogado'      
+              'id_advogado',
+              'valor_acao'      
     ];
     
     protected $primaryKey = "id_processo";

@@ -14,14 +14,14 @@
 
      <tr>
        <th>RG</th>
-       <td>{{$advogado->rg}}</td>
+       <td class="rg">{{$advogado->rg}}</td>
        <th class="col-md-3"> Órg. Emiss.</th>
        <td>{{$advogado->orgao_exp}}</td>
      </tr>
 
      <tr>
        <th>CPF</th>
-       <td>{{$advogado->cpf}}</td>
+       <td class="cpf">{{$advogado->cpf}}</td>
        <th>Estado Civil</th>
        <td>{{$civil->desc_estado_civil}}</td>
      </tr>

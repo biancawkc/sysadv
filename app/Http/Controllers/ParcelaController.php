@@ -49,6 +49,7 @@ class ParcelaController extends Controller
 		$qtd = $request->num_parcelas;
 		$juros = $request->juros;
 		$str = $request->dt_venc;
+		$valor_acao = $request->valor_acao;
 		$i = 1;
 
 		$data = explode("/", $str);
@@ -65,7 +66,8 @@ class ParcelaController extends Controller
 		->with('data', $data)
 		->with('i', $i)
 		->with('data', $data)
-		->with('juros', $juros);
+		->with('juros', $juros)
+		->with('valor_acao', $valor_acao);
 	}
 
 	public function store (Request $request, $idProcesso)
@@ -99,6 +101,12 @@ class ParcelaController extends Controller
 			$valor = round($valores, 2 ,  PHP_ROUND_HALF_UP);*/
 			
 			$i = 1;
+
+			\DB::table('processo')
+			->where('id_processo','=', $idProcesso)
+			->update([
+				'valor_acao' => $request->valor_acao;				
+				]);
 
 			$parcela = new \App\Models\Parcela();
 

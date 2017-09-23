@@ -220,7 +220,7 @@ $(document).ready(function() {
             $('.cpf').mask('000.000.000-00', {reverse: true});
             $('.cep').mask('00000-000');
             $('.phone_with_ddd').mask('(00) 0000-00000');
-            $('.rg').mask('00.000.000-00', {reverse: true});
+            $('.rg').mask('00.000.0000-0', {reverse: true});
             $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
 
             $('[data-toggle="tooltip"]').tooltip(); 
