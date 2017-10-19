@@ -65,7 +65,25 @@
 @endsection
 
 @section('content_js')
+<script type="text/javascript">
+    $(document).ready(function(){
+  $("input:checkbox").change(function() {
+    var id_usuario = $(this).closest('tr').attr('id');
 
+    $.ajax({
+            type:'POST',
+            url:'/usuario',
+            headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
+            data: { "id_usuario" : id_usuario },
+            success: function(data){
+              if(data.data.success){
+                //do something
+              }
+            }
+        });
+    });
+});
+</script>
 @endsection
 
 

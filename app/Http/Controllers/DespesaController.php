@@ -16,7 +16,7 @@ class DespesaController extends Controller
 
 		$processo = \DB::table('processo')
 		->where('id_processo', $idProcesso)
-		->value('numero');
+		->first();
 
 		return view('despesa.index')
 		->with('despesa', $despesa)
@@ -64,9 +64,11 @@ class DespesaController extends Controller
 	public function edit($id)
 	{	
 		$despesa = \App\Models\Despesa::find($id);
+		$valores = number_format($despesa->valor,2,",",".");
 
 		return view ('despesa.edit')
-		->with('despesa', $despesa);
+		->with('despesa', $despesa)
+		->with('valores', $valores);
 	}
 
 	public function update (Request $request, $id)

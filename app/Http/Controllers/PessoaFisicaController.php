@@ -75,7 +75,7 @@ class PessoaFisicaController extends Controller
 			'id_estado_civil'=>'required'
 			]);
 		if ($validator->fails()) {
-			return redirect('pessoaFisica/create')
+			return redirect('pessoaFisica/pessoa')
 			->withErrors($validator)
 			->withInput();
 		} else {
@@ -96,6 +96,7 @@ class PessoaFisicaController extends Controller
 			$pessoaFisica->cpf = $request->cpf;
 			$pessoaFisica->id_estado_civil = $request->id_estado_civil;
 			$pessoaFisica->ctps = $request->ctps;
+			$pessoaFisica->serie_ctps = $request->serie_ctps;
 			$pessoaFisica->remuneracao = $request->remuneracao;
 			$pessoaFisica->id_profissao = $request->id_profissao;
 

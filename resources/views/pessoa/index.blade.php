@@ -2,8 +2,8 @@
  @section('content')
  <div class="container">
  @include('flash::message')
-    <h1 class="col-lg-12 well" > Cadastros <i class="fa fa-address-book registros" aria-hidden="true"></i></h1>
-    <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
+    <h1 class="col-lg-12 well" > Partes <i class="fa fa-address-book registros" aria-hidden="true"></i></h1>
+    <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a> --> 
     <br>
     <br>
      <table class="table table-striped table-bordered tblCadastro" >

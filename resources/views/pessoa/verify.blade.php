@@ -1,7 +1,7 @@
  @extends('layouts.master2')
  @section('content')
  <div class="container-custom">
-    <h1 class="col-lg-12 well "> Cadastro de Pessoa  <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
+    <h1 class="col-lg-12 well "> Cadastro de Parte  <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
     </h1>
     <div class="row" >
         <div class="col-md-12">
@@ -23,7 +23,7 @@
                         </label> -->
                         <br>
                         <br>
-                        <label for="msg" class="errorMsg red" id="errorMsg">{{ $msg }}</label>
+                        <label for="msg" class="errorMsg red tex-center" id="errorMsg">{{ $msg }}</label>
                         <br>
 
                         
@@ -123,6 +123,7 @@
             $('#p-form').hide();  
             $('#errorMsg').hide(); 
         }
+        
         /*if($(this).attr('id') == 'men') {
             $('#cpf-form').hide();
             $('#cnpj-form').hide();

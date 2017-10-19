@@ -4,7 +4,7 @@
    @include('flash::message')
    <h1><b>Processo: {{$processo->numero}} </b></h1>
    <h4><b>Estado</b>: {{$estadoProcesso->desc_est_processo}}</h4>
-   <table class="table table-striped table-bordered" style="width: 700px;">
+   <table class="table table-striped table-bordered">
     <tbody>
      <tr>
        <th class="col-md-3">Nome da ação</th>
@@ -63,7 +63,7 @@
 <h3>Cliente(s)</h3>
 @if (!is_null($pessoaJuridicaC))
 @foreach($pessoaJuridicaC as $value)
-<table class="table table-striped table-bordered" style="width: 700px;">
+<table class="table table-striped table-bordered">
   <tbody>
    <tr>
     <td colspan="4" class="text-center col-md-10">{{$value -> razao_social}}</td>
@@ -151,7 +151,7 @@
 @endif
 @if(!is_null($pessoaFisicaC)) 
 @foreach($pessoaFisicaC as $k => $values)
-<table class="table table-striped table-bordered" style="width: 700px;">
+<table class="table table-striped table-bordered">
   <tbody>
     <tr>
       <!-- <th class="col-md-3">Nome</th> -->
@@ -213,7 +213,7 @@
         </tr>
         <tr>
           <th>Profissão</th>
-          <td colspan="3">{{$values->profis}}</td>
+          <td colspan="3">{{ucfirst(strtolower($values->profis))}}</td>
         </tr>
       </tbody>
     </table>
@@ -257,7 +257,7 @@
 <h3>Parte(s) Adversa(s)</h3>
 @if (!is_null($pessoaJuridicaA))
 @foreach($pessoaJuridicaA as $value)
-<table class="table table-striped table-bordered" style="width: 700px;">
+<table class="table table-striped table-bordered">
   <tbody>
    <tr>
     <td colspan="4" class="text-center col-md-10">{{$value -> razao_social}}</td>
@@ -346,7 +346,7 @@
 @endif
 @if(!is_null($pessoaFisicaA)) 
 @foreach($pessoaFisicaA as $key => $values)
-<table class="table table-striped table-bordered" style="width: 700px;">
+<table class="table table-striped table-bordered">
   <tbody>
     <tr>
       <!-- <th class="col-md-3">Nome</th> -->
@@ -408,7 +408,7 @@
         </tr>
         <tr>
           <th>Profissão</th>
-          <td colspan="3">{{$values->profis}}</td>
+          <td colspan="3">{{ucfirst(strtolower($values->profis))}}</td>
         </tr>
       </tbody>
     </table>
@@ -450,17 +450,18 @@
 @endforeach
 @endif
 
-<p class="text-center">Data de criação: {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} por {{$usuario->username}} </p>
+<p>Data de criação: {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} por {{$usuario->username}} </p>
 <br>
+
 <div class="text-center">
   <!-- <a href="{{ URL::to('/processo/' . $processo->id_processo . '/remove') }}" class="btn btn-lg btn-danger">Deletar <i class="fa fa-trash" aria-hidden="true"></i></a>&nbsp;&nbsp; -->
   <a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
   <a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" target="_blank" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/documento/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos"> <i class="fa fa-file-text" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/relatorio/' .$processo->id_processo) }}" target="_blank" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Relatórios"> <i class="fa fa-files-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
+  <a href="{{ URL::to('/documento/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos" target="_blank"> <i class="fa fa-file-text" aria-hidden="true"></i></a>&nbsp;&nbsp;
   <a target="_blank" href="{{ URL::to('/parcela/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Parcelas">  <i class="fa fa-money" aria-hidden="true"></i>
   </a>&nbsp;&nbsp;
-  <a target="_blank" href="{{ URL::to('/despesa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Despesas"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a> 
+  <a target="_blank" href="{{ URL::to('/despesa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Despesas"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a> &nbsp;&nbsp;
+  <a href="{{ URL::to('/relatorio/' .$processo->id_processo) }}" target="_blank" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Relatórios"> <i class="fa fa-files-o" aria-hidden="true"></i></a>
 </div>
 </div>
 <br>

@@ -8,7 +8,7 @@
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>['despesa.store', $idProcesso], 'method'=>'post']) !!}
+{!! Form::open(['route'=>['despesa.store', $idProcesso], 'method'=>'post', 'class'=>'form']) !!}
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -21,7 +21,7 @@
 				<div class="row">
 					<div class="col-sm-3 form-group">
 						<label>Valor<span class="asterisk">*</span></label>
-						<input name="valor" type="text" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.')">		
+						<input name="valor" type="text" class="form-control money" data-validation="required">		
 					</div>
 					<div class="col-sm-5 form-group">
 						<label>Data<span class="asterisk">*</span></label>

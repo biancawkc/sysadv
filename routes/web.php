@@ -43,6 +43,7 @@
         Route::post('cadastrar_usuario/', 'UsuarioAuth\RegisterController@register');
 
         Route::get('usuario/', 'UsuarioController@index');
+        Route::post('usuario/', 'UsuarioController@activation');
 
         Route::get('colaborador/verify', ['as' => 'funcionario.verify', 'uses' => 'FuncionarioController@verify']);
         Route::group(['prefix' => 'funcionario'], function(){

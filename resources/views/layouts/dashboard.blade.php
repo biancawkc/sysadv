@@ -144,8 +144,12 @@
 					<div class="list-group">
 					@if(!$datas->isEmpty())
 					@foreach($datas as $key => $value)
-						<a target="_blank" href="{{URL::to('etapa/'.$value->id_processo.'/show')}}" class="list-group-item">
+						<a target="_blank" href="{{URL::to('etapa/'.$value->id_etapa_processo.'/show')}}" class="list-group-item">
+							@if(strlen($value->nm_etapa) > 25)
+							<i class="fa fa-calendar-times-o fa-fw" data-toggle="tooltip" data-placement="top" title="Deletar"s></i> {{substr($value->nm_etapa, 0, 25)}}...
+							@else
 							<i class="fa fa-calendar-times-o fa-fw"></i> {{$value->nm_etapa}}
+							@endif
 							 <span class="pull-right text-muted small"><em>{{date('d/m/Y', strtotime($value->dt_prazo))}}</em>
 						</a>
 					@endforeach
@@ -200,7 +204,7 @@
 										<i class="fa fa-address-card fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<h4>Pessoas</h4>
+										<h4>Partes</h4>
 									</div>
 								</div>
 							</div>
@@ -222,11 +226,11 @@
 										<i class="fa fa-user-circle-o fa-5x"></i>
 									</div>
 									<div class="col-xs-9 text-right">
-										<h4>Funcionários</h4>
+										<h4>Colaboradores</h4>
 									</div>
 								</div>
 							</div>
-							<a href="{{ URL::to('/funcionario') }}">
+							<a href="{{ URL::to('/colaboradores') }}">
 								<div class="panel-footer">
 									<span class="pull-left">Entrar</span>
 									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -237,27 +241,7 @@
 					</div>						
 				</div>
 				 <div class="row">
-				 <div class="col-lg-4 col-md-6">
-						<div class="panel panel-black">
-							<div class="panel-heading">
-								<div class="row">
-									<div class="col-xs-3">
-										<i class="fa fa-user-circle fa-5x"></i>
-									</div>
-									<div class="col-xs-9 text-right">
-										<h4>Advogados</h4>
-									</div>
-								</div>
-							</div>
-							<a href="{{ URL::to('/advogado') }}">
-								<div class="panel-footer">
-									<span class="pull-left">Entrar</span>
-									<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-									<div class="clearfix"></div>
-								</div>
-							</a>
-						</div>
-					</div>
+		
 			<!-- 		<div class="col-lg-3 col-md-6">
 						<div class="panel panel-red">
 							<div class="panel-heading">
@@ -341,15 +325,8 @@
 	<script src="/js/app.js"></script>
 	<script src="{{ asset('../vendor/components/jquery/jquery.min.js') }}"></script>
 	<script src="{{ asset('../vendor/twbs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-	<script src="{{asset('../vendor/components/jquery/jquery-migrate.min.js')}}"></script>
-	<script src="{{asset('../vendor/datatables/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-	<script src="{{asset('../resources/assets/Portuguese.json')}}"></script>
-	<script src="{{asset('../vendor/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script>
-	<script src="{{asset('../vendor/eternicode/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js')}}"></script>
 	<script src="{{asset('../resources/assets/js/inc.js')}}"></script>
-	<script src="{{asset('../resources/assets/js/jQuery-Form-Validator/form-validator/jquery.form-validator.min.js')}}"></script>
-	<script src="{{asset('../resources/assets/js/jquery.mask.js')}}"></script>
-	@yield('content_js')
+
 
 </body>
 </html>

@@ -65,7 +65,7 @@ class AdvogadoController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|max:200',
-			'rg' => 'required|max:9',
+			'rg' => 'required|max:10',
 			'orgao_exp' => 'required|max:10',
 			'cpf' => 'required|max:13|unique:pessoa_fisica,cpf'
 			]);
@@ -126,7 +126,7 @@ class AdvogadoController extends Controller
 	{	
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|max:200',
-			'rg' => 'required|max:9',
+			'rg' => 'required|max:10',
 			'orgao_exp' => 'required|max:10',
 			'cpf' => 'required|max:13',
 			'id_estado_civil'=>'required'

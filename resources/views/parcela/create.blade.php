@@ -38,7 +38,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor total (R$)<span class="asterisk">*</span></label>
-								<input type='text' name="total" class="form-control" data-validation="number" data-validation-allowing="float" id="total" onkeyup="this.value = this.value.replace(/,/g, '.'); parcela();"/>
+								<input type="text" name="demo" class="form-control" data-validation="required" id="total" onkeyup="parcela();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
@@ -117,7 +117,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor Ação (R$)<span class="asterisk">*</span></label>
-								<input type="text" name="valor_acao" class="form-control money" data-validation="required" id="valor_acao" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.'); porcent();"/>
+								<input type="text" name="valor_acao" class="form-control money" data-validation="required" id="valor_acao" data-validation="number" onkeyup="porcent();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
@@ -226,6 +226,8 @@
 		function parcela()
 		{
 			var total = document.getElementById('total').value;
+			total1 = total.replace('.','');
+			total = total1.replace(',','.');
 			var num = document.getElementById('num').value;
 			var dt = document.getElementById('dt').value;
 			var va= parseFloat(total)/parseInt(num);

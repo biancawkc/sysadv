@@ -12,7 +12,7 @@
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+	<h1 class="col-lg-12 well "> Editar Despesa <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 	</h1>
 
 	<div class="col-lg-12 well">
@@ -21,7 +21,7 @@
 				<div class="row">
 					<div class="col-sm-3 form-group">
 						<label>Valor<span class="asterisk">*</span></label>
-						<input name="valor" type="number" class="form-control" value="{{$despesa->valor}}">		
+						<input name="valor" type="text" class="form-control money" value="{{$valores}}">		
 					</div>
 					<div class="col-sm-5 form-group">
 						<label>Data<span class="asterisk">*</span></label>

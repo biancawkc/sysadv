@@ -8,15 +8,15 @@
 
    <br>
    <br>
-   <table class="table table-striped table-bordered text-center tblCadastro " >
+   <table class="table table-striped table-bordered  tblCadastro " >
     <thead>
         <tr>
            <!-- <th>ID</th> -->
-           <th>Nome</th>
-           <th>Data Início</th>
-           <th>Data Final</th>
-           <th>Processo</th>
-           <th>Ações</th>
+           <th class="col-md-4">Nome</th>
+           <th class="col-md-2">Data Início</th>
+           <th class="col-md-2">Data Final</th>
+           <th class="col-md-3">Processo</th>
+           <th class="col-md-2">Ações</th>
        </tr>
    </thead>
    <tbody>
@@ -24,12 +24,12 @@
     @foreach($etapas as $key => $value)
     <tr>
         <!-- <td>{!! $value->id_etapa_processo !!}</td> -->
-        <td>{!! $value->nome !!}</td>
+        <td>{!! $value->nm_etapa !!}</td>
         <td>{!! date('d/m/Y', strtotime($value->dt_etapa)) !!}</td>
         <td>{!! date('d/m/Y', strtotime($value->dt_prazo)) !!}</td>
-        <td>{!! $value->numero!!}</td>
-        <td>
-            <a href="{{ URL::to('/etapa/' . $value->id_etapa_processo . '/show') }}" class="btn btn-lg btn-info"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>    
+        <td><a href="{{URL::to('/processo/' . $value->id_processo . '/show')}}" target="_blank">{!! $value->numero!!}</a></td>
+        <td class="text-center">
+            <a href="{{ URL::to('/etapa/' . $value->id_etapa_processo . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>    
         </td>
     </tr>
     @endforeach

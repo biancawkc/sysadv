@@ -21,7 +21,7 @@ class DocumentoController extends Controller
 
 		$processo = \DB::table('processo')
 		->where('id_processo', $idProcesso)
-		->value('numero');
+		->first();
 
 		return view('documento.index')
 		->with('documentos', $documentos)
@@ -40,7 +40,7 @@ class DocumentoController extends Controller
 		$validator = Validator::make($request->all(), [
 			'nome_documento' => 'required|max:150',
 			'documento' => 'required|mimes:pdf,jpeg,png'
-			]);
+		]);
 		if ($validator->fails()) {
 			return redirect('documento/'.$idProcesso.'/create')
 			->withErrors($validator)
@@ -62,7 +62,7 @@ class DocumentoController extends Controller
 
 				$request->file('documento')->move(
 					base_path() . '/public/documento/', $nome
-					);
+				);
 
 				$documento->documento = $nome;
 			}
@@ -89,7 +89,7 @@ class DocumentoController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'nome_documento' => 'required|max:150'
-			]);
+		]);
 		if ($validator->fails()) {
 			return redirect('documento/'.$id.'/edit')
 			->withErrors($validator)
@@ -116,7 +116,7 @@ class DocumentoController extends Controller
 
 				$request->file('documento')->move(
 					base_path() . '/public/documento/', $nome
-					);
+				);
 
 				$documento->documento = $nome;
 
@@ -126,8 +126,8 @@ class DocumentoController extends Controller
 			$documento->desc_documento = $request->desc_documento;
 			$documento->save();
 		}
-		flash()->success('Cadastro Inserido com Sucesso!');
-		return redirect('documento/'.$idProcesso.'/edit');
+		flash()->success('Cadastro Editado com Sucesso!');
+		return redirect('documento/'.$id.'/edit');
 	}
 
 	public function remove($id)

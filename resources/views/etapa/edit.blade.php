@@ -67,7 +67,7 @@
 	</div>
 
 	<div class="text-center">
-		<a href="{{ URL::to('/etapa/'.$etapa->id_processo) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
+		<a href="{{ URL::to('/etapa/'.$etapa->id_etapa_processo.'/show') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 		&nbsp;&nbsp;&nbsp;
 		<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
 	</div>

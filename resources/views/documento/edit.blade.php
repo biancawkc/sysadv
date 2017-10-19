@@ -25,7 +25,13 @@
 
 				<div class="form-group" id="file">
 					<label>Arquivo <span class="asterisk">*</span></label>&nbsp;
-					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><img src="{{ asset ('../resources/assets/images/pdf.png')}}" class="pdf"> </a>&nbsp; <a name="substituir" >Substituir</a>  
+					<?php $p =explode('.', $documento->documento); ?>
+					@if( array_pop($p) == 'pdf'  )
+					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
+					@else
+					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
+					@endif
+					&nbsp; <a name="substituir" >Substituir</a>  
 				</div>
 
 				<div class="form-group" style="display: none;" id="arquivo">
@@ -59,13 +65,6 @@
 
 @section('content_js')
 <script type="text/javascript" >
-
-	$.validate({
-		lang: 'pt',
-		modules : 'brazil'
-	});
-
-
 $(document).ready(function() {
    $('a[name="substituir"]').click(function () {
       $('#arquivo').show();
@@ -76,7 +75,6 @@ $(document).ready(function() {
       $('#file').show();
     });
 });
-
 </script>
 
 @endsection

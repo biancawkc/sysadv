@@ -22,7 +22,7 @@
                 <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <div class="input-group">
                         <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                        <input id="username" class="form-control" name="username" value="{{ old('username') }}" placeholder="Username" required autofocus>
+                        <input id="username" class="form-control" name="username" value="{{ old('username') }}" placeholder="Usuário" required autofocus>
                     </div>
                     <div>
                         @if ($errors->has('username'))

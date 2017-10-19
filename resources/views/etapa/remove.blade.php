@@ -9,7 +9,7 @@
                 <h3>Deseja excluir a etapa?</h3>
                 <br>
                 <div class="text-center">
-                    <a href="{{ URL::to('/verify') }}" class="btn btn-lg btn-info">Não <i class="fa fa-undo" aria-hidden="true"></i></a>
+                    <a href="{!! URL::previous() !!}" class="btn btn-lg btn-info">Não <i class="fa fa-undo" aria-hidden="true"></i></a>
                     &nbsp;&nbsp;&nbsp;
                     <button type="submit" class="btn btn-lg btn-danger">Sim <i class="fa fa-trash" aria-hidden="true"></i></button>
                 </div>

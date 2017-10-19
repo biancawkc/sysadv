@@ -23,7 +23,6 @@
 			<div class="col-sm-12">
 
 				<div class="row">
-
 					<div class="col-sm-4 form-group">
 						<label>Data de início<span class="asterisk">*</span></label><div class="input-group add-on col-md-12" >
 						<div class="input-group-btn">
@@ -56,7 +55,6 @@
 					<br>
 					<input type="checkbox" value="1" name="acao_grat">  Ação sem valor
 				</div>
-
 			</div>
 
 			<div class="row">
@@ -74,9 +72,7 @@
 						@endforeach
 					</select>
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 </div>
@@ -87,7 +83,7 @@
 			<div class="row pessoa" id="cliente">
 				<div class="col-sm-10 form-group">
 					<label>Cliente<span class="asterisk">*</span></label>
-					<select class="form-control single-select" name="id_parte[]" data-validation="required" data-live-search="true">
+					<select class="form-control single-select pessoa" name="id_parte[]" data-validation="required">
 						<option value="">Selecione</option>
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
@@ -112,13 +108,13 @@
 			<div class="row pessoa" id="adversa">
 				<div class="col-sm-10 form-group">
 					<label>Parte adversa<span class="asterisk">*</span></label>
-					<select class="form-control single-select" name="id_parte[]" data-validation="required">
+					<select class="form-control single-select pessoa" name="id_parte[]" data-validation="required">
 						<option value="">Selecione</option>
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
 						@endforeach
 						@foreach($pessoaJuridica as $pj)
-						<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
+						<option value="{{$pj->id_parte}}" class="juridA">{{$pj->razao_social}}</option>
 						@endforeach
 					</select>
 					<input type="hidden" name="participacao[]" value="a">
@@ -199,18 +195,36 @@
 
 </div> 
 
+
 {!! Form::close() !!}
 @endsection
 
 @section('content_js')
 <script type="text/javascript" >
+
+	$(document).on('change', 'select.pessoa.cliente', function(event) {
+       var idSelecionado = $(event.target).val();
+       var jaSelecionado = false;
+       selectsDeClientes.forEach(function(select) {
+       	if ($(select).val() === idSelecionado) {
+       		jaSelecionado = true;
+       	}
+       });
+
+       if (jaSelecionado) {
+       	// invalidar selecao do campo
+       	console.log('Cliente ja selecionado', idSelecionado);
+       }
+	})  
+	
 $(document).ready(function() {
+
   $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
 
   var x=10;  
       $('#addCl').click(function(){  
            x++;  
-           $('#cliente').after('<div class="row pessoa" id="cl'+x+'"> <div class="col-sm-10 form-group"><label>Cliente</label><select class="form-control single-select" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="c"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a id="'+x+'" class="btn btn-danger btn_removeCl"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
+           $('#cliente').after('<div class="row pessoa" id="cl'+x+'"> <div class="col-sm-10 form-group"><label>Cliente</label><select class="form-control single-select pessoa" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="c"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a id="'+x+'" class="btn btn-danger btn_removeCl"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
            $(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
       });  
       $(document).on('click', '.btn_removeCl', function(){  
@@ -222,7 +236,7 @@ $(document).ready(function() {
    var i=1;  
       $('#add').click(function(){  
            i++;  
-           $('#adversa').after('<div class="row pessoa" id="row'+i+'"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control single-select" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
+           $('#adversa').after('<div class="row pessoa" id="row'+i+'"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control single-select pessoa" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
            $(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
       });  
       $(document).on('click', '.btn_remove', function(){  
@@ -233,7 +247,6 @@ $(document).ready(function() {
       $('#clearDates').on('click', function(){
       	document.getElementById("dtFn").value= "";
       }); 
-
 });
 
 </script>

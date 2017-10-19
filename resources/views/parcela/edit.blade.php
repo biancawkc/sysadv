@@ -10,8 +10,12 @@
 @endif
 {!! Form::open(['route'=>['parcela.update', $parcela->id_parcela], 'method'=>'put', 'class'=>'form']) !!}
 @include('flash::message')
+@if(is_null($parcela->porcentagem))
+<input type="hidden" name="id_tp_parcela" value="1">
+@else
+<input type="hidden" name="id_tp_parcela" value="2">
+@endif
 <div class="container-custom">
-	<input type="hidden" name="id_tp_parcela" value="1">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	@if(is_null($parcela->porcentagem))
 	<h1 class="col-lg-12 well "> Atualizar Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i>
@@ -26,8 +30,8 @@
 				<div class="col-sm-12">
 					<div class="row">
 						<div class="col-sm-3 form-group">
-							<label>Valor parcela (R$)<span class="asterisk">*</span></label>
-							<input type='number' name="valor" class="form-control" data-validation="required" value="{{$parcela->valor}}" readonly  id="valor" onkeyup="GetDays()" />
+							<label>Valor (R$)<span class="asterisk">*</span></label>
+							<input type='text' name="valor" class="form-control" data-validation="required" value="{{ $valores}}" readonly  id="valor" onkeyup="GetDays()" />
 						</div>
 
 						<div class="col-sm-2 form-group">
@@ -44,9 +48,10 @@
 								@endforeach						
 							</select>
 						</div>
+
 					</div>
 					<div class="row">
-						<div class="col-sm-5 form-group">
+						<div class="col-sm-4 form-group">
 							<label>Data de vencimento<span class="asterisk">*</span></label>
 							<div class="input-group add-on col-md-12">
 								<div class="input-group-btn">
@@ -55,15 +60,19 @@
 								<input name="dt_venc" type="text" class="form-control date-picker" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($parcela->dt_venc))}}" readonly id="dtVenc" onchange="GetDays()">		
 							</div>
 						</div>
-						<div class="col-sm-5 form-group null">
+						<div class="col-sm-4 form-group null">
 							<label>Data de pagamento</label>
 							<div class="input-group add-on col-md-12">
 								<div class="input-group-btn">
 									<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 								</div>
-								<input name="dt_pag" type="text" class="form-control dtParcel" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$pag}}" data-validation-optional="true" id="dtPag" onchange="GetDays()">
+								<input name="dt_pag" type="text" class="form-control dtPag" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$pag}}" data-validation-optional="true" id="dtPag" onchange="GetDays()" readonly>
 							</div>
-						</div>			
+						</div>	
+						<div class="col-sm-4 form-group null">
+							<label>Responsabilidade</label><br>
+							<label class="checkbox-inline"><input type="checkbox" name="optradio" value="1">Parte Adversa</label>
+						</div>		
 					</div>
 
 					<div class="row">
@@ -107,7 +116,7 @@
 			&nbsp;&nbsp;&nbsp;
 			<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button>&nbsp;&nbsp;&nbsp;
 			@if(!empty($parcela->dt_pag))
-			<a target="_blank" href="{{ URL::to('/parcela/' .$parcela->id_parcela. '/recibo') }}" class="btn btn-lg btn-success">Recibo</a>
+			<a target="_blank" href="{{ URL::to('/parcela/' .$parcela->id_parcela. '/recibo') }}" class="btn btn-lg btn-success">Recibo  <i class="fa fa-sticky-note-o" aria-hidden="true"></i></a>
 			@else
 			<button class="btn btn-lg btn-success" disabled>Recibo <i class="fa fa-sticky-note-o" aria-hidden="true"></i></button>
 			@endif
@@ -172,17 +181,20 @@
 			document.getElementById("atual").style.display="none";
 		}
 
-		if(desconto == "")
-		{
-			document.getElementById("show").style.display="none";
-			document.getElementById("atual").style.display="block";
-		}
 
 		if(dif < 0 && desconto == "" )
 		{
 			document.getElementById("atraso").value= "";
 			document.getElementById("multa").value= "";
 			document.getElementById("show").style.display="none";
+		}
+		
+		if(dtPag == "" && desconto == "")
+		{
+			document.getElementById("atraso").value= "";
+			document.getElementById("multa").value= "";
+			document.getElementById("show").style.display="none";
+
 		}
 
 	}

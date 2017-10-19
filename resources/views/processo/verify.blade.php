@@ -14,8 +14,10 @@
                                 <input type="text" class="form-control" name="numero" data-validation="required"/>
                                 <button name="submit" class="btn btn-md btn-info">Próximo</button> 
                             </div>
-                             <label for="msg" class="errorMsg" id="errorMsg">{{ $msg }}</label>
-                        </div>  
+                        </div> 
+                        <br>
+                        <br>
+                        <label for="msg" class="errorMsg red" id="errorMsg" style="padding-left: 160px;">{{ $msg }}</label>
                     </div>
                 </div>
             </div>
@@ -24,7 +26,17 @@
 </div> 
 {!! Form::close() !!}
 @endsection
+@section('content_js')
+<script type="text/javascript">
+    $(document).ready(function() {
+     $('input[name="numero"]').focus(function() {
+       
+            $('#errorMsg').hide();  
+    });
+});
+</script>
 
+@endsection
 
 
 

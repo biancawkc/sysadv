@@ -19,6 +19,7 @@ class PessoaFisica extends Model {
               'orgao_exp',
               'cpf',
               'ctps',
+              'serie_ctps',
               'id_funcionario',
               'id_advogado',
               'id_profissao',

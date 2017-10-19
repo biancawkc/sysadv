@@ -247,9 +247,12 @@ public function update(Request $request, $idFuncionario)
 		$date = explode("/", $str2);
 		$date = $date[2] . "-" . $date[1] . "-" . $date[0];
 
+		if(!is_null($request->dt_demissao))
+		{
 		$str3 = $request->dt_demissao;
 		$date1 = explode("/", $str3);
 		$date1 = $date1[2] . "-" . $date1[1] . "-" . $date1[0];
+		}
 
 		$funcionario->dt_admissao = $date;
 		$funcionario->dt_demissao = $date1;

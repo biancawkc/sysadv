@@ -28,6 +28,8 @@
 
 				#content {margin-bottom:50px; }
 
+				.money{text-align: right;}
+
 				/*.total
 				{
 					text-align: right;
@@ -97,7 +99,11 @@
 							<th>Data de início</th>
 							<td>{{ date('d/m/Y', strtotime($processo->dt_inicio))}} </td>
 							<th>Data final</th>
+							@if(!is_null($processo->dt_final))
 							<td>{{ date('d/m/Y', strtotime($processo->dt_final))}}</td>
+							@else
+							<td></td>
+							@endif
 						</tr>
 
 						<tr>
@@ -269,138 +275,142 @@
 				<br>
 				<h3>Parte(s) Adversa(s)</h3>
 				@if (!is_null($pessoaJuridicaA))
-				@foreach($pessoaJuridicaA as $value)
+				@foreach($pessoaJuridicaA as $val)
 
 				<table class="table" style="width: 100%">
+					<tr>
+						<th style="width: 25%">Razão Social</th>
+						<td colspan="3">{{$val->razao_social}}</td>
+					</tr>
 
 					<tr>
 						<th class="col-md-4">Nome fantasia</th>
-						<td colspan="3">{{$value->nm_fantasia}}</td>
+						<td colspan="3">{{$val->nm_fantasia}}</td>
 					</tr>
 					<tr>
 						<th>CNPJ</th>
-						<td colspan="3">{{$value->cnpj}}</td>
+						<td colspan="3">{{$val->cnpj}}</td>
 					</tr>
 					<tr>
 						<th>Inscrição estadual</th>
-						<td colspan="3">{{$value->ins_estadual}}</td>
+						<td colspan="3">{{$val->ins_estadual}}</td>
 					</tr>
 					<tr>
 						<th>Descrição de Atividades</th>
-						<td colspan="3">{{$value->desc_atividades}}</td>
+						<td colspan="3">{{$val->desc_atividades}}</td>
 					</tr>
 
 
 					<tr>
 						<th class="col-md-4">Email</th>
-						<td colspan="3">{{$value->email}}</td>
+						<td colspan="3">{{$val->email}}</td>
 					</tr>
 
 					<tr>
 						<th>Telefone</th>
-						<td colspan="3">{{$value->telefones}}</td>
+						<td colspan="3">{{$val->telefones}}</td>
 					</tr>
 
 
 					<tr>
 						<th style="width: 20%">CEP</th>
-						<td>{{$value->cep}}</td>
+						<td>{{$val->cep}}</td>
 						<th>Bairro</th>
-						<td>{{$value->bairro}}</td>
+						<td>{{$val->bairro}}</td>
 					</tr>
 
 					<tr>
 						<th>Cidade</th>
-						<td>{{$value->cidade}}</td>
+						<td>{{$val->cidade}}</td>
 						<th style="width: 15%">UF</th>
-						<td>{{$value->uf}}</td>
+						<td>{{$val->uf}}</td>
 					</tr>
 
 					<tr>
 						<th>Logradouro</th>
-						<td colspan="3">{{$value->logradouro}}</td>
+						<td colspan="3">{{$val->logradouro}}</td>
 					</tr>
 					<tr>
 						<th>Número</th>
-						<td>{{$value->numero}}</td>
+						<td>{{$val->numero}}</td>
 						<th>Complemento</th>
-						<td>{{$value->complemento}}</td>
+						<td>{{$val->complemento}}</td>
 					</tr>
 				</table>
 				@endforeach
 				@endif
 
 				@if(!is_null($pessoaFisicaA)) 
-				@foreach($pessoaFisicaA as $key => $values)
+				@foreach($pessoaFisicaA as $vals)
 				<table class="table" style="width: 100%">
 					<tr>
 						<th style="width: 25%">Nome</th>
-						<td colspan="3">{{$values->nome}}</td>
+						<td colspan="3">{{$vals->nome}}</td>
 					</tr>
 					<tr>
 						<th style="width: 25%">RG</th>
-						<td>{{$values -> rg}}</td>
+						<td>{{$vals -> rg}}</td>
 						<th style="width: 25%">Orgão Exp.</th>
-						<td>{{$values -> orgao_exp}}</td>
+						<td>{{$vals -> orgao_exp}}</td>
 					</tr>
 					<tr>
 						<th>CPF</th>
-						<td>{{$values -> cpf}}</td>
+						<td>{{$vals -> cpf}}</td>
 						<th>Estado civil</th>
-						<td>{{$values -> estados}}</td>
+						<td>{{$vals -> estados}}</td>
 					</tr>
 					<tr>
 						<th>Data Nasc.</th>
-						<td colspan="3">{{ date('d/m/Y', strtotime($values->dt_nasc)) }}</td>
+						<td colspan="3">{{ date('d/m/Y', strtotime($vals->dt_nasc)) }}</td>
 					</tr>
 
 					<tr>
 						<th>Email</th>
-						<td colspan="3">{{$values->email}}</td>
+						<td colspan="3">{{$vals->email}}</td>
 					</tr>
 
 					<tr>
 						<th>Telefone(s)</th>
-						<td colspan="3">{{$values->telefones}}</td>
+						<td colspan="3">{{$vals->telefones}}</td>
 					</tr>
 
 					<tr>
 						<th style="width: 20%">CTPS</th>
-						<td colspan="3">{{$values -> ctps}}</td>
+						<td colspan="3">{{$vals -> ctps}}</td>
 					</tr>
 					<tr>
 						<th>CBO</th>
-						<td>{{$values->cbo}}</td>
+						<td>{{$vals->cbo}}</td>
 						<th>Remuneração</th>
 						<td></td>
 					</tr>
 					<tr>
 						<th>Profissão</th>
-						<td colspan="3">{{ucfirst(strtolower($values->profis))}}</td>
+						<td colspan="3">{{ucfirst(strtolower($vals->profis))}}</td>
 					</tr>
 					<tr>
 						<th>CEP</th>
-						<td>{{$values->cep}}</td>
+						<td>{{$vals->cep}}</td>
 						<th>Bairro</th>
-						<td>{{$values->bairro}}</td>
+						<td>{{$vals->bairro}}</td>
 					</tr>
 
 					<tr>
 						<th>Cidade</th>
-						<td>{{$values->cidade}}</td>
+						<td>{{$vals->cidade}}</td>
 						<th>UF</th>
-						<td>{{$values->uf}}</td>
+						<td>{{$vals->uf}}</td>
 					</tr>
 
 					<tr>
 						<th >Logradouro</th>
-						<td colspan="3">{{$values->logradouro}}</td>
+						<td colspan="3">{{$vals->logradouro}}</td>
 					</tr>
 					<tr>
 						<th>Número</th>
-						<td>{{$values->numero}}</td>
+						<td>{{$vals->numero}}</td>
 						<th>Complemento</th>
-						<td>{{$values->complemento}}</td>
+						<td>{{$vals->complemento}}</td>
 					</tr>
 				</table>
 				@endforeach
@@ -409,10 +419,10 @@
 				<h3>Etapas</h3>
 				<table class="table" style="width: 100%">
 					<tr>					
-						<th>Nome</th>						
-						<th>Data Início</th>						
-						<th>Data Final</th>		
-						<th>Descrição</th>				
+						<th style="width: 30%">Nome</th>						
+						<th style="width: 20%">Data Início</th>						
+						<th style="width: 20%">Data Final</th>		
+						<th style="width: 30%">Descrição</th>				
 					</tr>
 					
 					@if(!$etapa->isEmpty()) 
@@ -436,21 +446,21 @@
 				<h3>Despesas</h3>
 				<table class="table" style="width: 100%">
 					<tr>					
-						<th style="width: 15%">Valor (R$)</th>						
-						<th>Data</th>						
+						<th style="width: 20%">Valor (R$)</th>						
+						<th style="width: 25%">Data</th>						
 						<th>Descrição</th>						
 					</tr>
 					
 					@if(!$despesa->isEmpty()) 
 					@foreach($despesa as  $despesas)
 					<tr>
-						<td>{{$despesas->valor}}</td>
+						<td class="money"> R$ {{number_format($despesas->valor,2,",",".")}}</td>
 						<td>{{ date('d/m/Y', strtotime($despesas -> dt_despesa))}}</td>
 						<td>{{$despesas->desc_despesa}} </td>
 					</tr>
 					@endforeach
 					<tr>
-					<td colspan="3"><b>Total: R$ {{$despesaTotal}}</b></td>
+					<td colspan="3" class="money"><b>Total: R$ {{number_format($despesaTotal,2,",",".")}}</b></td>
 					</tr>
 					@elseif($despesa->isEmpty())
 					<tr>
@@ -464,7 +474,7 @@
 					<tr>
 						<th style="width: 12%">Número</th>
 						
-						<th style="width: 15%">Valor (R$)</th>
+						<th style="width: 20%">Valor</th>
 						
 						<th>Data Vencimento</th>
 						
@@ -476,7 +486,7 @@
 					@foreach($parcelaH as  $parcelasH)
 					<tr>
 						<td>{{$parcelasH -> num_parcela}}</td>
-						<td>{{$parcelasH -> valor}}</td>
+						<td class="money">R$ {{number_format($parcelasH -> valor,2,",",".")}} </td>
 						<td>{{ date('d/m/Y', strtotime($parcelasH -> dt_venc))}}</td>
 						@if(!is_null($parcelasH->dt_pag))
 						<td>{{ date('d/m/Y', strtotime($parcelasH -> dt_pag))}}</td>
@@ -486,13 +496,13 @@
 					</tr>
 					@endforeach
 					<tr>
-					<td colspan="4" class="total"><b>Total: R$ {{$parcelaHtotal}}</b></td>
+					<td colspan="4" class="total money"><b>Total: R$ {{number_format($parcelaHtotal,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class=""><b>Total à receber: R$ {{$parcelaRece}}</b></td>
+					<td colspan="4" class="money"><b>Total à receber: R$ {{number_format($parcelaRece,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class=""><b>Total pago: R$ {{$parcelaHsum}}</b></td>
+					<td colspan="4" class="money"><b>Total pago: R$ {{number_format($parcelaHsum,2,",",".")}}</b></td>
 					</tr>
 					@elseif($parcelaH->isEmpty())
 					<tr>
@@ -506,7 +516,7 @@
 
 					<tr>
 						<th style="width: 12%">Número</th>						
-						<th style="width: 15%">Valor (R$)</th>						
+						<th style="width: 20%">Valor</th>						
 						<th>Data Vencimento</th>						
 						<th>Data Pagamento</th>						
 					</tr>
@@ -515,7 +525,7 @@
 					@foreach($parcelaG as  $parcelasG)
 					<tr>
 						<td>{{$parcelasG -> num_parcela}}</td>
-						<td>{{$parcelasG -> valor}}</td>
+						<td class="money">R$ {{number_format($parcelasG->valor,2,",",".")}}</td>
 						<td>{{ date('d/m/Y', strtotime($parcelasG -> dt_venc))}}</td>
 						@if(!is_null($parcelasG->dt_pag))
 						<td>{{ date('d/m/Y', strtotime($parcelasG -> dt_pag))}}</td>
@@ -525,13 +535,13 @@
 					</tr>
 					@endforeach
 					<tr>
-					<td colspan="4" class="total"><b>Total: R$ {{$parcelaGtotal}}</b></td>
+					<td colspan="4" class="total money"><b>Total: R$ {{ number_format($parcelaGtotal,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class=""><b>Total à receber: R$ {{$parcelaGRece}}</b></td>
+					<td colspan="4" class="money"><b>Total à receber: R$ {{ number_format($parcelaGRece,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class=""><b>Total pago: R$ {{$parcelaGsum}}</b></td>
+					<td colspan="4" class="money"><b>Total pago: R$ {{number_format($parcelaGsum,2,",",".")}}</b></td>
 					</tr>
 					@elseif($parcelaG->isEmpty())
 					<tr>

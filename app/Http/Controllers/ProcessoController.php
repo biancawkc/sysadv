@@ -120,20 +120,36 @@ class ProcessoController extends Controller
 			}
 			$processo->save();
 
-			foreach ($request->id_parte  as $ind => $val) {
-				if(!empty($val)){
-					$parteProcesso = new \App\Models\ParteTemProcesso();
-					$parteProcesso->id_parte = $val;
-					$parteProcesso->id_processo = $processo->getAttribute("id_processo");
-					$parteProcesso->participacao = $request->participacao[$ind];
-					$parteProcesso->save();
+			$error = false;
+
+			$i = count($request->id_parte);
+			$j = 0;
+			$y = 0;
+
+			for($x = $j; $y <= $i; $y++)
+			{
+				if ($request->id_parte[$y] == $request->id_parte[$y+1])
+				{
+					$error = true;
 				}
 			}
+			
+			if($error = false)
+			{
+				foreach ($request->id_parte  as $ind => $val) {
 
-
+					if(!empty($val)){
+						$parteProcesso = new \App\Models\ParteTemProcesso();
+						$parteProcesso->id_parte = $val;
+						$parteProcesso->id_processo = $processo->getAttribute("id_processo");
+						$parteProcesso->participacao = $request->participacao[$ind];
+						$parteProcesso->save();
+					}
+				}
+			}
+			
 			flash()->success('Cadastro Inserido com Sucesso!');
 			return redirect('/processo/');
-
 		}
 	}
 
@@ -178,7 +194,6 @@ class ProcessoController extends Controller
 					AND parte_tem_processo.participacao LIKE 'c'
 
 					");
-
 
 
 				$pessoaFisicaC = NULL;
@@ -342,9 +357,6 @@ class ProcessoController extends Controller
                             	->where('parte_tem_processo.id_processo', '=', $id)
                             	->get();
 
-
-
-
                             	$pessoaJuridicaC = \DB::table('parte_tem_processo')
                             	->join('pessoa_juridica', 'parte_tem_processo.id_parte', '=', 'pessoa_juridica.id_parte')
                             	->where([
@@ -398,7 +410,7 @@ class ProcessoController extends Controller
                             		'desc_processo' => 'required|max:2000',
                             		'nome_acao' => 'required|max:100',
                             		'dt_inicio' => 'required',
-                            		'id_estado_processo' =>'required'
+                            		//'id_estado_processo' =>'required'
                             	]);
                             	if ($validator->fails()) {
                             		return redirect('processo/create')
@@ -415,7 +427,7 @@ class ProcessoController extends Controller
                             		$processo->acao_grat = $request->acao_grat;
                             		$processo->id_vara = $request->id_vara;
                             		$processo->id_justica = $request->id_justica;
-                            		$processo->id_estado_processo = $request->id_estado_processo;
+                            		//$processo->id_estado_processo = $request->id_estado_processo;
                             		$processo->id_comarca = $request->id_comarca;
                             		$processo->id_advogado = $request->id_advogado;
 
@@ -424,10 +436,13 @@ class ProcessoController extends Controller
                             		$data = $data[2] . "-" . $data[1] . "-" . $data[0];
                             		$processo->dt_inicio = new \DateTime($data);
 
+                            		if(!is_null($request->dt_final))
+                            		{
                             		$str2 = $request->dt_final;
                             		$date = explode("/", $str2);
                             		$date = $date[2] . "/" . $date[1] . "/" . $date[0];
                             		$processo->dt_final = new \DateTime($date);
+                            		}
                             		$processo->save();
 
                             		\DB::delete('DELETE FROM parte_tem_processo WHERE id_processo ='.$id);

@@ -5,13 +5,17 @@
    <h1 class="col-lg-12 well" >Etapas Cadastradas <i class="fa fa-calendar-check-o etapa" aria-hidden="true"></i></h1>
    <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
    <br>
-   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo}}</a> </b></h2>
+   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo->numero}}</a> </b></h2>
    <br>
    <!-- <a href="{{ URL::to('/etapa/' . $idProcesso. '/create') }}" class="btn btn-lg btn-success"> <i class="fa fa-calendar-plus-o fa-1x" aria-hidden="true"></i></a>  -->
-   <a  class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a> 
+   @if($processo->id_estado_processo == 1)
+   <a  class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+   @else
+    <button class="btn btn-lg btn-success" disabled><i class="fa fa-plus" aria-hidden="true"></i></button>
+   @endif
    <br>
    <br>
-   <table class="table table-striped table-bordered text-center tblCadastro " >
+   <table class="table table-striped table-bordered tblCadastro " >
     <thead>
         <tr>
            <!-- <th>ID</th> -->
@@ -29,7 +33,7 @@
         <td>{!! $value->nm_etapa !!}</td>
         <td>{!! date('d/m/Y', strtotime($value->dt_etapa)) !!}</td>
         <td>{!! date('d/m/Y', strtotime($value->dt_prazo)) !!}</td>
-        <td>
+        <td class="text-center">
             <a href="{{ URL::to('/etapa/' . $value->id_etapa_processo . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>    
         </td>
     </tr>
@@ -40,7 +44,11 @@
 <br>
 <!-- <a href="{{ URL::to('/etapa/' . $idProcesso. '/create') }}" class="btn btn-lg btn-success"> <i class="fa fa-calendar-plus-o fa-1x" aria-hidden="true"></i></a>
  -->
- <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-calendar-plus-o" aria-hidden="true"></i></a> 
+ @if($processo->id_estado_processo == 1)
+   <a  class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+   @else
+    <button class="btn btn-lg btn-success" disabled><i class="fa fa-plus" aria-hidden="true"></i></button>
+   @endif
 
 <div class="modal fade" id="addModal" role="dialog">
     <div class="modal-dialog modal-lg">

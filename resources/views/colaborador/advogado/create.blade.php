@@ -21,7 +21,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo<span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" autofocus data-validation="required custom"  data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" >
+					<input type="text" placeholder="" name="nome" class="form-control" autofocus data-validation="required custom"  data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
 				</div>	
 
 				<div class="row">

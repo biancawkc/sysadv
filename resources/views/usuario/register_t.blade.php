@@ -52,7 +52,7 @@
 
 					<div class="row">
 						<div class="col-sm-4 form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-							<label>Username<span class="asterisk">*</span></label>				
+							<label>Usuário<span class="asterisk">*</span></label>				
 							<input type='text' name="username" class="form-control" value="{{ old('username') }}" data-validation="required"/>
 							<!-- @if ($errors->has('username'))
 							<span class="help-block">

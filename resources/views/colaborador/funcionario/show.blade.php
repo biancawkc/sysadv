@@ -35,7 +35,11 @@
        <th>Data de Admissão</th>
        <td>{{date('d/m/Y', strtotime($funcionario->dt_admissao))}}</td>
        <th>Data de Demissão</th>
+       @if(!empty($funcionario->dt_demissao))
        <td>{{date('d/m/Y', strtotime($funcionario->dt_demissao))}}</td>
+       @else
+       <td> - </td>
+       @endif
      </tr>
      <tr>
        <th>Qualificações</th>

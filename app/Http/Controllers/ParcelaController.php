@@ -13,6 +13,10 @@ class ParcelaController extends Controller
 	public function index($idProcesso)
 	{
 		$processo = \DB::table('processo')
+		->join('justica', 'processo.id_justica', '=', 'justica.id_justica')
+		->join('comarca', 'processo.id_comarca', '=', 'comarca.id_comarca')
+		->join('vara', 'processo.id_vara', '=', 'vara.id_vara')
+		->join('estado_processo', 'estado_processo.id_estado_processo', '=', 'processo.id_estado_processo')
 		->where('id_processo', $idProcesso)
 		->first();
 
@@ -105,7 +109,7 @@ class ParcelaController extends Controller
 			\DB::table('processo')
 			->where('id_processo','=', $idProcesso)
 			->update([
-				'valor_acao' => $request->valor_acao;				
+				'valor_acao' => $request->valor_acao				
 				]);
 
 			$parcela = new \App\Models\Parcela();
@@ -157,6 +161,7 @@ class ParcelaController extends Controller
 	{	
 		$parcela = \App\Models\Parcela::find($id);
 		$formaPag = \DB::table('forma_pag')->get();
+		$valores = number_format($parcela->valor,2,",",".");
 		if(!is_null($parcela->dt_pag))
 		{
 			$pag = date('d/m/Y', strtotime($parcela->dt_pag));
@@ -189,7 +194,8 @@ class ParcelaController extends Controller
 		->with('formaPag', $formaPag)
 		->with('parcela', $parcela)
 		->with('pag', $pag)
-		->with('valorF', $valorF);	
+		->with('valorF', $valorF)
+		->with('valores', $valores);	
 	}
 
 	public function update (Request $request, $id)

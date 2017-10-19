@@ -8,6 +8,17 @@ $(document).ready(function() {
         minDate: 0
     });
 
+    $(".dtAdmissao").datepicker({
+        dateFormat: 'dd/mm/yy',
+        maxDate: 0
+    });
+
+    $(".dtPag").datepicker({
+        dateFormat: 'dd/mm/yy',
+        minDate: 0,
+        maxDate: 0
+    });
+
     $(".dtIni").datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
@@ -152,6 +163,8 @@ $(document).ready(function() {
         $("#tel").unmask();
         $("#cnpj").unmask();
         $(".phone_with_ddd").unmask();
+        $(".money").unmask();
+        $(".ctps_serie").unmask();
     });
 
 
@@ -219,14 +232,13 @@ $(document).ready(function() {
             $('.date').mask('00/00/0000');
             $('.cpf').mask('000.000.000-00', {reverse: true});
             $('.cep').mask('00000-000');
+            $('.ctps_serie').mask('000-0')
             $('.phone_with_ddd').mask('(00) 0000-00000');
-            $('.rg').mask('00.000.0000-0', {reverse: true});
+            $('.rg').mask('00.000.000-0', {reverse: true});
             $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
+            $(".money").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
 
             $('[data-toggle="tooltip"]').tooltip(); 
-
-        
-
 
         });
 

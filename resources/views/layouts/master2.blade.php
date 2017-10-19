@@ -92,7 +92,6 @@
 </nav>
 
 
-
 <div  style="height:auto; margin: 0 auto -60px; padding: 0 0 60px">
     @yield('content')
 </div>
@@ -107,9 +106,7 @@
 <script src="/js/app.js"></script>
 <script src="{{ asset('../vendor/components/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('../vendor/twbs/bootstrap/dist/js/bootstrap.min.js') }}"></script>
-<script src="{{asset('../vendor/components/jquery/jquery-migrate.min.js')}}"></script>
 <script src="{{asset('../vendor/datatables/datatables/media/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{asset('../resources/assets/Portuguese.json')}}"></script>
 <!-- <script src="{{asset('../vendor/eternicode/bootstrap-datepicker/js/bootstrap-datepicker.js')}}"></script> -->
 <script src="{{asset('../vendor/bootstrap-select/bootstrap-select/dist/js/bootstrap-select.min.js')}}"></script>
 <!-- <script src="{{asset('../vendor/eternicode/bootstrap-datepicker/js/locales/bootstrap-datepicker.pt-BR.js')}}"></script>
@@ -117,14 +114,15 @@
  <script src="{{asset('../resources/assets/js/jQuery-Form-Validator/form-validator/jquery.form-validator.min.js')}}"></script>
 <script src="{{asset('../resources/assets/js/jquery-ui/jquery-ui.min.js')}}"></script>
 <script src="{{asset('../resources/assets/js/jquery.mask.js')}}"></script>
-<script src="{{asset('../vendor/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js')}}"></script>
-<script src="{{asset('../vendor/bootstrap-fileinput/js/plugins/sortable.min.js')}}"></script>
+<!-- <script src="{{asset('../vendor/bootstrap-fileinput/js/plugins/canvas-to-blob.min.js')}}"></script>
+ --><script src="{{asset('../vendor/bootstrap-fileinput/js/plugins/sortable.min.js')}}"></script>
 <script src="{{asset('../vendor/bootstrap-fileinput/js/plugins/purify.min.js')}}"></script>
 <script src="{{asset('../vendor/bootstrap-fileinput/js/fileinput.min.js')}}"></script>
 <script src="{{asset('../vendor/bootstrap-fileinput/themes/fa/theme.js')}}"></script>
 <script src="{{asset('../vendor/bootstrap-fileinput/js/locales/pt-BR.js')}}"></script>
 <script src="{{asset('../vendor/select2/select2/dist/js/select2.js')}}"></script>
 <script src="{{asset('../resources/assets/js/inc.js')}}"></script>
+<script src="{{asset('../resources/assets/js/maskmoney/src/jquery.maskMoney.js')}}"></script>
 @yield('content_js')
 </body>
 </html>

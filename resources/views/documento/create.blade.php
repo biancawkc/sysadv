@@ -20,7 +20,7 @@
 			<div class="col-sm-12">
 				<div class="form-group">
 					<label>Nome <span class="asterisk">*</span></label>					
-					<input type="text" placeholder="" name="nome_documento" class="form-control"  data-validation="required">
+					<input type="text" placeholder="" name="nome_documento" class="form-control"  data-validation="required" value="{{ old('nome_documento') }}">
 				</div>
 
 				<div class="form-group">
@@ -31,7 +31,7 @@
 				
 				<div class="form-group">
 					<label>Descrição</label>
-					<textarea class="form-control" rows="4" name="desc_documento"  rows="4"></textarea>
+					<textarea class="form-control" rows="4" name="desc_documento"  rows="4">{{ old('desc_documento') }}</textarea>
 				</div>
 
 			</div>
@@ -54,6 +54,10 @@
 @endsection
 
 @section('content_js')
-
+<script type="text/javascript">
+	$.validate({
+  modules : 'file'
+});
+</script>
 
 @endsection

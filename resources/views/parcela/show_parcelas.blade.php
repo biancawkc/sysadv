@@ -9,7 +9,7 @@
  <input type="hidden" name="dt_venc" value="{{$data}}">
  <input type="hidden" name="num_parcelas" value="{{$qtd}}">
  <input type="hidden" name="juros" value="{{$juros}}">
- <input type="hidden" name="valor_acao" value="{{valor_acao}}">
+ <input type="hidden" name="valor_acao" value="{{$valor_acao}}">
 
  <div class="container-custom">
  @if($tipo == 1)
@@ -26,14 +26,14 @@
  			</tr>
  			<tr>
  				<td>1 de {{$qtd}}</td>
- 				<td>{{$primeira}}</td>
+ 				<td class="money">{{$primeira}}</td>
  				<td>{{date('d/m/Y', strtotime($data))}}</td>
  			</tr>
  			<?php for($j = $qtd-1; $i <= $j; $i++ )
  			{ ?>
  			<tr>
  				<td>{{$i+1}} de {{$qtd}}</td>	
- 				<td>{{$demais}}</td>
+ 				<td class="money">{{$demais}}</td>
  				<?php $time = strtotime($data);
  				$date = strtotime('+'.$i.' month', $time);
  				$dt_venc = date("Y-m-d", $date);?>

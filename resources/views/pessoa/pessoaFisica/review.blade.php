@@ -23,7 +23,7 @@
 				<div class="form-group">
 					<label>Nome Completo <span class="asterisk">*</span></label>
 					<input type="text" placeholder="" name="nome" class="form-control" 
-					data-validation="required custom" value="{{ $pessoaFisica->nome }}" data-validation-regexp="^[a-zA-Z ]+$">
+					data-validation="required custom" value="{{ $pessoaFisica->nome }}" data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$">
 				</div>
 
 

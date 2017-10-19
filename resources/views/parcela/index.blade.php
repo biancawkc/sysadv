@@ -1,15 +1,29 @@
  @extends('layouts.master2')
  @section('content')
+
  <div class="container">
    @include('flash::message')
    <h1 class="col-lg-12 well">Parcelas de Pagamento <i class="fa fa-money parcela" aria-hidden="true"></i></h1>
    <br>
-   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo->numero}}</a> </b></h2>
-   <br>
+   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo->numero}}</a> </b><a type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#demo" id="open"><i class="fa fa-arrow-down" aria-hidden="true"></i></a><a type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#demo" id="close"><i class="fa fa-arrow-up" aria-hidden="true"></i></a></h2>
+   <div class="row">
+   <div class="col-lg-9">
+  <div id="demo" class="collapse">
+    <p><b>Estado Processo</b>: {{$processo->desc_est_processo}} / <b>Nome Ação</b>: {{$processo->nome_acao}} / <b>Jutiça:</b> {{$processo->nm_justica}} / <b>Comarca:</b> {{$processo->comarca}} / <b>Vara:</b> {{$processo->vara}} / <b>Justiça Gratuita:</b> @if($processo->justica_grat == 1) Sim @else Não @endif / <b>Ação Gratuita:</b> @if($processo->acao_grat == 1) Sim @else Não @endif / <b>Data Início</b>: {{ date('d/m/Y', strtotime($processo->dt_inicio)) }} / <b>Data Final</b>: @if(!empty($processo->dt_final)){{ date('d/m/Y', strtotime($processo->dt_final)) }}@else - @endif </p>
+  </div>
+  </div>
+</div>
+  <br>
+
 <!--    <a href="{{ URL::to('parcela/'.$idProcesso.'/create') }}" class="btn btn-lg btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a> -->
-   <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+@if($processo->id_estado_processo == 1)
+<a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+@else
+<button class="btn btn-lg btn-success" disabled><i class="fa fa-plus" aria-hidden="true"></i></button>
+@endif
+   
    <br><br>
-   <table class="table table-striped table-bordered tblCadastro" >
+   <table class="table table-striped table-bordered tblCadastro text-right" >
     <thead>
       <tr>
        <th class="col-md-1">Nº</th>
@@ -26,7 +40,7 @@
     @foreach($parcela as $key => $value)
     <tr>
       <td>{!! $value->num_parcela !!}</td>
-      <td>R$ {!! $value->valor !!}</td>
+      <td class="text-right">R$  {!! number_format($value->valor,2,",",".") !!}</td>
       <td>{!! date('d/m/Y', strtotime($value->dt_venc)) !!}</td>
       @if(!empty($value->dt_pag))
       <td>{!! date('d/m/Y', strtotime($value->dt_pag)) !!}</td>
@@ -54,7 +68,11 @@
 <br>
 <!-- <a href="{{ URL::to('parcela/'.$idProcesso.'/create') }}" class="btn btn-lg btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
  -->
- <a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+@if($processo->id_estado_processo == 1)
+<a class="btn btn-success btn-lg" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus" aria-hidden="true"></i></a> 
+@else
+<button class="btn btn-lg btn-success" disabled><i class="fa fa-plus" aria-hidden="true"></i></button>
+@endif
 
 <div class="modal fade" id="addModal" role="dialog">
   <div class="modal-dialog modal-lg">
@@ -71,9 +89,4 @@
 </div>
 <br>
 @endsection
-
-@section('content_js')
-
-@endsection
-
 

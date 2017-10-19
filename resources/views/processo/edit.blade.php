@@ -11,7 +11,8 @@
 {!! Form::open(['route'=>['processo.update', $processo->id_processo], 'method'=>'put', 'class'=>'form']) !!}
 @include('flash::message')
 <div class="container-custom">
-	<input type="hidden" name="ativo" value="0">
+	<input type="hidden" value="0" name="justica_grat">
+	<input type="hidden" value="0" name="acao_grat">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Editar Processo <i class="fa fa-file processo" aria-hidden="true"></i>
 	</h1>
@@ -148,9 +149,9 @@
 				</div>
 				<div class="col-sm-2 form-group" style="padding-top: 32px; padding-left: 40px;">
 					@if(!$pessoaJuridicaC->isEmpty())
-					<button type="button" name="remove" id="01{{$index}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
+					<button type="button" name="remove" id="01{{$ind}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
 					@elseif($pessoaJuridicaC->isEmpty() && $ind !== 0)
-					<button type="button" name="remove" id="01{{$index}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
+					<button type="button" name="remove" id="01{{$ind}}" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button> &nbsp;&nbsp;
 					@elseif($pessoaJuridicaC->isEmpty() && $ind == 0)
 					<a id="addCl" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 					@endif
@@ -298,7 +299,7 @@
 						<label>Status do processo<span class="asterisk">*</span></label>
 
 						<select class="form-control single-select" data-validation="required" name="id_estado_processo" id="status">
-							<option>Selecione</option>
+							<option value="">Selecione</option>
 							@foreach($status as $stage)
 							<option value="{{$stage->id_estado_processo}}">{{$stage->desc_est_processo}}</option>
 							@endforeach
@@ -322,8 +323,6 @@
 	</div>
 	<br>
 	<br>
-
-
 </div> 
 
 {!! Form::close() !!}

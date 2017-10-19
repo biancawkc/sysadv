@@ -142,8 +142,6 @@ footer {
 }
 
 
-
-
 *{
   margin:0;
   padding:0;
@@ -235,12 +233,12 @@ footer {
     overflow-y: auto;
 }
  .custom-modal {
-    width: 750px;
+    max-width: 750px;
     margin: 30px auto;
   }
 
   .add-modal {
-    width: 500px;
+    max-width: 500px;
     margin: auto;
   }
 .add-modal-body {
@@ -279,11 +277,17 @@ footer {
   background-color: transparent;
 }
 
-#erro_cnpj{
+#erro_cnpj
+{
 font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; 
 display: block; 
 color: #b94a48;
 margin-top: 5px;
 margin-bottom: 10px;
 line-height: 140%;
-font-size: 14px;"}
+font-size: 14px;"
+}
+
+#close {
+    display: none;
+}
