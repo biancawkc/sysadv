@@ -6,6 +6,7 @@
     <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a> --> 
     <br>
     <br>
+    <div class="table-responsive-force">
      <table class="table table-striped table-bordered tblCadastro" >
         <thead>
             <tr>
@@ -42,7 +43,7 @@
         @endif
     </tbody>
 </table>
-
+</div>
 </div>
 <br>
 @endsection

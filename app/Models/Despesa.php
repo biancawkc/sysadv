@@ -16,7 +16,8 @@ class Despesa extends Model {
               'valor',
               'desc_despesa',
               'dt_despesa',
-              'id_processo'
+              'id_processo',
+              'id_usuario'
         
     ];
     

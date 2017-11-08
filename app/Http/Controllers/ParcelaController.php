@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Barryvdh\DomPDF\Facade as PDF;
 use Redirect;
 use NumberFormatter;
+use Auth;
 
 class ParcelaController extends Controller
 {	
@@ -113,13 +114,16 @@ class ParcelaController extends Controller
 				]);
 
 			$parcela = new \App\Models\Parcela();
+			$usuario = \App\Models\Usuario::where('username', '=', Auth::user()->username)->value('id_usuario');
 
 			$parcela->num_parcela = $first;
+			$parcela->adversa_pag = 0;
 			$parcela->valor = $request->primeira;
 			$parcela->juros = $request->juros;
 			$parcela->id_processo = $idProcesso;
 			$parcela->id_forma_pag = $request->id_forma_pag;
 			$parcela->id_tp_parcela = $request->id_tp_parcela;
+			$parcela->id_usuario = $usuario;
 			$parcela->porcentagem = $request->porcentagem;
 
 			/*$str = $request->dt_venc;
@@ -142,6 +146,7 @@ class ParcelaController extends Controller
 				$first++;
 
 				$parcela->num_parcela = $first;
+				$parcela->adversa_pag = 0;
 				$parcela->valor = $request->valor;
 				$parcela->juros = $request->juros;
 				$parcela->dt_venc = $dt_venc;
@@ -149,6 +154,7 @@ class ParcelaController extends Controller
 				$parcela->id_forma_pag = $request->id_forma_pag;
 				$parcela->id_tp_parcela = $request->id_tp_parcela;
 				$parcela->porcentagem = $request->porcentagem;
+				$parcela->id_usuario = $usuario;
 				$parcela->save();
 			}	
 
@@ -162,6 +168,16 @@ class ParcelaController extends Controller
 		$parcela = \App\Models\Parcela::find($id);
 		$formaPag = \DB::table('forma_pag')->get();
 		$valores = number_format($parcela->valor,2,",",".");
+
+		$processo = \DB::table('processo')
+		->join('justica', 'processo.id_justica', '=', 'justica.id_justica')
+		->join('comarca', 'processo.id_comarca', '=', 'comarca.id_comarca')
+		->join('vara', 'processo.id_vara', '=', 'vara.id_vara')
+		->join('estado_processo', 'estado_processo.id_estado_processo', '=', 'processo.id_estado_processo')
+		->where('id_processo', $parcela->id_processo)
+		->first();
+		$usuario = \App\Models\Usuario::find($parcela->id_usuario);
+
 		if(!is_null($parcela->dt_pag))
 		{
 			$pag = date('d/m/Y', strtotime($parcela->dt_pag));
@@ -195,7 +211,9 @@ class ParcelaController extends Controller
 		->with('parcela', $parcela)
 		->with('pag', $pag)
 		->with('valorF', $valorF)
-		->with('valores', $valores);	
+		->with('valores', $valores)
+		->with('processo', $processo)
+		->with('usuario', $usuario);	
 	}
 
 	public function update (Request $request, $id)
@@ -210,15 +228,25 @@ class ParcelaController extends Controller
 		} else {
 			
 			$parcela = \App\Models\Parcela::find($id);
+			$usuario = \App\Models\Usuario::where('username', '=', Auth::user()->username)->value('id_usuario');
 
 			$parcela->num_parcela = $request->num_parcela;
 			$parcela->valor = $request->valor;
+			if($request->adversa_pag != 1)
+			{
+				$parcela->adversa_pag = 0;
+			}
+			else
+			{
+			$parcela->adversa_pag = 1;
+			}
 			$parcela->juros = $request->juros;
 			$parcela->desconto = $request->desconto;
 			$parcela->dias_atraso = $request->dias_atraso;
 			$parcela->multa = $request->multa;
 			$parcela->id_forma_pag = $request->id_forma_pag;
 			$parcela->id_tp_parcela = $request->id_tp_parcela;
+			$parcela->id_usuario = $usuario;
 
 			$str = $request->dt_venc;
 			$data = explode("/", $str);
@@ -270,8 +298,27 @@ class ParcelaController extends Controller
 			['parte_tem_processo.participacao', '=', 'c'],
 			])->get();
 
+		$adversaJurid = \DB::table('parte_tem_processo')
+		->join('pessoa_juridica', 'parte_tem_processo.id_parte', '=', 'pessoa_juridica.id_parte')
+		->where([
+			['parte_tem_processo.id_processo', '=', $idProcesso],
+			['parte_tem_processo.participacao', '=', 'a'],
+			])->get();
+
+		$adversaFis = \DB::table('parte_tem_processo')
+		->join('pessoa_fisica', 'parte_tem_processo.id_parte', '=', 'pessoa_fisica.id_parte')
+		->where([
+			['parte_tem_processo.id_processo', '=', $idProcesso],
+			['parte_tem_processo.participacao', '=', 'a'],
+			])->get();
+
+		$countAdvJur = $adversaJurid->count();
+		$countAdvFis = $adversaFis->count();
+
 		$fis="";
 		$jurid="";
+		$fisA="";
+		$juridA="";
 		$multa="";
 		$desconto="";
 
@@ -294,6 +341,39 @@ class ParcelaController extends Controller
 
 		$valorF = (float)$parcela->valor + $multa - $desconto;
 		
+		if($parcela->adversa_pag == 1)
+		{
+			if(!empty($adversaJurid))
+		{	
+			$iMaxA = count($adversaJurid)-1;
+			foreach ($adversaJurid as $a=>$AJ) {
+				$juridA .= $AJ->razao_social;
+
+				if($iMaxA-$a-1 == 0 && $iMaxA > 0 && empty($adversaFis)) {
+					$juridA .= " e ";
+				}elseif($countAdvFis > 1){
+					$juridA .= ", ";
+				}elseif($iMaxA-$a-1 > 0){
+					$juridA .= ", ";
+				}
+			}
+		} 
+		
+		if (!empty($adversaFis)) {
+			$xMaxa = count($adversaFis)-1;
+			foreach ($adversaFis as $y=>$AF) {
+				$fisA .= $AF->nome;
+				if($xMaxa-$y-1 == 0 && $xMaxa > 0) {
+					$fisA .= " e ";
+				}elseif($xMaxa-$y > 0){
+					$fisA .= ", ";
+				}
+			}
+		}
+
+		}
+		elseif($parcela->adversa_pag == 0)
+		{
 		if(!empty($clienteJurid))
 		{	
 			$iMax = count($clienteJurid)-1;
@@ -319,7 +399,7 @@ class ParcelaController extends Controller
 				}
 			}
 		}
-
+	 }
 		$f = new NumberFormatter("pt_BR", NumberFormatter::SPELLOUT);
 		$valor = ucfirst($f->format($valorF));
 		
@@ -340,8 +420,11 @@ class ParcelaController extends Controller
 		->with('valores', $valores)
 		->with('jurid', $jurid)
 		->with('fis', $fis)
+		->with('juridA', $juridA)
+		->with('fisA', $fisA)
 		->with('processo', $processo)
-		->with('valorF', $valorF);
+		->with('valorF', $valorF)
+		->with('countAdvJur', $countAdvJur);
 	}
 
 }

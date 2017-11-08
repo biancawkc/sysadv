@@ -2,18 +2,19 @@
  @section('content')
  <div class="container">
  @include('flash::message')
-    <h1 class="col-lg-12 well" >Todos os Usuários Cadastrados <i class="fa fa-address-book registros" aria-hidden="true"></i></h1>
+    <h1 class="col-lg-12 well" >Todos os Usuários Cadastrados <i class="fa fa-user-circle registros" aria-hidden="true"></i></h1>
     <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
     <br>
     <br>
-     <table class="table table-striped table-bordered text-center tblCadastro" >
+    <div class="table-responsive-force">
+     <table class="table table-striped table-bordered tblCadastro" >
         <thead>
             <tr>
-             <th>Nome Completo</th>
-             <th>Username</th>
-             <th>Email</th>
-             <th>Situação</th>
-             <th>Nível</th>
+             <th class="col-md-3">Nome Completo</th>
+             <th class="col-md-2">Usuário</th>
+             <th class="col-md-3">Email</th>
+             <th class="col-md-1">Situação</th>
+             <th class="col-md-2">Nível</th>
             </tr>
      </thead>
      <tbody>
@@ -59,7 +60,7 @@
         @endif
     </tbody>
 </table>
-
+</div>
 </div>
 <br>
 @endsection

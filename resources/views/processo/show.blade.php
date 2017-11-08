@@ -1,6 +1,6 @@
  @extends('layouts.master2')
  @section('content')
- <div class="container-custom">
+ <div class="container-custom table-responsive">
    @include('flash::message')
    <h1><b>Processo: {{$processo->numero}} </b></h1>
    <h4><b>Estado</b>: {{$estadoProcesso->desc_est_processo}}</h4>
@@ -171,9 +171,9 @@
         <table class="table table-striped table-bordered">
          <tbody>
           <tr>
-            <th style="width: 20%">RG</th>
+            <th>RG</th>
             <td class="rg">{{$values -> rg}}</td>
-            <th style="width: 20%">Orgão Exp.</th>
+            <th>Orgão Exp.</th>
             <td>{{$values -> orgao_exp}}</td>
           </tr>
           <tr>
@@ -202,13 +202,13 @@
       <table class="table table-striped table-bordered">
        <tbody>
         <tr>
-          <th style="width: 20%">CTPS</th>
+          <th>CTPS</th>
           <td colspan="3">{{$values -> ctps}}</td>
         </tr>
         <tr>
           <th>CBO</th>
           <td>{{$values->cbo}}</td>
-          <th style="width: 20%">Remuneração</th>
+          <th>Remuneração</th>
           <td></td>
         </tr>
         <tr>
@@ -219,7 +219,7 @@
     </table>
     <table class="table table-striped table-bordered">
      <tbody>
-      <th style="width: 20%">CEP</th>
+      <th>CEP</th>
       <td class="cep">{{$values->cep}}</td>
       <th>Bairro</th>
       <td>{{$values->bairro}}</td>
@@ -228,13 +228,13 @@
     <tr>
       <th>Cidade</th>
       <td>{{$values->cidade}}</td>
-      <th style="width: 15%">UF</th>
+      <th>UF</th>
       <td>{{$values->uf}}</td>
     </tr>
 
     <tr>
       <th >Logradouro</th>
-      <td style="width: 50%">{{$values->logradouro}}</td>
+      <td>{{$values->logradouro}}</td>
       <th>Número</th>
       <td>{{$values->numero}}</td>
     </tr>
@@ -450,7 +450,7 @@
 @endforeach
 @endif
 
-<p>Data de criação: {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} por {{$usuario->username}} </p>
+<p>Data de criação: {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($processo->dt_atualizacao))}} por {{$usuario->username}} </p>
 <br>
 
 <div class="text-center">

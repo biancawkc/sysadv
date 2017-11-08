@@ -20,11 +20,11 @@
 				</tr>
 				</table> 
 				<span style="text-align: center;"><h2>RECIBO</h2></span>
-				<span style="padding-left: 40px;">Parcela <b>Nº  {{$parcela->num_parcela}}</b> </span><span style="margin-left: 420px;">Valor: R$ {{$valorF}}</span> 
+				<span style="padding-left: 40px;">Parcela <b>Nº  {{$parcela->num_parcela}}</b> </span><span style="margin-left: 420px;">Valor: R$ {{number_format($valorF,2,",",".")}} </span> 
 				<hr>
 				<br>
 				<p style="margin-left: 10px; margin-right:10px;">
-				Recebemos de <b>{{$jurid}}{{$fis}}</b>
+				Recebemos de <b>@if($parcela->adversa_pag == 1){{$juridA}}{{$fisA}}@else{{$jurid}}{{$fis}}@endif</b>
 				a importância de <b>{{$valores}}</b>
 				no dia <b>{{date('d/m/Y', strtotime($parcela->dt_pag))}}</b> 
 				referente ao processo número <b>{{$processo->numero}}</b>

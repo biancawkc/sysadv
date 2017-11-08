@@ -9,6 +9,8 @@
 	<div class="container-custom">
 		<div class="col-lg-12">
 			<div class="row">
+				<span class="link"><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a></span>
+			    <hr>
 				<h3>Tipo de parcela: </h3>
 				<label  class="radio-inline">
 					<input type="radio" name="tp_parcela" id="ph" checked >Parcela Honorários
@@ -35,7 +37,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor total parcela<span class="asterisk">*</span></label>
-								<input type='text' name="total" class="form-control money" data-validation="required" id="total" onkeyup="parcela();"/>
+								<input type='text' name="total" class="form-control money text-right" data-validation="required" id="total" onkeyup="parcela();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
@@ -72,7 +74,7 @@
 							</div>
 
 							<div class="col-sm-3 form-group">
-								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
+								<label>% Juros/dia<span class="asterisk">*</span></label>				
 								<input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
 							</div>
 						</div>
@@ -143,7 +145,7 @@
 							<input type='hidden' name="demais" data-validation="required" id="demais" />
 
 							<div class="col-sm-3 form-group">
-								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
+								<label>% Juros/dia<span class="asterisk">*</span></label>				
 								<input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float"  onkeyup="this.value = this.value.replace(/,/g, '.');"/>
 							</div>
 
@@ -244,17 +246,6 @@
 			}
 
 		}
-
-		$("#open").click(function(){
-			$("#open").hide();
-			$("#close").show();
-		});
-
-		$("#close").click(function(){
-			$("#close").hide();
-			$("#open").show();
-		});
-
 	</script>
 
 	@endsection

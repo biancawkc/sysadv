@@ -1,10 +1,14 @@
  @extends('layouts.master2')
  @section('content')
+ <style type="text/css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+ </style>
  <div class="container-custom">
     <h1 class="col-lg-12 well "> Cadastro de Parte  <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
-    </h1>
+     <span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></h1>
+    <div class="col-lg-12">
     <div class="row" >
-        <div class="col-md-12">
+        <div class="col-sm-12">
             <div class="panel panel-default">
                 <div class="panel-body">
                     <br>
@@ -16,7 +20,6 @@
                     <label class="radio-inline">
                         <input type="radio" name="tp_colab" id="jur" value="Funcionário">Pessoa Jurídica 
                     </label>
-
 
                        <!--  <label class="radio-inline">
                             <input type="radio" name="tp_colab" id="men" value="outro">Outro Documento
@@ -95,13 +98,28 @@
                         </div>
                         {!! Form::close() !!}
                     </div> -->
-
                 </div>
             </div>
         </div>
     </div>
 </div>
-</div> 
+
+</div>
+<div class="modal fade helps" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+        </div>
+        <div class="modal-body">
+          <p><b>CPF</b>: insira um CPF válido com 11 dígitos, somente números, não é necessário a pontuação.<br><br>
+             <b>CNPJ</b>: insira um CNPJ válido com 14 dígitos, somente números, não é necessário a pontuação.
+          </p>
+        </div>
+      </div>  
+    </div>
+  </div>
 @endsection
 
 

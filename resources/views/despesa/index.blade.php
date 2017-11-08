@@ -5,8 +5,15 @@
    <h1 class="col-lg-12 well" >Despesas Cadastradas <i class="fa fa-shopping-basket despesa" aria-hidden="true"></i></h1>
    <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
    <br>
-   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo->numero}}</a> </b></h2>
-   <br>
+   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a> </b><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-info" id="open">Expandir</a><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-warning" id="close">Esconder</a></h2>
+   <div class="row">
+   <div class="col-lg-9">
+  <div id="demo" class="collapse">
+    <p><b>Estado Processo</b>: {{$processo->desc_est_processo}} / <b>Nome Ação</b>: {{$processo->nome_acao}} / <b>Jutiça:</b> {{$processo->nm_justica}} / <b>Comarca:</b> {{$processo->comarca}} / <b>Vara:</b> {{$processo->vara}} / <b>Justiça Gratuita:</b> @if($processo->justica_grat == 1) Sim @else Não @endif / <b>Ação Gratuita:</b> @if($processo->acao_grat == 1) Sim @else Não @endif / <b>Data Início</b>: {{ date('d/m/Y', strtotime($processo->dt_inicio)) }} / <b>Data Final</b>: @if(!empty($processo->dt_final)){{ date('d/m/Y', strtotime($processo->dt_final)) }}@else - @endif </p>
+  </div>
+  </div>
+</div>
+  <br>
    <!-- <a href="{{ URL::to('/despesa/' . $idProcesso. '/create') }}" class="btn btn-lg btn-success"> <i class="fa fa-plus-square" aria-hidden="true"></i></a>  -->
 
    @if($processo->id_estado_processo == 1)
@@ -16,7 +23,7 @@
    @endif
    <br>
    <br>
-   <table class="table table-striped table-bordered tblCadastro text-right" >
+   <table class="table table-striped table-bordered tblCadastro text-center" >
     <thead>
       <tr>
        <th>Valor</th>
@@ -29,7 +36,7 @@
     @if (!$despesa->isEmpty())
     @foreach($despesa as $key => $value)
     <tr>
-      <td>R$ {!! number_format($value->valor,2,",",".") !!}</td>
+      <td class="text-right">R$ {!! number_format($value->valor,2,",",".") !!}</td>
       <td>{!! date('d/m/Y', strtotime($value->dt_despesa)) !!}</td>
       <td>{!! $value->desc_despesa !!}</td>
       <td class="text-center">
@@ -60,6 +67,8 @@
           @include('flash::message')
           <div class="container-custom">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <span class="link"><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a></span>
+          <hr>
             <h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-shopping-basket despesa" aria-hidden="true"></i>
             </h1>
 

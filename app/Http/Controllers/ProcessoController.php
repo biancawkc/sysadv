@@ -114,28 +114,9 @@ class ProcessoController extends Controller
 				$date = $date[2] . "/" . $date[1] . "/" . $date[0];
 				$processo->dt_final = new \DateTime($date);
 			}
-			else
-			{
-				$processo->dt_final = $request->dt_final;
-			}
+
 			$processo->save();
 
-			$error = false;
-
-			$i = count($request->id_parte);
-			$j = 0;
-			$y = 0;
-
-			for($x = $j; $y <= $i; $y++)
-			{
-				if ($request->id_parte[$y] == $request->id_parte[$y+1])
-				{
-					$error = true;
-				}
-			}
-			
-			if($error = false)
-			{
 				foreach ($request->id_parte  as $ind => $val) {
 
 					if(!empty($val)){
@@ -143,10 +124,10 @@ class ProcessoController extends Controller
 						$parteProcesso->id_parte = $val;
 						$parteProcesso->id_processo = $processo->getAttribute("id_processo");
 						$parteProcesso->participacao = $request->participacao[$ind];
+						$parteProcesso->id_responsavel = $request->id_responsavel[$ind];
 						$parteProcesso->save();
 					}
 				}
-			}
 			
 			flash()->success('Cadastro Inserido com Sucesso!');
 			return redirect('/processo/');
@@ -320,6 +301,7 @@ class ProcessoController extends Controller
                             public function edit($id)
                             {
                             	$processo = \App\Models\Processo::find($id);
+                            	$usuario = \App\Models\Usuario::find($processo->id_usuario);
 
                             	if(!is_null($processo->dt_final))
                             	{
@@ -400,7 +382,8 @@ class ProcessoController extends Controller
                             	->with('justicas', $justicas)
                             	->with('varas', $varas)
                             	->with('dt_final', $dt_final)
-                            	->with('status', $status);
+                            	->with('status', $status)
+                            	->with('usuario', $usuario);
                             }
 
                             public function update(Request $request, $id)
@@ -419,6 +402,7 @@ class ProcessoController extends Controller
                             	} else {
 
                             		$processo = \App\Models\Processo::find($id);
+                            		$usuario = \App\Models\Usuario::where('username', '=', Auth::user()->username)->value('id_usuario');
 
                             		$processo->numero = $request->numero;
                             		$processo->desc_processo = $request->desc_processo;
@@ -427,9 +411,10 @@ class ProcessoController extends Controller
                             		$processo->acao_grat = $request->acao_grat;
                             		$processo->id_vara = $request->id_vara;
                             		$processo->id_justica = $request->id_justica;
-                            		//$processo->id_estado_processo = $request->id_estado_processo;
+                            		$processo->id_estado_processo = $request->id_estado_processo;
                             		$processo->id_comarca = $request->id_comarca;
                             		$processo->id_advogado = $request->id_advogado;
+                            		$processo->id_usuario = $usuario;
 
                             		$str = $request->dt_inicio;
                             		$data = explode("/", $str);

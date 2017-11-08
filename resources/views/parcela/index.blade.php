@@ -5,7 +5,7 @@
    @include('flash::message')
    <h1 class="col-lg-12 well">Parcelas de Pagamento <i class="fa fa-money parcela" aria-hidden="true"></i></h1>
    <br>
-   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}">{{$processo->numero}}</a> </b><a type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#demo" id="open"><i class="fa fa-arrow-down" aria-hidden="true"></i></a><a type="button" class="btn btn-sm btn-info" data-toggle="collapse" data-target="#demo" id="close"><i class="fa fa-arrow-up" aria-hidden="true"></i></a></h2>
+   <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a> </b><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-info" id="open">Expandir</a><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-warning" id="close">Esconder</a></h2>
    <div class="row">
    <div class="col-lg-9">
   <div id="demo" class="collapse">
@@ -23,6 +23,7 @@
 @endif
    
    <br><br>
+   <div class="table-responsive-force">
    <table class="table table-striped table-bordered tblCadastro text-right" >
     <thead>
       <tr>
@@ -65,6 +66,7 @@
     @endif
   </tbody>
 </table>
+</div>
 <br>
 <!-- <a href="{{ URL::to('parcela/'.$idProcesso.'/create') }}" class="btn btn-lg btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
  -->

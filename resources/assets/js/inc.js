@@ -131,6 +131,7 @@ $(document).ready(function() {
     });
 
     $(".tblCadastro").dataTable({
+      responsive: true,
       "language": {
           "sEmptyTable": "Nenhum registro encontrado",
           "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -229,6 +230,17 @@ $(document).ready(function() {
                 }
             });
 
+            $("#open").click(function(){
+                $("#open").hide();
+                $("#close").show();
+            });
+
+            $("#close").click(function(){
+                $("#close").hide();
+                $("#open").show();
+            });
+
+
             $('.date').mask('00/00/0000');
             $('.cpf').mask('000.000.000-00', {reverse: true});
             $('.cep').mask('00000-000');
@@ -236,9 +248,17 @@ $(document).ready(function() {
             $('.phone_with_ddd').mask('(00) 0000-00000');
             $('.rg').mask('00.000.000-0', {reverse: true});
             $('.cnpj').mask('00.000.000/0000-00', {reverse: true});
-            $(".money").maskMoney({prefix:'R$ ', allowNegative: true, thousands:'.', decimal:',', affixesStay: false});
+            $(".money").maskMoney({prefix:'R$ ', allowNegative: false, thousands:'.', decimal:',', affixesStay: false});
 
             $('[data-toggle="tooltip"]').tooltip(); 
+
+
+            $( ".questionMark" ).hover(function() {
+             $('.helps').modal({
+                show: true
+            });
+         });  
+
 
         });
 

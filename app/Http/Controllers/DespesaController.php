@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Redirect;
+use Auth;
 
 class DespesaController extends Controller
 {	
@@ -15,6 +16,10 @@ class DespesaController extends Controller
 		->get();
 
 		$processo = \DB::table('processo')
+		->join('justica', 'processo.id_justica', '=', 'justica.id_justica')
+		->join('comarca', 'processo.id_comarca', '=', 'comarca.id_comarca')
+		->join('vara', 'processo.id_vara', '=', 'vara.id_vara')
+		->join('estado_processo', 'estado_processo.id_estado_processo', '=', 'processo.id_estado_processo')
 		->where('id_processo', $idProcesso)
 		->first();
 
@@ -44,10 +49,12 @@ class DespesaController extends Controller
 		} else {
 			
 			$despesa = new \App\Models\Despesa();
+			$usuario = \App\Models\Usuario::where('username', '=', Auth::user()->username)->value('id_usuario');
 
 			$despesa->valor = $request->valor;
 			$despesa->id_processo = $idProcesso;
 			$despesa->desc_despesa = $request->desc_despesa;
+			$despesa->id_usuario = $usuario;
 
 			$str = $request->dt_despesa;
 			$data = explode("/", $str);
@@ -65,10 +72,12 @@ class DespesaController extends Controller
 	{	
 		$despesa = \App\Models\Despesa::find($id);
 		$valores = number_format($despesa->valor,2,",",".");
+		$usuario = \App\Models\Usuario::find($despesa->id_usuario);
 
 		return view ('despesa.edit')
 		->with('despesa', $despesa)
-		->with('valores', $valores);
+		->with('valores', $valores)
+		->with('usuario', $usuario);
 	}
 
 	public function update (Request $request, $id)
@@ -85,9 +94,11 @@ class DespesaController extends Controller
 		} else {
 			
 			$despesa = \App\Models\Despesa::find($id);
+			$usuario = \App\Models\Usuario::where('username', '=', Auth::user()->username)->value('id_usuario');
 
 			$despesa->valor = $request->valor;
 			$despesa->desc_despesa = $request->desc_despesa;
+			$despesa->id_usuario = $request->id_usuario;
 			
 			$str = $request->dt_despesa;
 			$data = explode("/", $str);

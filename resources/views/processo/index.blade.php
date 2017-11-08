@@ -6,6 +6,7 @@
     <!-- <a href="{{ URL::to('colaborador/verify') }}" class="btn btn-md btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Cadastrar</a> -->
     <br>
     <br>
+    <div class="table-responsive-force">
      <table class="table table-striped table-bordered tblCadastro" >
         <thead>
             <tr>
@@ -25,11 +26,11 @@
             <td>{!! date('d/m/Y', strtotime($value->dt_inicio)) !!}</td>
             <td>{!! $value->desc_est_processo !!}</td>
             <td class="text-center"> 
-                <a target="_blank" href="{{ URL::to('/processo/' . $value->id_processo . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> &nbsp;&nbsp;   
-                <a target="_blank" href="{{ URL::to('/etapa/' . $value->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i> </a>&nbsp;&nbsp;   
-                <a target="_blank" href="{{ URL::to('/documento/' . $value->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos"> <i class="fa fa-file-text fa-1x" aria-hidden="true"></i></a>&nbsp;&nbsp; 
+                <a target="_blank" href="{{ URL::to('/processo/' . $value->id_processo . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>   
+                <a target="_blank" href="{{ URL::to('/etapa/' . $value->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i> </a>   
+                <a target="_blank" href="{{ URL::to('/documento/' . $value->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos"> <i class="fa fa-file-text fa-1x" aria-hidden="true"></i></a>
                 <a target="_blank" href="{{ URL::to('/parcela/' . $value->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Parcelas"><i class="fa fa-money" aria-hidden="true"></i>
-                </a>&nbsp;&nbsp; 
+                </a>
                 <a target="_blank" href="{{ URL::to('/despesa/' . $value->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Despesas"><i class="fa fa-shopping-basket" aria-hidden="true"></i></a> 
             </td>
         </tr>
@@ -37,7 +38,7 @@
         @endif
     </tbody>
 </table>
-
+</div>
 </div>
 <br>
 @endsection

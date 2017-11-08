@@ -42,6 +42,7 @@
 			</div>
 		</div>
 	</div>
+	<p>Data de criação: {{date('d/m/Y H:i:s', strtotime($despesa->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($despesa->dt_atualizacao))}} por {{$usuario->username}} </p>
 	<div class="form-group">
 		<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
 	</div>

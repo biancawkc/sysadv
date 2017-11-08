@@ -189,10 +189,9 @@
 						<label>CTPS - Série</label>
 						<input type="text" name="serie_ctps" class="form-control ctps_serie" value="{{ old('serie_ctps') }}" placeholder="Série">
 					</div>
-
 					<div class="col-sm-3 form-group" >
 						<label>Remuneração (R$)</label>
-						<input type="text" name="remuneracao" class="form-control" onkeyup="this.value = this.value.replace(/,/g, '.');" data-validation="number" data-validation-allowing="float" data-validation-optional="true" value="{{ old('remuneracao') }}">
+						<input type="text" name="remuneracao" class="form-control money" value="{{ old('remuneracao') }}">
 					</div>
 				</div>
 			</div>

@@ -24,7 +24,9 @@ class Parcela extends Model {
               'juros',
               'multa',
               'desconto',
-              'dias_atraso'   
+              'dias_atraso',
+              'adversa_pag',
+              'id_usuario'   
     ];
     
     protected $primaryKey = "id_parcela";

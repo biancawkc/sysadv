@@ -35,14 +35,14 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>                        
         </button>
-        <img src="{{ asset ('../resources/assets/images/rw.png')}}" alt="RW Advocacia"
-        class="img-responsive" style="width: 47px; height: 47px;">
+        <a href="{{ URL::to('home') }}"><img src="{{ asset ('../resources/assets/images/rw.png')}}" alt="RW Advocacia"
+        class="img-responsive" style="width: 47px; height: 47px;"></a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-          <li><a href="{{ URL::to('home') }}">Home</a></li>
+          <li><a href="{{ URL::to('home') }}">Início</a></li>
             <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Pessoa
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Partes
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ URL::to('pessoa/verify') }}">Cadastrar</a></li>
@@ -50,7 +50,7 @@
                 </ul>
             </li>
               <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Processo
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Processos
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ URL::to('processo/verify') }}">Cadastrar</a></li>
@@ -63,7 +63,7 @@
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ URL::to('colaborador/verify') }}">Cadastrar</a></li>
-                    <li> <a href="{{ URL::to('colaboradores') }}">Colaboradores</a></li>
+                    <li> <a href="{{ URL::to('colaboradores') }}">Listagem</a></li>
                 </ul>
             </li>
             

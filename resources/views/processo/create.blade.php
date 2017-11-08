@@ -1,6 +1,8 @@
 @extends('layouts.master2')
-
 @section('content')
+<style type="text/css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+</style>
 @if($errors->any())
 <ul class="alert alert-danger">
 	@foreach($errors->all() as $error)
@@ -10,14 +12,37 @@
 @endif
 {!! Form::open(['route'=>'processo.store', 'class'=>'form' ]) !!}
 @include('flash::message')
+<style type="text/css">
+	.has-error .select2-selection {
+    /*border: 1px solid #a94442;
+    border-radius: 4px;*/
+    border-color: #b94a48 !important;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+}
+</style>
 <input type="hidden" name="id_estado_processo" value="1">
 <input type="hidden" value="0" name="justica_grat">
 <input type="hidden" value="0" name="acao_grat">
 <div class="container-custom">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<h1 class="col-lg-12 well "> Cadastro de Processo <i class="fa fa-file processo" aria-hidden="true"></i>
+	<h1 class="col-lg-12 well "> Cadastro de Processo <i class="fa fa-file processo" aria-hidden="true"></i><span class="pull-right questionMark"><i class="fa fa-question-circle help" aria-hidden="true"></i><span>
 	</h1>
-
+	<div class="modal fade helps" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+        </div>
+        <div class="modal-body">
+          <p><b>Justiça Gratuita</b>: quando selecionado, o processo será totalmente gratuito.<br><br>
+          	 <b>Ação sem valor</b>: quando selecionado, não serão cobradas taxas da ação, apenas honorários.
+          </p>
+        </div>
+      </div>  
+    </div>
+  </div>
+  
 	<div class="col-lg-12 well">
 		<div class="row">
 			<div class="col-sm-12">
@@ -80,43 +105,64 @@
 <div class="col-lg-12 well">
 	<div class="row">
 		<div class="col-sm-12">
-			<div class="row pessoa" id="cliente">
+			<div class="row" id="cliente">
 				<div class="col-sm-10 form-group">
 					<label>Cliente<span class="asterisk">*</span></label>
-					<select class="form-control single-select pessoa" name="id_parte[]" data-validation="required">
+					<select class="form-control single-select pessoa cliente" name="id_parte[]" data-validation="required" >
 						<option value="">Selecione</option>
+						<optgroup label="Pessoa Jurídica">  
+						@foreach($pessoaJuridica as $pj)
+						<option value="{{$pj->id_parte}}" id="{{$pj->razao_social}}">{{$pj->razao_social}}</option>
+						@endforeach
+						</optgroup>
+						<optgroup label="Pessoa Física">  
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
 						@endforeach
-						@foreach($pessoaJuridica as $pj)
-						<option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option>
-						@endforeach
+						</optgroup>
 					</select>
 					<input type="hidden" name="participacao[]" value="c">
 				</div>
 				<div class="col-sm-2 form-group" style="padding-top: 29px; padding-left: 40px;">
-					<a  id="addCl" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
+					<a  id="addCl" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Mais de um cliente"></i></a>
 				</div>
 			</div>
-		</div>
-	</div>
-</div>
-
-<div class="col-lg-12 well">
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="row pessoa" id="adversa">
+			<span id="respCliente"></span>
+		<!-- 	<div class="row respCliente">
 				<div class="col-sm-10 form-group">
-					<label>Parte adversa<span class="asterisk">*</span></label>
-					<select class="form-control single-select pessoa" name="id_parte[]" data-validation="required">
+					<label>Responsável - <span id="empresa"></span></label>
+					<select class="form-control single-select" name="id_responsavel[]" data-validation="required" >
 						<option value="">Selecione</option>
 						@foreach($pessoaFisica as $pf)
 						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
 						@endforeach
-						@foreach($pessoaJuridica as $pj)
-						<option value="{{$pj->id_parte}}" class="juridA">{{$pj->razao_social}}</option>
-						@endforeach
 					</select>
+					<input type="hidden" name="participacao[]" value="c">
+				</div>
+			</div> -->
+		</div>
+	</div>
+</div>
+<div class="col-lg-12 well">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="row" id="adversa">
+				<div class="col-sm-10 form-group">
+					<label>Parte adversa<span class="asterisk">*</span></label>
+					<select class="form-control single-select pessoa adversa" name="id_parte[]" data-validation="required">
+						<option value="">Selecione</option>
+						<optgroup label="Pessoa Física"> 
+						@foreach($pessoaFisica as $pf)
+						<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>
+						@endforeach
+						</optgroup>
+						<optgroup label="Pessoa Jurídica">  
+						@foreach($pessoaJuridica as $pj)
+						<option value="{{$pj->id_parte}}" id="{{$pj->razao_social}}">{{$pj->razao_social}}</option>
+						@endforeach
+						</optgroup>
+					</select>
+					<div class="d"></div>
 					<input type="hidden" name="participacao[]" value="a">
 				</div>
 				<div class="col-sm-2 form-group" style="padding-top: 29px; padding-left: 40px;">
@@ -188,7 +234,7 @@
 <div class="text-center">
 	<a href="{{ URL::to('processo/verify') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 	&nbsp;&nbsp;&nbsp;
-	<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
+	<button type="submit" class="btn btn-lg btn-info" id="submit">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>
 <br>
 <br>
@@ -202,7 +248,7 @@
 @section('content_js')
 <script type="text/javascript" >
 
-	$(document).on('change', 'select.pessoa.cliente', function(event) {
+	/*$(document).on('change', 'select.pessoa.cliente', function(event) {
        var idSelecionado = $(event.target).val();
        var jaSelecionado = false;
        selectsDeClientes.forEach(function(select) {
@@ -215,20 +261,60 @@
        	// invalidar selecao do campo
        	console.log('Cliente ja selecionado', idSelecionado);
        }
-	})  
+	})  */
+
+	$(document).on('change', '.pessoa', function(event) {
+		var values = [];
+		$('.pessoa').each(
+			function() {
+				if (values.indexOf(this.value) >= 0) {
+					//$(this).css("border-color", "rgb(185, 74, 72)", "!important");
+					$( this ).parent().addClass("has-error");
+					$('#submit').prop("disabled",true);
+				}
+				else {
+					//$(this).css("border-color", ""); 
+					$( this ).parent().removeClass("has-error");
+					$('#submit').prop("disabled",false);
+					values.push(this.value);
+
+				}
+			});
+	});
 	
+	$(document).on('change', '.cliente', function(event) {
+		$('.cliente').each(
+			function() {
+				var selected = $("option:selected", this);
+       /* var empresas = $(this).find('option:selected').attr("id");
+       document.getElementById('empresa').innerHTML= empresas;*/
+       // selected.parent()[0].label=="Pessoa Jurídica"?$(".respCliente").show(): $(".resp").hide(); 
+       var e=1;
+       if(selected.parent()[0].label=="Pessoa Jurídica")
+       {
+       	e++;
+       	$('#respCliente').append('<div class="row" id="resp'+e+'"> <div class="col-sm-10 form-group"><label>Responsável</label><select class="form-control single-select" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="c"></div>');
+       	$(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+       }      
+   });   
+
+	});
+
 $(document).ready(function() {
+/*	 $(".pessoa").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+*/ 
 
-  $(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
+$(".respCliente").hide();
 
-  var x=10;  
+
+ var x=10;  
       $('#addCl').click(function(){  
            x++;  
-           $('#cliente').after('<div class="row pessoa" id="cl'+x+'"> <div class="col-sm-10 form-group"><label>Cliente</label><select class="form-control single-select pessoa" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="c"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a id="'+x+'" class="btn btn-danger btn_removeCl"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
+           $('#cliente').after('<div class="row" id="cl'+x+'"> <div class="col-sm-10 form-group"><label>Cliente</label><select class="form-control single-select pessoa cliente" name="id_parte[]" data-validation="required"><option value="">Selecione</option><optgroup label="Pessoa Jurídica"> <?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php }?></optgroup><optgroup label="Pessoa Física"> <?php foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></optgroup></select><input type="hidden" name="participacao[]" value="c"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a id="'+x+'" class="btn btn-danger btn_removeCl"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
            $(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
       });  
       $(document).on('click', '.btn_removeCl', function(){  
-           var button_id = $(this).attr("id");   
+           var button_id = $(this).attr("id");  
            $('#cl'+button_id+'').remove(); 
       });  
 
@@ -236,7 +322,7 @@ $(document).ready(function() {
    var i=1;  
       $('#add').click(function(){  
            i++;  
-           $('#adversa').after('<div class="row pessoa" id="row'+i+'"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control single-select pessoa" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
+           $('#adversa').after('<div class="row" id="row'+i+'"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select class="form-control single-select pessoa" name="id_parte[]" data-validation="required"><option value="">Selecione</option><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}">{{$pj->razao_social}}</option> <?php } foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></a></div></div>');  
            $(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
       });  
       $(document).on('click', '.btn_remove', function(){  
@@ -248,6 +334,7 @@ $(document).ready(function() {
       	document.getElementById("dtFn").value= "";
       }); 
 });
+
 
 </script>
 
