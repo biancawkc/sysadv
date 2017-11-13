@@ -101,7 +101,7 @@ class AdvogadoController extends Controller
 			$advogado->save();
 			
 
-			//flash()->success('Cadastro Inserido com Sucesso!');
+			flash()->success('Colaborador Inserido com Sucesso!');
 			return redirect('cadastrar_usuario/'.$advogado->id_parte);
 			
 		}
@@ -160,7 +160,7 @@ class AdvogadoController extends Controller
 		'ctps' => $request->ctps,
 		'id_estado_civil' => $request->id_estado_civil
 		]);
-	//flash()->success('Cadastro Inserido com Sucesso!');
+	flash()->success('Colaborador Inserido com Sucesso!');
 	return redirect('cadastrar_usuario/'.$advogado->id_parte);
 }
 }

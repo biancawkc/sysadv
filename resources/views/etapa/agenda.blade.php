@@ -8,6 +8,7 @@
 
    <br>
    <br>
+   <div class="table-responsive-force">
    <table class="table table-striped table-bordered  tblCadastro " >
     <thead>
         <tr>
@@ -36,6 +37,7 @@
     @endif
 </tbody>
 </table>
+</div>
 <br>
 
 

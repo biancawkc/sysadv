@@ -38,7 +38,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor total (R$)<span class="asterisk">*</span></label>
-								<input type="text" name="demo" class="form-control" data-validation="required" id="total" onkeyup="parcela();"/>
+								<input type="text" name="demo" class="form-control money text-right" data-validation="required" id="total" onkeyup="parcela();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
@@ -117,7 +117,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor Ação (R$)<span class="asterisk">*</span></label>
-								<input type="text" name="valor_acao" class="form-control money" data-validation="required" id="valor_acao" data-validation="number" onkeyup="porcent();"/>
+								<input type="text" name="valor_acao" class="form-control money text-right" data-validation="required" id="valor_acao" data-validation="required" onkeyup="porcent();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">

@@ -1,9 +1,11 @@
  @extends('layouts.master2')
  @section('content')
- <div class="container-custom table-responsive">
+ <div class="container">
+ <div class="container-custom">
    @include('flash::message')
    <h1><b>Processo: {{$processo->numero}} </b></h1>
    <h4><b>Estado</b>: {{$estadoProcesso->desc_est_processo}}</h4>
+   <div class="table-responsive-force">
    <table class="table table-striped table-bordered">
     <tbody>
      <tr>
@@ -58,20 +60,20 @@
     </tr>
 
   </tbody>
-
 </table>
+</div>
 <h3>Cliente(s)</h3>
 @if (!is_null($pessoaJuridicaC))
 @foreach($pessoaJuridicaC as $value)
 <table class="table table-striped table-bordered">
   <tbody>
    <tr>
-    <td colspan="4" class="text-center col-md-10">{{$value -> razao_social}}</td>
-    <td class="text-center"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$value->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
+    <td colspan="3" class="text-center col-md-10">{{$value -> razao_social}}</td>
+    <td class="text-center col-md-2"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$value->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
   </tr>
 </tbody>
 </table>
-<div class="modal fade" id="{{$value->id_parte}}" role="dialog">
+<div class="modal fade" id="{{$value->id_parte}}" role="dialog" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog custom-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -155,12 +157,12 @@
   <tbody>
     <tr>
       <!-- <th class="col-md-3">Nome</th> -->
-      <td colspan="4" class="text-center col-md-10">{{$values -> nome}}</td>
-      <td class="text-center"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$values->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
+      <td colspan="3" class="text-center col-md-10">{{$values -> nome}}</td>
+      <td class="text-center  col-md-2"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$values->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
     </tr>
   </tbody>
 </table>
-<div class="modal fade" id="{{$values->id_parte}}" role="dialog">
+<div class="modal fade" data-keyboard="false" data-backdrop="static" id="{{$values->id_parte}}" role="dialog">
   <div class="modal-dialog custom-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -260,12 +262,12 @@
 <table class="table table-striped table-bordered">
   <tbody>
    <tr>
-    <td colspan="4" class="text-center col-md-10">{{$value -> razao_social}}</td>
-    <td class="text-center"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$value->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
+    <td colspan="3" class="text-center col-md-10">{{$value -> razao_social}}</td>
+    <td class="text-center  col-md-2"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$value->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
   </tr>
 </tbody>
 </table>
-<div class="modal fade" id="{{$value->id_parte}}" role="dialog">
+<div class="modal fade" id="{{$value->id_parte}}" role="dialog" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog custom-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -350,12 +352,12 @@
   <tbody>
     <tr>
       <!-- <th class="col-md-3">Nome</th> -->
-      <td colspan="4" class="text-center col-md-10">{{$values -> nome}}</td>
-      <td class="text-center"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$values->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
+      <td colspan="3" class="text-center col-md-10">{{$values -> nome}}</td>
+      <td class="text-center col-md-2"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$values->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
     </tr>
   </tbody>
 </table>
-<div class="modal fade" id="{{$values->id_parte}}" role="dialog">
+<div class="modal fade" id="{{$values->id_parte}}" role="dialog" data-keyboard="false" data-backdrop="static">
   <div class="modal-dialog custom-modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -453,17 +455,16 @@
 <p>Data de criação: {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($processo->dt_atualizacao))}} por {{$usuario->username}} </p>
 <br>
 
-<div class="text-center">
-  <!-- <a href="{{ URL::to('/processo/' . $processo->id_processo . '/remove') }}" class="btn btn-lg btn-danger">Deletar <i class="fa fa-trash" aria-hidden="true"></i></a>&nbsp;&nbsp; -->
-  <a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" target="_blank" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a href="{{ URL::to('/documento/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos" target="_blank"> <i class="fa fa-file-text" aria-hidden="true"></i></a>&nbsp;&nbsp;
-  <a target="_blank" href="{{ URL::to('/parcela/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Parcelas">  <i class="fa fa-money" aria-hidden="true"></i>
-  </a>&nbsp;&nbsp;
-  <a target="_blank" href="{{ URL::to('/despesa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Despesas"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a> &nbsp;&nbsp;
-  <a href="{{ URL::to('/relatorio/' .$processo->id_processo) }}" target="_blank" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Relatórios"> <i class="fa fa-files-o" aria-hidden="true"></i></a>
-</div>
+<ul class="list-group buttons" style="padding-left: 20%;">
+  <li><a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
+  <li><a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" target="_blank" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+  <li><a href="{{ URL::to('/documento/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos" target="_blank"> <i class="fa fa-file-text" aria-hidden="true"></i></a></li>
+  <li><a target="_blank" href="{{ URL::to('/parcela/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Parcelas">  <i class="fa fa-money" aria-hidden="true"></i>
+  </a></li>
+  <li><a target="_blank" href="{{ URL::to('/despesa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Despesas"> <i class="fa fa-shopping-basket" aria-hidden="true"></i></a></li>
+  <li><a href="{{ URL::to('/relatorio/' .$processo->id_processo) }}" target="_blank" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Relatórios"> <i class="fa fa-files-o" aria-hidden="true"></i></a></li>
+</ul>
 </div>
 <br>
-
+</div>
 @endsection

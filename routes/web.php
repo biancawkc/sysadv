@@ -14,6 +14,7 @@
 /*Route::get('/', function () {
     return view('welcome');
   });*/
+
   Route::group(['middleware' => 'usuario_guest'], function() {
 
     Route::get('/', 'UsuarioAuth\LoginController@showLoginForm');
@@ -44,6 +45,11 @@
 
         Route::get('usuario/', 'UsuarioController@index');
         Route::post('usuario/', 'UsuarioController@activation');
+
+        Route::get('usuarioFunc/{id}/edit', ['as' => 'usuarioFunc.edit', 'uses' => 'UsuarioController@editFunc']);
+        Route::get('usuarioAdv/{id}/edit', ['as' => 'usuarioAdv.edit', 'uses' => 'UsuarioController@editAdv']);
+        Route::put('usuarioFunc/{id}/edit', ['as' => 'usuario.update','uses' => 'UsuarioController@update']);
+        Route::put('usuarioAdv/{id}/edit', ['as' => 'usuario.update', 'uses' => 'UsuarioController@update']);
 
         Route::get('colaborador/verify', ['as' => 'funcionario.verify', 'uses' => 'FuncionarioController@verify']);
         Route::group(['prefix' => 'funcionario'], function(){

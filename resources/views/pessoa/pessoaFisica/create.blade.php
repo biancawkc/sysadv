@@ -102,7 +102,7 @@
 
 					<div class="col-sm-4 form-group" >
 						<label>Telefone<span class="asterisk">*</span></label>
-						<input class="form-control phone_with_ddd" type="text" name="telefone[]" data-validation="required">
+						<input class="form-control phone_with_ddd telefone" type="text" name="telefone[]" data-validation="required">
 					</div>
 
 					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
@@ -198,7 +198,6 @@
 		</div>
 	</div>
 
-
 	<br>
 	<div class="form-group">
 		<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
@@ -222,6 +221,24 @@
 	$.validate({
 		modules : 'date'
 	});
+	$(document).on('keyup', '.telefone', function(event) {
+		var values = [];
+		$('.telefone').each(
+			function() {
+				if (values.indexOf(this.value) >= 0) {
+					//$(this).css("border-color", "rgb(185, 74, 72)", "!important");
+					$( this ).parent().addClass("has-error");
+					$('#submit').prop("disabled",true);
+				}
+				else {
+					//$(this).css("border-color", ""); 
+					$( this ).parent().removeClass("has-error");
+					$('#submit').prop("disabled",false);
+					values.push(this.value);
+
+				}
+			});
+	});
 
 	$(document).ready(function() {
 		
@@ -232,7 +249,7 @@
 			$('.phone_with_ddd').mask('(00) 0000-00000');
 			if(i < maxField){ 
 				i++;  
-				$('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone</label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
+				$('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone</label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone</label><input class="form-control phone_with_ddd telefone" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
 				$('.phone_with_ddd').mask('(00) 0000-00000');
 			}
 		});  

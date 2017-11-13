@@ -97,6 +97,10 @@
 		.huge {
 			font-size: 40px;
 		}
+		.nav>li>a:focus, .nav>li>a:hover {
+        text-decoration: none;
+        background-color: transparent !important;
+  }
 
 	</style>
 </head>
@@ -109,15 +113,13 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>                        
 				</button>
-				<label style="margin: 1; float: none; margin-top: 5px;">
-					<img src="{{ asset ('../resources/assets/images/rw_adv.png')}}" alt="RW Advocacia"
-					class="img-responsive" style="width: 157px; height: 48px;">
-				</label>
-				<!-- <label class="adv">ADVOCACIA</label> -->
+				<a href="{{ URL::to('home') }}"><img src="{{ asset ('../resources/assets/images/rw_adv.png')}}" alt="RW Advocacia"
+					class="img-responsive" style="width: 157px; height: 48px;"></a>
 
 			</div>
 			@if ( !Auth::guard('web_usuario')->guest())
-			
+			 
+<!-- 
 			<div class="navbar-header pull-right navbar-brand pull-right">
 				<br>
 				<label class="user-detail"><span class="glyphicon glyphicon-user "></span>&nbsp; {{ Auth::guard('web_usuario')->user()->username }}&nbsp;</label> &nbsp;
@@ -128,11 +130,22 @@
 				<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
 					{{ csrf_field() }}
 				</form>
-			</div>
+			</div> -->
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-user "></span> <span class="user-detail">{{ Auth::guard('web_usuario')->user()->username }}</span></a></li>
+				<li><a href="{{ url('/usuario_logout') }}"
+					onclick="event.preventDefault();
+					document.getElementById('logout-form').submit();" class="user-detail"><span class="glyphicon glyphicon-log-out"></span>&nbsp;Sair</a></li>
+					<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+					{{ csrf_field() }}
+				</form>
+				</ul>
+
 			@endif
 
 		</div>
 	</nav>
+
 <div class="col-lg-12">
 	<div class="container-fluid">
 		<div class="row content">

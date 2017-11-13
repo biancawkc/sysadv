@@ -7,7 +7,7 @@
     <br>
     <br>
     <div class="table-responsive-force">
-     <table class="table table-striped table-bordered tblCadastro" >
+     <table class="table table-striped table-bordered tblCadastro" id="tblCadastro">
         <thead>
             <tr>
              <th class="col-md-3">Nome Completo</th>
@@ -15,6 +15,7 @@
              <th class="col-md-3">Email</th>
              <th class="col-md-1">Situação</th>
              <th class="col-md-2">Nível</th>
+             <th>Ação</th>
             </tr>
      </thead>
      <tbody>
@@ -34,6 +35,7 @@
             @else
             <td>Usuário Comum</td>
             @endif
+            <td><a href="{{ URL::to('/usuarioFunc/' . $value->id_usuario. '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
             
         </tr>
         @endforeach
@@ -54,7 +56,7 @@
             @else
             <td>Usuário Comum</td>
             @endif
-
+            <td><a href="{{ URL::to('/usuarioAdv/' . $value->id_usuario. '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
         </tr>
         @endforeach
         @endif
@@ -67,23 +69,7 @@
 
 @section('content_js')
 <script type="text/javascript">
-    $(document).ready(function(){
-  $("input:checkbox").change(function() {
-    var id_usuario = $(this).closest('tr').attr('id');
-
-    $.ajax({
-            type:'POST',
-            url:'/usuario',
-            headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}' },
-            data: { "id_usuario" : id_usuario },
-            success: function(data){
-              if(data.data.success){
-                //do something
-              }
-            }
-        });
-    });
-});
+   
 </script>
 @endsection
 

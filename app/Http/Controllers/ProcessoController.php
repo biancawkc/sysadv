@@ -124,8 +124,8 @@ class ProcessoController extends Controller
 						$parteProcesso->id_parte = $val;
 						$parteProcesso->id_processo = $processo->getAttribute("id_processo");
 						$parteProcesso->participacao = $request->participacao[$ind];
-						$parteProcesso->id_responsavel = $request->id_responsavel[$ind];
-						$parteProcesso->save();
+/*						$parteProcesso->id_responsavel = $request->id_responsavel[$ind];
+*/						$parteProcesso->save();
 					}
 				}
 			

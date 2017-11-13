@@ -23,6 +23,7 @@
    @endif
    <br>
    <br>
+   <div class="table-responsive-force">
    <table class="table table-striped table-bordered tblCadastro text-center" >
     <thead>
       <tr>
@@ -48,6 +49,7 @@
     @endif
   </tbody>
 </table>
+</div>
 <br>
 <!-- <a href="{{ URL::to('/despesa/' . $idProcesso. '/create') }}" class="btn btn-lg btn-success"> <i class="fa fa-plus-square" aria-hidden="true"></i></a> -->
 @if($processo->id_estado_processo == 1)
@@ -117,7 +119,6 @@
       </div>
     </div>
   </div>
-</div>
 <br>
 @endsection
 

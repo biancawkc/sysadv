@@ -189,7 +189,7 @@
     {   
         $("#cnpj").css("border-color", "#b94a48");
         $("#cnpj").css("box-shadow", "inset 0 1px 1px rgba(0,0,0,0.075)");
-        document.getElementById('erro_cnpj').innerHTML = "O CNPJ digitado é inválido";
+        document.getElementById("erro_cnpj").innerHTML = "O CNPJ digitado é inválido";
         document.getElementById("prox").style.display="none";
     }
 

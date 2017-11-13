@@ -92,7 +92,7 @@
 </nav>
 
 
-<div  style="height:auto; margin: 0 auto -60px; padding: 0 0 60px">
+<div>
     @yield('content')
 </div>
 <br>

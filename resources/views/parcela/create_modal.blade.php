@@ -1,16 +1,9 @@
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
-<div>
-	<div class="container-custom">
-		<div class="col-lg-12">
-			<div class="row">
-				<span class="link"><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a></span>
-			    <hr>
+
+<div class="container-custom">
+	<div class="col-lg-12">
+		<div class="row">
+			<span class="link"><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a></span>
+				<hr>
 				<h3>Tipo de parcela: </h3>
 				<label  class="radio-inline">
 					<input type="radio" name="tp_parcela" id="ph" checked >Parcela Honorários
@@ -116,7 +109,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor Ação (R$)<span class="asterisk">*</span></label>
-								<input type='text' name="valor_acao" class="form-control money" id="valor_acao" onkeyup="porcent();" data-validation="required"/>
+								<input type='text' name="valor_acao" class="form-control money text-right" id="valor_acao" onkeyup="porcent();" data-validation="required"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
@@ -176,11 +169,11 @@
 				<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
 			</div>
 
-			<div class="text-center">
-				<a data-dismiss="modal" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
-				&nbsp;&nbsp;&nbsp;
-				<button type="submit" class="btn btn-lg btn-info">Gerar Parcelas <i class="fa fa-plus" aria-hidden="true"></i></button>
-			</div>
+			<ul class="buttons" style="margin-left: 28%">
+				<li><a data-dismiss="modal" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a></li>
+				
+				<li><button type="submit" class="btn btn-lg btn-info">Gerar Parcelas <i class="fa fa-plus" aria-hidden="true"></i></button></li>
+			</ul>
 			<br>
 			<br>
 		</div> 

@@ -115,7 +115,7 @@ class FuncionarioController extends Controller
 			$funcionario->id_parte = $pessoaFisica->getAttribute("id_parte");
 			$funcionario->save();
 
-			//flash()->success('Cadastro Inserido com Sucesso!');
+			flash()->success('Colaborador Inserido com Sucesso!');
 			return redirect('cadastrar_usuario/'.$funcionario->id_parte);
 
 		}
@@ -181,7 +181,7 @@ class FuncionarioController extends Controller
 		]);
 
 
-	flash()->success('Cadastro Inserido com Sucesso!');
+	flash()->success('Colaborador Inserido com Sucesso!');
 	return redirect('/colaboradores');
 }
 }

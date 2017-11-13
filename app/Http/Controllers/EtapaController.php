@@ -83,7 +83,13 @@ public function show($id)
 
 	$nmEtapa = \App\Models\Etapa::where('id_etapa','=',$etapa->id_etapa)->value('nm_etapa');
 
-	$processo = \App\Models\Processo::where('id_processo','=',$etapa->id_processo)->value('numero');
+	$processo = \DB::table('processo')
+		->join('justica', 'processo.id_justica', '=', 'justica.id_justica')
+		->join('comarca', 'processo.id_comarca', '=', 'comarca.id_comarca')
+		->join('vara', 'processo.id_vara', '=', 'vara.id_vara')
+		->join('estado_processo', 'estado_processo.id_estado_processo', '=', 'processo.id_estado_processo')
+		->where('id_processo', $etapa->id_processo)
+		->first();
 
 	return view ('etapa.show')
 	->with('etapa', $etapa)

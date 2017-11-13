@@ -8,6 +8,7 @@
 	@endforeach
 </ul>
 @endif
+@include('flash::message')
 <form role="form" method="POST" action="{{ url('/cadastrar_usuario') }}">
 	<input type="hidden" name="ativo" value="1">
 	<input type="hidden" name="administrador" value="0">
