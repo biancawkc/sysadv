@@ -474,7 +474,11 @@
 					<tr>
 						<th style="width: 12%">Número</th>
 						
-						<th style="width: 20%">Valor</th>
+						<th style="width: 17%">Valor</th>
+
+						<th style="width: 17%">Desconto</th>
+
+						<th style="width: 17%">Juros</th>
 						
 						<th>Data Vencimento</th>
 						
@@ -487,6 +491,8 @@
 					<tr>
 						<td>{{$parcelasH -> num_parcela}}</td>
 						<td class="money">R$ {{number_format($parcelasH -> valor,2,",",".")}} </td>
+						<td>R$ {{number_format($parcelasH -> desconto,2,",",".")}}</td>
+						<td>R$ {{number_format($parcelasH -> multa,2,",",".")}}</td>
 						<td>{{ date('d/m/Y', strtotime($parcelasH -> dt_venc))}}</td>
 						@if(!is_null($parcelasH->dt_pag))
 						<td>{{ date('d/m/Y', strtotime($parcelasH -> dt_pag))}}</td>
@@ -496,17 +502,23 @@
 					</tr>
 					@endforeach
 					<tr>
-					<td colspan="4" class="total money"><b>Total: R$ {{number_format($parcelaHtotal,2,",",".")}}</b></td>
+					<td colspan="6" class="total money"><b>Total: R$ {{number_format($parcelaHtotal,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class="money"><b>Total à receber: R$ {{number_format($parcelaRece,2,",",".")}}</b></td>
+					<td colspan="6" class="money"><b>Total à receber: R$ {{number_format($parcelaRece,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class="money"><b>Total pago: R$ {{number_format($parcelaHsum,2,",",".")}}</b></td>
+					<td colspan="6" class="money"><b>Total de descontos concedidos: R$ {{number_format($parcelaHdesc,2,",",".")}}</b></td>
+					</tr>
+					<tr>
+					<td colspan="6" class="money"><b>Total de juros aplicados: R$ {{number_format($parcelaHjuro,2,",",".")}}</b></td>
+					</tr>
+					<tr>
+					<td colspan="6" class="money"><b>Total recebido: R$ {{number_format($parcelaHsum,2,",",".")}}</b></td>
 					</tr>
 					@elseif($parcelaH->isEmpty())
 					<tr>
-					<td colspan="4" class="center"><b>Não possui parcelas honorários cadastradas</b></td>
+					<td colspan="6" class="center"><b>Não possui parcelas honorários cadastradas</b></td>
 					</tr>
 					@endif
 				</table>
@@ -515,8 +527,13 @@
 				<table class="table" style="width: 100%">
 
 					<tr>
-						<th style="width: 12%">Número</th>						
-						<th style="width: 20%">Valor</th>						
+						<th style="width: 12%">Número</th>
+						
+						<th style="width: 17%">Valor</th>
+
+						<th style="width: 17%">Desconto</th>
+
+						<th style="width: 17%">Juros</th>						
 						<th>Data Vencimento</th>						
 						<th>Data Pagamento</th>						
 					</tr>
@@ -535,17 +552,23 @@
 					</tr>
 					@endforeach
 					<tr>
-					<td colspan="4" class="total money"><b>Total: R$ {{ number_format($parcelaGtotal,2,",",".")}}</b></td>
+					<td colspan="6" class="total money"><b>Total: R$ {{ number_format($parcelaGtotal,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class="money"><b>Total à receber: R$ {{ number_format($parcelaGRece,2,",",".")}}</b></td>
+					<td colspan="6" class="money"><b>Total à receber: R$ {{ number_format($parcelaGRece,2,",",".")}}</b></td>
 					</tr>
 					<tr>
-					<td colspan="4" class="money"><b>Total pago: R$ {{number_format($parcelaGsum,2,",",".")}}</b></td>
+					<td colspan="6" class="money"><b>Total de descontos concedidos: R$ {{number_format($parcelaGdesc,2,",",".")}}</b></td>
+					</tr>
+					<tr>
+					<td colspan="6" class="money"><b>Total de juros aplicados: R$ {{number_format($parcelaGjuro,2,",",".")}}</b></td>
+					</tr>
+					<tr>
+					<td colspan="6" class="money"><b>Total recebido: R$ {{number_format($parcelaGsum,2,",",".")}}</b></td>
 					</tr>
 					@elseif($parcelaG->isEmpty())
 					<tr>
-					<td colspan="4" class="center"><b>Não possui parcelas ganho de causa cadastradas</b></td>
+					<td colspan="6" class="center"><b>Não possui parcelas ganho de causa cadastradas</b></td>
 					</tr>
 					@endif
 

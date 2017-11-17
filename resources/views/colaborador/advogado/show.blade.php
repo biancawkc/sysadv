@@ -45,7 +45,7 @@
   
   <a href="{{ URL::to('/advogado/' . $advogado->id_advogado . '/remove') }}" class="btn btn-lg btn-danger">Deletar <i class="fa fa-trash" aria-hidden="true"></i></a>&nbsp;&nbsp;
 
-  <a href="{{ URL::to('/advogado/' . $advogado->id_advogado. '/edit') }}" class="btn btn-lg btn-info">Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+  <a href="{{ URL::to('/advogado/' . $advogado->id_advogado. '/edit') }}" class="btn btn-lg btn-info">Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 </div>
 </div>
 

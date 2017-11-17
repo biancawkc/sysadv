@@ -71,6 +71,11 @@
     <td colspan="3" class="text-center col-md-10">{{$value -> razao_social}}</td>
     <td class="text-center col-md-2"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$value->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
   </tr>
+  @if(!is_null($value->id_responsavel))
+  <tr>
+    <td colspan="4"><b>Responsável</b>: <a href="{{ URL::to('/pessoaFisica/' . $value->id_responsavel . '/show')}}" target="_blank"> {{$value -> nome}}</a></td>
+  </tr>
+  @endif
 </tbody>
 </table>
 <div class="modal fade" id="{{$value->id_parte}}" role="dialog" data-keyboard="false" data-backdrop="static">
@@ -265,6 +270,11 @@
     <td colspan="3" class="text-center col-md-10">{{$value -> razao_social}}</td>
     <td class="text-center  col-md-2"><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#{{$value->id_parte}}"><i class="fa fa-search-plus" aria-hidden="true"></i></button></td>
   </tr>
+    @if(!is_null($value->id_responsavel))
+  <tr>
+    <td colspan="4"><b>Responsável</b>: <a href="{{ URL::to('/pessoaFisica/' . $value->id_responsavel . '/show')}}" target="_blank"> {{$value -> nome}}</a></td>
+  </tr>
+  @endif
 </tbody>
 </table>
 <div class="modal fade" id="{{$value->id_parte}}" role="dialog" data-keyboard="false" data-backdrop="static">

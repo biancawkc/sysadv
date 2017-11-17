@@ -192,6 +192,7 @@ public function edit($idFuncionario)
 	->join('funcionario', 'pessoa_fisica.id_parte', '=', 'funcionario.id_parte')
 	->where('funcionario.id_funcionario', '=', $idFuncionario)
 	->first();
+	$usuario = \App\Models\Usuario::where('id_funcionario',$idFuncionario)->get();
 
 	$civil = \App\Models\EstadoCivil::all(['desc_estado_civil', 'id_estado_civil']);
 	$tp_tel = \App\Models\TipoTel::all(['tp_telefone', 'id_tp_telefone']);
@@ -208,7 +209,8 @@ public function edit($idFuncionario)
 	->with('funcionario', $funcionario)
 	->with('civil', $civil)
 	->with('tp_tel', $tp_tel)
-	->with('dt_final', $dt_final);
+	->with('dt_final', $dt_final)
+	->with('usuario', $usuario);
 }
 
 public function update(Request $request, $idFuncionario)
@@ -227,6 +229,7 @@ public function update(Request $request, $idFuncionario)
 	} else {
 
 		$funcionario = \App\Models\Funcionario::find($idFuncionario);
+		$usuario = \App\Models\Usuario::where('id_funcionario',$idFuncionario)->first();
 
 		$str = $request->dt_nasc;
 		$data = explode("/", $str);
@@ -252,10 +255,15 @@ public function update(Request $request, $idFuncionario)
 		$str3 = $request->dt_demissao;
 		$date1 = explode("/", $str3);
 		$date1 = $date1[2] . "-" . $date1[1] . "-" . $date1[0];
+		$funcionario->dt_demissao = $date1;
+		if(!empty($usuario))
+		{
+			$usuario->ativo = 0;
+			$usuario->save();
+		}
 		}
 
-		$funcionario->dt_admissao = $date;
-		$funcionario->dt_demissao = $date1;
+		$funcionario->dt_admissao = $date;		
 		$funcionario->qualificacoes = $request->qualificacoes;
 		$funcionario->save();
 
@@ -285,8 +293,19 @@ public function remove($idFuncionario)
 	->where('funcionario.id_funcionario', '=', $idFuncionario)
 	->first();
 
-	return view('colaborador.funcionario.remove')
-	->with('funcionario', $funcionario);
+	$processo = \DB::table('parte_tem_processo')->where('id_parte','=', $funcionario->id_parte)->first();
+
+	if(is_null($processo))
+		{
+			return view('colaborador.funcionario.remove')
+				->with('funcionario', $funcionario);
+		}
+		else
+		{
+			flash()->overlay('Não é possível deletar os dados de '.$pessoaFisica->nome.', pois está vinculado a pelo menos um processo.','Atenção');
+			return redirect('pessoaFisica/'.$id.'/show');
+		}
+
 }
 
 public function destroy($idFuncionario)
@@ -298,6 +317,6 @@ public function destroy($idFuncionario)
 	\DB::delete('DELETE FROM parte WHERE id_parte ='.$funcionario->id_parte);
 
 	flash()->success('Funcionario Excluído com Sucesso!');
-	return redirect('/funcionario/');
+	return redirect('/colaboradores');
 }
 }

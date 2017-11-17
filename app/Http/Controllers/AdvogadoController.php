@@ -254,7 +254,7 @@ public function remove($idAdvogado)
 	}
 	else
 	{	
-		flash()->overlay('Não é possível deletar o advogado '.$advogado->nome.', pois possui vínculo com pelo menos um processo.','Atenção');
+		flash()->overlay('Não é possível deletar o(a) advogado(a) '.$advogado->nome.', pois possui vínculo com pelo menos um processo.','Atenção');
 		return redirect('advogado/'.$idAdvogado.'/show');
 	}
 }
@@ -271,7 +271,7 @@ public function destroy($idAdvogado)
 	\DB::delete('DELETE FROM parte WHERE id_parte ='.$advogado->id_parte);
 
 	flash()->success('Advogado Excluído com Sucesso!');
-	return redirect('/advogado/');
+	return redirect('/colaboradores');
 }
 
 }

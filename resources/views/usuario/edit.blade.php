@@ -14,6 +14,7 @@
 	<div class="container-custom">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<h1 class="col-lg-12 well "> Editar Usuário <i class="fa fa-user user-plus" aria-hidden="true"></i>
+			<span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
 		</h1>
 
 		<div class="col-lg-12 well">
@@ -76,9 +77,26 @@
 	<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button>
 </div>
 
-
 <br>
 <br>
+<div class="modal fade helps" role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+								</div>
+								<div class="modal-body">
+									<p>
+										<b>Nível de acesso</b>: Usuário comum; tem acesso limitado de funções. Adminsitrador; tem acesso completo de todas as funções.<br><br>
+										<b>Situação</b>: Ativo; um usuário com situação ativa possui acesso à aplicação. Inativo; um usuário com situação inativa não possui mais acesso à aplicação.<br><br>
+									</p>
+								</div>
+							</div>  
+						</div>
+					</div>
+				
+				</div> 
 </div> 
 
 {!! Form::close() !!}

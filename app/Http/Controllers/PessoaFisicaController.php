@@ -97,6 +97,7 @@ class PessoaFisicaController extends Controller
 			$pessoaFisica->id_estado_civil = $request->id_estado_civil;
 			$pessoaFisica->ctps = $request->ctps;
 			$pessoaFisica->serie_ctps = $request->serie_ctps;
+			$pessoaFisica->serie_ctps = $request->serie_ctps;
 			$pessoaFisica->remuneracao = $request->remuneracao;
 			$pessoaFisica->id_profissao = $request->id_profissao;
 
@@ -365,26 +366,14 @@ class PessoaFisicaController extends Controller
 
 		$advogado = \DB::table('advogado')->where('id_parte','=', $id)->first();
 
-		if(is_null($funcionario) && is_null($advogado))
+		if(is_null($funcionario) && is_null($advogado) && is_null($processo))
 		{
 			return view('pessoa.pessoaFisica.remove')
 			->with('pessoaFisica', $pessoaFisica);
 		}
 		else
 		{
-			flash()->overlay('Não é possível deletar os dados de '.$pessoaFisica->nome.', pois está cadastrado como colaborador.','Atenção');
-			return redirect('pessoaFisica/'.$id.'/show');
-		}
-
-
-		if(is_null($processo))
-		{
-			return view('pessoa.pessoaFisica.remove')
-			->with('pessoaFisica', $pessoaFisica);
-		}
-		else
-		{
-			flash()->overlay('Não é possível deletar os dados de '.$pessoaFisica->nome.', pois está vinculado com pelo menos um processo.','Atenção');
+			flash()->overlay('Não é possível deletar os dados de '.$pessoaFisica->nome.', pois está cadastrado como colaborador ou está vinculado a pelo menos um processo.','Atenção');
 			return redirect('pessoaFisica/'.$id.'/show');
 		}
 	}
@@ -400,7 +389,7 @@ class PessoaFisicaController extends Controller
 		\DB::delete('DELETE FROM parte WHERE id_parte ='.$id);
 
 		flash()->success('Pessoa Física Excluída com Sucesso!');
-		return redirect('pessoa/');
+		return redirect('/pessoa');
 	}
 
 

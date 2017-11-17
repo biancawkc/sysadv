@@ -6,7 +6,7 @@
         <div class="col-md-12">
         <br><br>
             <div class=" well text-center">
-                <h3>Deseja excluir o funcionário a seguir?</h3>
+                <h3>Deseja excluir todos os dados do(a) funcionário(a: <br><br><b>{{$funcionario->nome}}</b>?</h3>
                 <br>
                 <div class="text-center">
                     <a href="{{ URL::to('/funcionario/'.$funcionario->id_funcionario.'/show') }}" class="btn btn-lg btn-info">Não <i class="fa fa-undo" aria-hidden="true"></i></a>

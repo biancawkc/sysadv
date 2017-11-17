@@ -34,12 +34,26 @@ class RelatorioController extends Controller
 			['parcela.id_tp_parcela', '=', 1],
 			])->get();
 
-		$parcelaHsum = DB::table('parcela')
+		$parcelaHsum1 = DB::table('parcela')
 		->where([
 			['parcela.id_processo', '=', $idProcesso],
 			['parcela.id_tp_parcela', '=', 1],
 			['parcela.dt_pag', '<>', NULL],
 			])->sum('valor');
+
+		$parcelaHdesc = DB::table('parcela')
+		->where([
+			['parcela.id_processo', '=', $idProcesso],
+			['parcela.id_tp_parcela', '=', 1],
+			])->sum('desconto');
+
+		$parcelaHjuro = DB::table('parcela')
+		->where([
+			['parcela.id_processo', '=', $idProcesso],
+			['parcela.id_tp_parcela', '=', 1],
+			])->sum('multa');
+
+		$parcelaHsum = $parcelaHsum1 + $parcelaHjuro - $parcelaHdesc;
 
 		$parcelaRece = DB::table('parcela')
 		->where([
@@ -60,12 +74,26 @@ class RelatorioController extends Controller
 			['parcela.id_tp_parcela', '=', 2],
 			])->get();
 
-		$parcelaGsum = DB::table('parcela')
+		$parcelaGsum1 = DB::table('parcela')
 		->where([
 			['parcela.id_processo', '=', $idProcesso],
 			['parcela.id_tp_parcela', '=', 2],
 			['parcela.dt_pag', '<>', NULL],
 			])->sum('valor');
+
+		$parcelaGdesc = DB::table('parcela')
+		->where([
+			['parcela.id_processo', '=', $idProcesso],
+			['parcela.id_tp_parcela', '=', 2],
+			])->sum('desconto');
+
+		$parcelaGjuro = DB::table('parcela')
+		->where([
+			['parcela.id_processo', '=', $idProcesso],
+			['parcela.id_tp_parcela', '=', 2],
+			])->sum('multa');
+
+		$parcelaGsum = $parcelaGsum1 + $parcelaGjuro - $parcelaGdesc;
 
 		$parcelaGRece = DB::table('parcela')
 		->where([
@@ -233,7 +261,7 @@ class RelatorioController extends Controller
 
 			");
 
-		return View::make('relatorio.relatorio', compact(['processo', 'estadoProcesso', 'comarca', 'justica','pessoaJuridicaC', 'pessoaFisicaC','pessoaFisicaA', 'pessoaJuridicaA',  'parcelaH', 'parcelaG', 'parcelaHsum', 'parcelaRece', 'parcelaHtotal', 'parcelaGsum', 'parcelaGRece', 'parcelaGtotal', 'despesa','despesaTotal','etapa','vara']));
+		return View::make('relatorio.relatorio', compact(['processo', 'estadoProcesso', 'comarca', 'justica','pessoaJuridicaC', 'pessoaFisicaC','pessoaFisicaA', 'pessoaJuridicaA',  'parcelaH', 'parcelaG', 'parcelaHsum', 'parcelaRece', 'parcelaHtotal', 'parcelaGsum', 'parcelaGRece', 'parcelaGtotal', 'despesa','despesaTotal','etapa','vara','parcelaHdesc','parcelaHjuro','parcelaGjuro','parcelaGdesc']));
 		/*return view('relatorio.relatorio')
 		->with('processo', $processo);*/
 		// ->with('comarca', $comarca)

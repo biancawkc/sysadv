@@ -6,7 +6,7 @@
         <div class="col-md-12">
         <br><br>
             <div class=" well text-center">
-                <h3>Deseja excluir a despesa a seguir?</h3>
+                <h3>Deseja excluir a despesa: <b>{{$despesa->desc_despesa}}</b><br><br> do processo Nº {{$processo}} ?</h3>
                 <br>
                 <div class="text-center">
                     <a href="{{ URL::to('/despesa/'.$despesa->id_processo) }}" class="btn btn-lg btn-info">Não <i class="fa fa-undo" aria-hidden="true"></i></a>

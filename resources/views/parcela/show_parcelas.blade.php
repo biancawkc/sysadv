@@ -8,7 +8,7 @@
  <input type="hidden" name="porcentagem" value="{{$porcentagem}}">
  <input type="hidden" name="dt_venc" value="{{$data}}">
  <input type="hidden" name="num_parcelas" value="{{$qtd}}">
- <input type="hidden" name="juros" value="{{$juros}}">
+ <input type="hidden" name="porcent_juros" value="{{$porcent_juros}}">
  <input type="hidden" name="valor_acao" value="{{$valor_acao}}">
 
  <div class="container-custom">
@@ -17,7 +17,7 @@
  @else
  <h1 class="col-lg-12 well "> Cadastro de Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i></h1>
  @endif
- 	<table class="table table-striped table-bordered" style="width: 700px;">
+ 	<table class="table table-striped table-bordered">
  		<tbody>
  			<tr>
  				<th class="col-md-3">Parcela</th>
@@ -49,15 +49,18 @@
  	-->
  </tbody>
 </table>
-<p>Será cobrado <b>{{$juros}}%</b> acima do valor da(s) parcela(s) por dia de atraso de pagamento.</p>
+<p>Será cobrado <b>{{$porcent_juros}}%</b> acima do valor da(s) parcela(s) por dia de atraso de pagamento.</p>
 <br>
 <div class="text-center">
 				<a href="{!! URL::previous() !!}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 				&nbsp;&nbsp;&nbsp;
 				<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 			</div>
+
+
 </div>
 {!! Form::close() !!}
 @endsection
+@section('content_js')
 
-
+@endsection

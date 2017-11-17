@@ -91,7 +91,7 @@
 					<div class="row">
 						<div class="col-sm-3 form-group">
 							<label>% Juros/dia<span class="asterisk">*</span></label>				
-							<input type='text' name="juros" class="form-control" data-validation="required number" value="{{$parcela->juros}}" readonly id="juros" onkeyup="GetDays()"/>
+							<input type='text' name="porcent_juros" class="form-control" data-validation="required number" value="{{$parcela->porcent_juros}}" readonly id="juros" onkeyup="GetDays()"/>
 						</div>
 
 						<div class="col-sm-2 form-group null">
@@ -101,14 +101,14 @@
 
 						<div class="col-sm-2 form-group null">
 							<label>Juros (R$)</label>				
-							<input type="text" name="" class="form-control money text-right" readonly id="multa" value="{{$parcela->multa}}" id="jur" onkeyup="Pag();" />
-							<input type="hidden" name="multa" id="juros">
+							<input type="text" name="valor_juros" class="form-control text-right" readonly id="multa" value="{{$parcela->valor_juros}}" id="jur" onkeyup="Pag();" />
+							<!-- <input type="text" name="valor_juros" id="juros" value="{{$parcela->valor_juros}}"> -->
 						</div>
 
 						<div class="col-sm-3 form-group null">
 							<label>Desconto (R$)</label>				
-							<input type="text" name="" class="form-control money text-right" value="{{$parcela->desconto}}" id="desconto" onkeyup="GetDays(); Pag();"  />
-							<input type="hidden" name="desconto" id="discount">
+							<input type="text" name="" class="form-control money text-right" value="{{$descontos}}" id="desconto" onkeyup="GetDays(); Pag();"  />
+							<input type="hidden" name="desconto" id="discount" value="{{$parcela->desconto}}">
 						</div>
 					</div>
 				</div>
@@ -117,7 +117,7 @@
 	
 			<h4 class="col-lg-12 well" style="display: none;" id="show">Valor Atualizado: R$ <b><span id="atualizado"></span></b></h4> 
 
-			@if(!is_null($parcela->desconto) || !is_null($parcela->multa))
+			@if(!is_null($parcela->desconto) || !is_null($parcela->valor_juros))
 			<h4 class="col-lg-12 well" id="atual">Valor Atualizado: R$ <b>{{$valorF}}</b></h4>
 			@endif
 		<p>Data de criação: {{date('d/m/Y H:i:s', strtotime($parcela->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($parcela->dt_atualizacao))}} por {{$usuario->username}} </p>
@@ -241,6 +241,7 @@
 			document.getElementById("atualizado").innerHTML=atualizado;
 			document.getElementById("show").style.display="block";
 			document.getElementById("atual").style.display="none";
+
 		} 
 
 		if( desconto !== "") 
@@ -248,6 +249,7 @@
 			document.getElementById("show").style.display="block";
 			document.getElementById("atualizado").innerHTML=desct;
 			document.getElementById("atual").style.display="none";
+			document.getElementById("discount").value= desconto;
 		}
 
 

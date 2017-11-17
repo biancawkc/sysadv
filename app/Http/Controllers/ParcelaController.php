@@ -52,7 +52,7 @@ class ParcelaController extends Controller
 		$tipo = $request->id_tp_parcela;
 		$porcentagem = $request->porcentagem;
 		$qtd = $request->num_parcelas;
-		$juros = $request->juros;
+		$porcent_juros = $request->porcent_juros;
 		$str = $request->dt_venc;
 		$valor_acao = $request->valor_acao;
 		$i = 1;
@@ -71,7 +71,7 @@ class ParcelaController extends Controller
 		->with('data', $data)
 		->with('i', $i)
 		->with('data', $data)
-		->with('juros', $juros)
+		->with('porcent_juros', $porcent_juros)
 		->with('valor_acao', $valor_acao);
 	}
 
@@ -119,7 +119,7 @@ class ParcelaController extends Controller
 			$parcela->num_parcela = $first;
 			$parcela->adversa_pag = 0;
 			$parcela->valor = $request->primeira;
-			$parcela->juros = $request->juros;
+			$parcela->porcent_juros = $request->porcent_juros;
 			$parcela->id_processo = $idProcesso;
 			$parcela->id_forma_pag = $request->id_forma_pag;
 			$parcela->id_tp_parcela = $request->id_tp_parcela;
@@ -148,7 +148,7 @@ class ParcelaController extends Controller
 				$parcela->num_parcela = $first;
 				$parcela->adversa_pag = 0;
 				$parcela->valor = $request->valor;
-				$parcela->juros = $request->juros;
+				$parcela->porcent_juros = $request->porcent_juros;
 				$parcela->dt_venc = $dt_venc;
 				$parcela->id_processo = $idProcesso;
 				$parcela->id_forma_pag = $request->id_forma_pag;
@@ -168,6 +168,7 @@ class ParcelaController extends Controller
 		$parcela = \App\Models\Parcela::find($id);
 		$formaPag = \DB::table('forma_pag')->get();
 		$valores = number_format($parcela->valor,2,",",".");
+		$descontos = number_format($parcela->desconto,2,",",".");
 
 		$processo = \DB::table('processo')
 		->join('justica', 'processo.id_justica', '=', 'justica.id_justica')
@@ -176,6 +177,7 @@ class ParcelaController extends Controller
 		->join('estado_processo', 'estado_processo.id_estado_processo', '=', 'processo.id_estado_processo')
 		->where('id_processo', $parcela->id_processo)
 		->first();
+		
 		$usuario = \App\Models\Usuario::find($parcela->id_usuario);
 
 		if(!is_null($parcela->dt_pag))
@@ -187,13 +189,13 @@ class ParcelaController extends Controller
 			$pag = "";
 		}
 
-		if(is_null($parcela->multa))
+		if(is_null($parcela->valor_juros))
 		{
 			$multa = 0;
 		}
-		elseif(!is_null($parcela->multa))
+		elseif(!is_null($parcela->valor_juros))
 		{
-			$multa = $parcela->multa;
+			$multa = $parcela->valor_juros;
 		}
 
 		if(is_null($parcela->desconto))
@@ -204,7 +206,8 @@ class ParcelaController extends Controller
 			$desconto = $parcela->desconto;
 		}
 
-		$valorF = (float)$parcela->valor + $multa - $desconto;
+		$valorA = (float)$parcela->valor + $multa - $desconto;
+		$valorF = number_format($valorA,2,",",".");
 
 		return view ('parcela.edit')
 		->with('formaPag', $formaPag)
@@ -213,7 +216,8 @@ class ParcelaController extends Controller
 		->with('valorF', $valorF)
 		->with('valores', $valores)
 		->with('processo', $processo)
-		->with('usuario', $usuario);	
+		->with('usuario', $usuario)
+		->with('descontos', $descontos);	
 	}
 
 	public function update (Request $request, $id)
@@ -240,10 +244,10 @@ class ParcelaController extends Controller
 			{
 			$parcela->adversa_pag = 1;
 			}
-			$parcela->juros = $request->juros;
+			$parcela->porcent_juros = $request->porcent_juros;
+			$parcela->valor_juros = $request->valor_juros;
 			$parcela->desconto = $request->desconto;
 			$parcela->dias_atraso = $request->dias_atraso;
-			$parcela->multa = $request->multa;
 			$parcela->id_forma_pag = $request->id_forma_pag;
 			$parcela->id_tp_parcela = $request->id_tp_parcela;
 			$parcela->id_usuario = $usuario;
@@ -314,21 +318,23 @@ class ParcelaController extends Controller
 
 		$countAdvJur = $adversaJurid->count();
 		$countAdvFis = $adversaFis->count();
+		$countClienteJur = $clienteJurid->count();
+		$countClienteFis =$clienteFis->count();
 
 		$fis="";
 		$jurid="";
 		$fisA="";
 		$juridA="";
-		$multa="";
+		$juros="";
 		$desconto="";
 
-		if(is_null($parcela->multa))
+		if(is_null($parcela->valor_juros))
 		{
-			$multa = 0;
+			$juros = 0;
 		}
-		elseif(!is_null($parcela->multa))
+		elseif(!is_null($parcela->valor_juros))
 		{
-			$multa = $parcela->multa;
+			$juros = $parcela->valor_juros;
 		}
 
 		if(is_null($parcela->desconto))
@@ -339,7 +345,7 @@ class ParcelaController extends Controller
 			$desconto = $parcela->desconto;
 		}
 
-		$valorF = (float)$parcela->valor + $multa - $desconto;
+		$valorF = (float)$parcela->valor + $juros - $desconto;
 		
 		if($parcela->adversa_pag == 1)
 		{
@@ -382,7 +388,9 @@ class ParcelaController extends Controller
 
 				if($iMax-$i-1 == 0 && $iMax > 0 && empty($clienteFis)) {
 					$jurid .= " e ";
-				}elseif(!empty($clienteFis)){
+				}elseif($countClienteFis > 1){
+					$jurid .= ", ";
+				}elseif($iMax-$i-1 > 0){
 					$jurid .= ", ";
 				}
 			}

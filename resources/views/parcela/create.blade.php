@@ -30,7 +30,7 @@
 		<div class="container-custom">
 			<input type="hidden" name="id_tp_parcela" value="1">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
-			<h1 class="col-lg-12 well "> Cadastro de Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i>
+			<h1 class="col-lg-12 well "> Cadastro de Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i><span class="pull-right questionMark"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
 			</h1>
 			<div class="col-lg-12 well">
 				<div class="row">
@@ -76,7 +76,7 @@
 
 							<div class="col-sm-3 form-group">
 								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
-								<input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
+								<input type='text' name="porcent_juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
 							</div>
 						</div>
 
@@ -99,6 +99,25 @@
 		</div> 
 
 		{!! Form::close() !!}
+		<div class="modal fade helps" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+					</div>
+					<div class="modal-body">
+						<p>
+							Parcela Honorários, são as despesas e custos do processo. Parcela Ganho de Causa, é quantia definida, no caso do ganho do processo.<br><br>
+							<b>Valor total da parcela</b>: valor total dos honorários a serem divididos pelas parcelas, caso haja alguma mudança no valor, é necessário atualizar o valor em todas as parcelas.<br><br>
+							<b> 1º Data de vencimento</b>: selecionando a 1º data de vencimento, todos os vencimentos posteriores serão no mesmo dia dos meses posteriores, até o término do pagamento. Se precisar alterar a data de pagamento de algum mês, será necessário alterar a parcela referente posteriormente. <br><br>
+							<b> Juros/dia (%)</b>: porcentagem de juros que serão acrescentados na parcela por dia de atraso.<br><br>
+						</p>
+					</div>
+				</div>  
+			</div>
+		</div>
+
 	</div>
 
 	<div style="display: none;" id="ganho">
@@ -145,7 +164,7 @@
 							<input type='hidden' name="demais" data-validation="required" id="demais" />
 							<div class="col-sm-3 form-group">
 								<label>Juros/dia (%)<span class="asterisk">*</span></label>				
-								<input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
+								<input type="text" name="porcent_juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
 							</div>
 
 							<div class="col-sm-4 form-group">

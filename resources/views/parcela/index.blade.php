@@ -7,12 +7,12 @@
    <br>
    <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a> </b><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-info" id="open">Expandir</a><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-warning" id="close">Esconder</a></h2>
    <div class="row">
-   <div class="col-lg-9">
-  <div id="demo" class="collapse">
-    <p><b>Estado Processo</b>: {{$processo->desc_est_processo}} / <b>Nome Ação</b>: {{$processo->nome_acao}} / <b>Jutiça:</b> {{$processo->nm_justica}} / <b>Comarca:</b> {{$processo->comarca}} / <b>Vara:</b> {{$processo->vara}} / <b>Justiça Gratuita:</b> @if($processo->justica_grat == 1) Sim @else Não @endif / <b>Ação Gratuita:</b> @if($processo->acao_grat == 1) Sim @else Não @endif / <b>Data Início</b>: {{ date('d/m/Y', strtotime($processo->dt_inicio)) }} / <b>Data Final</b>: @if(!empty($processo->dt_final)){{ date('d/m/Y', strtotime($processo->dt_final)) }}@else - @endif </p>
+     <div class="col-lg-9">
+      <div id="demo" class="collapse">
+        <p><b>Estado Processo</b>: {{$processo->desc_est_processo}} / <b>Nome Ação</b>: {{$processo->nome_acao}} / <b>Jutiça:</b> {{$processo->nm_justica}} / <b>Comarca:</b> {{$processo->comarca}} / <b>Vara:</b> {{$processo->vara}} / <b>Justiça Gratuita:</b> @if($processo->justica_grat == 1) Sim @else Não @endif / <b>Ação Gratuita:</b> @if($processo->acao_grat == 1) Sim @else Não @endif / <b>Data Início</b>: {{ date('d/m/Y', strtotime($processo->dt_inicio)) }} / <b>Data Final</b>: @if(!empty($processo->dt_final)){{ date('d/m/Y', strtotime($processo->dt_final)) }}@else - @endif </p>
+      </div>
+    </div>
   </div>
-  </div>
-</div>
   <br>
 
 <!--    <a href="{{ URL::to('parcela/'.$idProcesso.'/create') }}" class="btn btn-lg btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a> -->
@@ -87,13 +87,10 @@
     <div class="col-lg-12">
       <div class="row">
         <h3>Tipo de parcela: </h3>
-        <label  class="radio-inline">
-          <input type="radio" name="tp_parcela" id="ph" checked >Parcela Honorários
-        </label>
-
-        <label class="radio-inline">
-          <input type="radio" name="tp_parcela" id="pg">Parcela Ganho de Causa 
-        </label>
+        <ul class="buttons">
+         <li><input type="radio" name="tp_parcela" id="ph" checked >  Parcela Honorários</li>
+         <li><input type="radio" name="tp_parcela" id="pg">  Parcela Ganho de Causa</li> 
+        </ul>
       </div>
     </div>
   </div>
@@ -105,6 +102,7 @@
       <input type="hidden" name="id_tp_parcela" value="1">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
       <h1 class="col-lg-12 well "> Cadastro de Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i>
+        <span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
       </h1>
    <div class="col-lg-12 well">
         <div class="row">
@@ -150,7 +148,7 @@
 
               <div class="col-sm-3 form-group">
                 <label>% Juros/dia<span class="asterisk">*</span></label>       
-                <input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
+                <input type='text' name="porcent_juros" class="form-control" data-validation="number" data-validation-allowing="float" onkeyup="this.value = this.value.replace(/,/g, '.');"/>
               </div>
             </div>
 
@@ -181,7 +179,7 @@
     <div class="container-custom">
       <input type="hidden" name="id_tp_parcela" value="2">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <h1 class="col-lg-12 well "> Cadastro de Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i>
+      <h1 class="col-lg-12 well "> Cadastro de Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i><br><span class="questionMarka pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
       </h1>
 
  <div class="col-lg-12 well">
@@ -220,7 +218,7 @@
 
               <div class="col-sm-3 form-group">
                 <label>% Juros/dia<span class="asterisk">*</span></label>       
-                <input type='text' name="juros" class="form-control" data-validation="number" data-validation-allowing="float"  onkeyup="this.value = this.value.replace(/,/g, '.');"/>
+                <input type='text' name="porcent_juros" class="form-control" data-validation="number" data-validation-allowing="float"  onkeyup="this.value = this.value.replace(/,/g, '.');"/>
               </div>
 
               <div class="col-sm-4 form-group">
@@ -263,6 +261,46 @@
       </div>
     </div>
   </div>
+  <div class="modal fade helps" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+            Parcela Honorários, é o serviço cobrado em relação ao processo. <br><br>
+            <b>Valor total da parcela</b>: valor total dos honorários a serem divididos pelo número de parcelas de pagamento definido, caso haja alguma mudança no valor, é necessário atualizar o valor em todas as parcelas.<br><br>
+            <b> 1º Data de vencimento</b>: selecionando a 1º data de vencimento, todos os vencimentos posteriores serão no mesmo dia nos seus respectivos meses, até o término do pagamento. Não será possível alterar a data de pagamento posteriormente. <br><br>
+            <b> % Juros/dia</b>: porcentagem de juros que serão acrescentados no valor atualizado da parcela por dia de atraso.<br><br>
+          </p>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+  <div class="modal fade helpsa" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+        </div>
+        <div class="modal-body">
+          <p>
+            Parcela Ganho de Causa, é o valor cobrado quando ocorre ganho do processo.<br><br>
+            <b> Valor ação</b>: valor total ganho na ação. <br><br>
+            <b> Porcento %</b>: porcentagem calculado acima do valor total da ação, préviamente acordado entre advogado e cliente. <br><br>
+            <b> 1º Data de vencimento</b>: selecionando a 1º data de vencimento, todos os vencimentos posteriores serão no mesmo dia nos seus respectivos meses, até o término do pagamento. Não será possível alterar a data de pagamento posteriormente. <br><br>
+            <b> % Juros/dia</b>: porcentagem de juros que serão acrescentados no valor atualizado da parcela por dia de atraso.<br><br>
+          </p>
+        </div>
+      </div>  
+    </div>
+  </div>
+
+
 </div>
 <br>
 @endsection

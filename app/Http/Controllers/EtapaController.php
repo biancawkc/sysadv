@@ -26,11 +26,20 @@ class EtapaController extends Controller
 
 		$nmEtapas = \DB::table('etapa')->get();
 
+		$nmEtapasE = \DB::table('etapa')->where('nm_etapa','LIKE', '%Estadual%')->get();
+
+		$nmEtapasF = \DB::table('etapa')->where('nm_etapa','LIKE', '%Federal%')->get();
+
+		$strEtapa = explode(' ',strtolower($processo->nm_justica));
+
 		return view('etapa.index')
 		->with('etapas', $etapas)
 		->with('idProcesso', $idProcesso)
 		->with('processo', $processo)
-		->with('nmEtapas', $nmEtapas);
+		->with('nmEtapas', $nmEtapas)
+		->with('nmEtapasE', $nmEtapasE)
+		->with('nmEtapasF', $nmEtapasF)
+		->with('strEtapa', $strEtapa);
 
 	}
 
@@ -146,9 +155,13 @@ public function update (Request $request, $id)
 public function remove($id)
 {
 	$etapa = \App\Models\EtapaProcesso::find($id);
+	$nomeEtapa = \App\Models\Etapa::find($etapa->id_etapa_processo);
+	$processo = \App\Models\Processo::find($etapa->id_processo)->value('numero');
 
 	return view('etapa.remove')
-	->with('etapa', $etapa);
+	->with('etapa', $etapa)
+	->with('nomeEtapa', $nomeEtapa)
+	->with('processo', $processo);
 }
 
 public function destroy($id)

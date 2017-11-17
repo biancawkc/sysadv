@@ -13,7 +13,8 @@
              <!-- <th>ID</th> -->
              <th>Razão Social / Nome Completo</th>
              <th>CNPJ / CPF</th>
-             <th>Ações</th>
+             <th class="col-md-2">Categoria</th>
+             <th class="col-md-2">Ação</th>
          </tr>
      </thead>
      <tbody>
@@ -23,7 +24,8 @@
             <!-- <td>{!! $value->id_parte !!}</td> -->
             <td class="col-md-4">{!! $value->razao_social !!}</td>
             <td class="cnpj">{!! $value->cnpj!!}</td>
-            <td class="text-center">
+            <td>Pessoa Jurídica</td>
+            <td>
              <a target="_blank" href="{{ URL::to('/pessoaJuridica/' . $value->id_parte . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a> 
             </td>
         </tr>
@@ -33,9 +35,10 @@
         @foreach($fisica as $val)
         <tr>
             <!-- <td>{!! $val->id_parte !!}</td> -->
-            <td class="col-md-4">{!! $val->nome !!}</td>
-            <td class="cpf col-md-4">{!! $val->cpf!!}</td>
-            <td class="col-md-4 text-center">
+            <td>{!! $val->nome !!}</td>
+            <td>{!! $val->cpf!!}</td>
+            <td>Pessoa Física</td>
+            <td>
               <a target="_blank" href="{{ URL::to('/pessoaFisica/' . $val->id_parte . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>   
             </td>
         </tr>

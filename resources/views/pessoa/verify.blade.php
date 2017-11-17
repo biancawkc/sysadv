@@ -1,11 +1,8 @@
  @extends('layouts.master2')
  @section('content')
- <style type="text/css">
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
- </style>
  <div class="container-custom">
     <h1 class="col-lg-12 well "> Cadastro de Parte  <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
-     <span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></h1>
+     <span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span></h1>
     <div class="col-lg-12">
     <div class="row" >
         <div class="col-sm-12">
@@ -34,8 +31,10 @@
                             {!! Form::open(['route'=>'fisica.addPerson' , 'class'=>'form-horizontal form', 'autocomplete'=>'off']) !!}
                             <label  class="col-md-1 control-label">CPF<span class="asterisk">*</span></label>
                             <div class="col-md-7 form-inline">
-                                <input type="text" class="form-control cpf" name="cpf" id="cpf" data-validation="cpf" />
-                                <button name="submit" class="btn btn-md btn-info">Próximo</button> 
+                                <ul class="button-inline">
+                               <li><input type="text" class="form-control cpf" name="cpf" id="cpf" data-validation="cpf" /></li>
+                                <li class="second-li"><button name="submit" class="btn btn-md btn-info">Próximo</button></li> 
+                                </ul>
                             </div>
                             {!! Form::close() !!}
                         </div>

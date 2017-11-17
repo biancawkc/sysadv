@@ -13,7 +13,7 @@
              <th>Nome Completo</th>
              <th>CPF</th>
              <th class="col-md-2">Categoria</th>
-             <th>Ações</th>
+             <th class="col-md-2">Ação</th>
          </tr>
      </thead>
      <tbody>
@@ -23,7 +23,7 @@
             <td>{!! $value->nome !!}</td>
             <td class="cpf">{!!  $value->cpf  !!}</td>
             <td>Funcionário</td>
-            <td class="text-center">
+            <td>
                 <a href="{{ URL::to('/funcionario/' . $value->id_funcionario. '/show') }}" target="_blank" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle fa-1x" aria-hidden="true"></i></a>       
             </td>
         </tr>
@@ -37,7 +37,7 @@
             <td>{!! $value->nome !!}</td>
             <td class="cpf">{!!  $value->cpf  !!}</td>
             <td>Advogado</td>
-            <td class="text-center">
+            <td>
                 <a href="{{ URL::to('/advogado/' . $value->id_advogado . '/show') }}" target="_blank" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle fa-1x" aria-hidden="true"></i></a>    
             </td>
         </tr>

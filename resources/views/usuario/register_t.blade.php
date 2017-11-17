@@ -8,18 +8,20 @@
 	@endforeach
 </ul>
 @endif
-@include('flash::message')
 <form role="form" method="POST" action="{{ url('/cadastrar_usuario') }}">
 	<input type="hidden" name="ativo" value="1">
 	<input type="hidden" name="administrador" value="0">
 	<div class="container-custom">
+		@include('flash::message')
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<h1 class="col-lg-12 well "> Cadastro de Usuário <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
+			<span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
 		</h1>
 
 		<div class="col-lg-12 well">
 			<div class="row">
 				<div class="col-sm-12">
+
 				@if($pessoaFisica !== "")
 					<div class="form-group">
 						<label>Nome <span class="asterisk">*</span></label>
@@ -83,20 +85,35 @@
 			</div>
 		</div>
 
-		<div class="form-group">
 			<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
-		</div>
 		<div class="text-center">
 	<a href="{{ URL::to('/colaboradores') }}" class="btn btn-lg btn-danger">Cancelar <i class="fa fa-undo" aria-hidden="true"></i></a>
 	&nbsp;&nbsp;&nbsp;
 	<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>
 
+<div class="modal fade helps" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+			</div>
+			<div class="modal-body">
+				<p>
+					<b>IMPORTANTE!</b> Antes de iniciar a criação do usuário, deve-se incluir o funcionário ou advogado. <br><br>
+					<b> E-mail </b>: e-mail para recuperação de senhas da conta.<br><br>
+					<b> Usuário</b>: nome da conta do usuário, máximo de 20 caracteres, pode conter letras, números ou caracteres especiais. <br><br>
+					<b> Senha</b>: a senha deve possuir no mínimo 6 caracteres, pode conter letras, números ou caracteres especiais.<br><br>
+				</p>
+			</div>
+		</div>  
+	</div>
+</div>
 
 <br>
 <br>
 </div> 
-
 </form>
 @endsection
 @section('content_js')
@@ -106,13 +123,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title red">ATENÇÃO</h4>
+          <h4 class="modal-title red"><i class="fa fa-exclamation-triangle info" aria-hidden="true"></i> Atenção</h4>
         </div>
         <div class="modal-body">
           <p><b>{{$pessoaFisica->nome}}</b> já foi cadastrado como usuário!</p>
         </div>
         <div class="modal-footer">
-          <a href="{{ URL::to('/cadastrar_usuario') }}" class="btn btn-info">Voltar</a>
+          <a href="{{ URL::to('/cadastrar_usuario') }}" class="btn btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
           <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> -->
         </div>
       </div>

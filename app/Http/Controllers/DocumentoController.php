@@ -137,9 +137,11 @@ class DocumentoController extends Controller
 	public function remove($id)
 	{
 		$documento = \App\Models\Documento::find($id);
+		$processo = \App\Models\Processo::find($documento->id_processo)->value('numero');
 
 		return view('documento.remove')
-		->with('documento', $documento);
+		->with('documento', $documento)
+		->with('processo', $processo);
 	}
 
 	public function destroy($id)

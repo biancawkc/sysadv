@@ -40,9 +40,13 @@
       <td class="text-right">R$ {!! number_format($value->valor,2,",",".") !!}</td>
       <td>{!! date('d/m/Y', strtotime($value->dt_despesa)) !!}</td>
       <td>{!! $value->desc_despesa !!}</td>
-      <td class="text-center">
-        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a> &nbsp;&nbsp;
-        <a href="{{ URL::to('/despesa/' . $value->id_despesa . '/remove') }}" class="btn btn-lg btn-danger" data-toggle="tooltip" data-placement="top" title="Deletar"> <i class="fa fa-trash" aria-hidden="true"></i></a> 
+      <td>
+        <ul class="buttons">
+        <li><a href="{{ URL::to('/despesa/' . $value->id_despesa . '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true" ></i></a></li>
+        @if (Auth::guard('web_usuario')->user()->administrador)
+        <li><a href="{{ URL::to('/despesa/' . $value->id_despesa . '/remove') }}" class="btn btn-lg btn-danger" data-toggle="tooltip" data-placement="top" title="Deletar"> <i class="fa fa-trash" aria-hidden="true"></i></a></li> 
+        @endif
+        </ul>
       </td>
     </tr>
     @endforeach
@@ -69,8 +73,6 @@
           @include('flash::message')
           <div class="container-custom">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <span class="link"><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a></span>
-          <hr>
             <h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-shopping-basket despesa" aria-hidden="true"></i>
             </h1>
 

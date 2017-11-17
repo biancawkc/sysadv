@@ -6,7 +6,7 @@
         <div class="col-md-12">
         <br><br>
             <div class=" well text-center">
-                <h3>Deseja excluir o documento?</h3>
+                <h3>Deseja excluir o documento <b>{{$documento->nome_documento}}</b><br><br> do Processo Nº {{$processo}}?</h3>
                 <br>
                 <div class="text-center">
                     <a href="{{ URL::to('/documento/'.$documento->id_processo) }}" class="btn btn-lg btn-info">Não <i class="fa fa-undo" aria-hidden="true"></i></a>

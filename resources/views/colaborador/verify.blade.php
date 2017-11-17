@@ -2,6 +2,7 @@
  @section('content')
      <div class="container-custom">
         <h1 class="col-lg-12 well "> Cadastro de Colaborador <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
+        <span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
         </h1>
         <div class="col-lg-12">
         <div class="row" >
@@ -48,6 +49,21 @@
             </div>
         </div>
     </div>
+    <div class="modal fade helps" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h3 class="modal-title"><i class="fa fa-info-circle info" aria-hidden="true"></i> Informação</h3>
+        </div>
+        <div class="modal-body">
+          <p><b>CPF</b>: insira um CPF válido com 11 dígitos, somente números, não é necessário a pontuação.<br><br>
+          </p>
+        </div>
+      </div>  
+    </div>
+  </div>
+
 </div> 
 
 @endsection

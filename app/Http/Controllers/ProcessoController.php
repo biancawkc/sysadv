@@ -124,8 +124,8 @@ class ProcessoController extends Controller
 						$parteProcesso->id_parte = $val;
 						$parteProcesso->id_processo = $processo->getAttribute("id_processo");
 						$parteProcesso->participacao = $request->participacao[$ind];
-/*						$parteProcesso->id_responsavel = $request->id_responsavel[$ind];
-*/						$parteProcesso->save();
+						$parteProcesso->id_responsavel = $request->id_responsavel[$ind];
+						$parteProcesso->save();
 					}
 				}
 			
@@ -157,6 +157,7 @@ class ProcessoController extends Controller
 					pessoa_juridica.*, 
 					endereco.*,
 					parte.*,
+					pessoa_fisica.*,
 					( SELECT GROUP_CONCAT(telefone.telefone SEPARATOR ' / ') 
 					FROM telefone 
 					INNER JOIN pessoa_juridica 
@@ -167,6 +168,8 @@ class ProcessoController extends Controller
 					FROM parte_tem_processo 
 					INNER JOIN pessoa_juridica
 					ON pessoa_juridica.id_parte = parte_tem_processo.id_parte
+					LEFT JOIN pessoa_fisica
+					ON pessoa_fisica.id_parte = parte_tem_processo.id_responsavel
 					LEFT JOIN endereco
 					ON endereco.id_parte = parte_tem_processo.id_parte
 					INNER JOIN parte
@@ -224,6 +227,7 @@ class ProcessoController extends Controller
                             		pessoa_juridica.*, 
                             		endereco.*,
                             		parte.*,
+                            		pessoa_fisica.*,
                             		( SELECT GROUP_CONCAT(telefone.telefone SEPARATOR ' / ') 
                             		FROM telefone 
                             		INNER JOIN pessoa_juridica 
@@ -234,6 +238,8 @@ class ProcessoController extends Controller
                             		FROM parte_tem_processo 
                             		INNER JOIN pessoa_juridica
                             		ON pessoa_juridica.id_parte = parte_tem_processo.id_parte
+                            		LEFT JOIN pessoa_fisica
+									ON pessoa_fisica.id_parte = parte_tem_processo.id_responsavel
                             		LEFT JOIN endereco
                             		ON endereco.id_parte = parte_tem_processo.id_parte
                             		INNER JOIN parte
@@ -327,6 +333,8 @@ class ProcessoController extends Controller
                             	->where('parte.ativo', '=', 1)
                             	->get();
 
+                            	$pessoaJuridicaCount = $pessoaJuridica->count();
+
                             	$pessoaFisica = \DB::table('pessoa_fisica')
                             	->join('parte', 'pessoa_fisica.id_parte', '=', 'parte.id_parte')
                             	->where('parte.ativo', '=', 1)
@@ -341,6 +349,7 @@ class ProcessoController extends Controller
 
                             	$pessoaJuridicaC = \DB::table('parte_tem_processo')
                             	->join('pessoa_juridica', 'parte_tem_processo.id_parte', '=', 'pessoa_juridica.id_parte')
+                            	->join('pessoa_fisica', 'parte_tem_processo.id_responsavel', '=', 'pessoa_fisica.id_parte')
                             	->where([
                             		['parte_tem_processo.id_processo', '=', $id],
                             		['parte_tem_processo.participacao', '=', 'c'],
@@ -355,6 +364,7 @@ class ProcessoController extends Controller
 
                             	$pessoaJuridicaA = \DB::table('parte_tem_processo')
                             	->join('pessoa_juridica', 'parte_tem_processo.id_parte', '=', 'pessoa_juridica.id_parte')
+                            	->join('pessoa_fisica', 'parte_tem_processo.id_responsavel', '=', 'pessoa_fisica.id_parte')
                             	->where([
                             		['parte_tem_processo.id_processo', '=', $id],
                             		['parte_tem_processo.participacao', '=', 'a'],
@@ -383,7 +393,8 @@ class ProcessoController extends Controller
                             	->with('varas', $varas)
                             	->with('dt_final', $dt_final)
                             	->with('status', $status)
-                            	->with('usuario', $usuario);
+                            	->with('usuario', $usuario)
+                            	->with('pessoaJuridicaCount', $pessoaJuridicaCount);
                             }
 
                             public function update(Request $request, $id)
@@ -438,6 +449,7 @@ class ProcessoController extends Controller
                             				$parteProcesso->id_parte = $val;
                             				$parteProcesso->id_processo = $processo->getAttribute("id_processo");
                             				$parteProcesso->participacao = $request->participacao[$ind];
+                            				$parteProcesso->id_responsavel = $request->id_responsavel[$ind];
                             				$parteProcesso->save();
                             			}
                             		}

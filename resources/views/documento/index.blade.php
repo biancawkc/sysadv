@@ -53,10 +53,6 @@
       </td>
     </tr>
     @endforeach
-    @else
-    <td colspan="3">
-      Não há registros
-    </td>
     @endif
   </tbody>
 </table>

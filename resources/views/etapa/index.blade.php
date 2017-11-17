@@ -7,12 +7,12 @@
    <br>
    <h2><b>Processo: <a href="{{URL::to('/processo/'.$idProcesso.'/show')}}" target="_blank">{{$processo->numero}}</a> </b><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-info" id="open">Expandir</a><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-warning" id="close">Esconder</a></h2>
    <div class="row">
-   <div class="col-lg-9">
-  <div id="demo" class="collapse">
-    <p><b>Estado Processo</b>: {{$processo->desc_est_processo}} / <b>Nome Ação</b>: {{$processo->nome_acao}} / <b>Jutiça:</b> {{$processo->nm_justica}} / <b>Comarca:</b> {{$processo->comarca}} / <b>Vara:</b> {{$processo->vara}} / <b>Justiça Gratuita:</b> @if($processo->justica_grat == 1) Sim @else Não @endif / <b>Ação Gratuita:</b> @if($processo->acao_grat == 1) Sim @else Não @endif / <b>Data Início</b>: {{ date('d/m/Y', strtotime($processo->dt_inicio)) }} / <b>Data Final</b>: @if(!empty($processo->dt_final)){{ date('d/m/Y', strtotime($processo->dt_final)) }}@else - @endif </p>
+     <div class="col-lg-9">
+      <div id="demo" class="collapse">
+        <p><b>Estado Processo</b>: {{$processo->desc_est_processo}} / <b>Nome Ação</b>: {{$processo->nome_acao}} / <b>Jutiça:</b> {{$processo->nm_justica}} / <b>Comarca:</b> {{$processo->comarca}} / <b>Vara:</b> {{$processo->vara}} / <b>Justiça Gratuita:</b> @if($processo->justica_grat == 1) Sim @else Não @endif / <b>Ação Gratuita:</b> @if($processo->acao_grat == 1) Sim @else Não @endif / <b>Data Início</b>: {{ date('d/m/Y', strtotime($processo->dt_inicio)) }} / <b>Data Final</b>: @if(!empty($processo->dt_final)){{ date('d/m/Y', strtotime($processo->dt_final)) }}@else - @endif </p>
+      </div>
+    </div>
   </div>
-  </div>
-</div>
   <br>
    <!-- <a href="{{ URL::to('/etapa/' . $idProcesso. '/create') }}" class="btn btn-lg btn-success"> <i class="fa fa-calendar-plus-o fa-1x" aria-hidden="true"></i></a>  -->
    @if($processo->id_estado_processo == 1)
@@ -101,9 +101,19 @@
           <label>Nome<span class="asterisk">*</span></label>
           <select class="form-control single-select" name="id_etapa" data-validation="required" style="width: 100%;">
             <option value="">Selecione</option>
+            @if($strEtapa[1] == "estadual")
+            @foreach($nmEtapasE as $nmEtapaE)
+            <option value="{{$nmEtapaE->id_etapa}}">{{$nmEtapaE->nm_etapa}}</option>
+            @endforeach 
+            @elseif ($strEtapa[1] == "federal")
+            @foreach($nmEtapasF as $nmEtapaF)
+            <option value="{{$nmEtapaF->id_etapa}}">{{$nmEtapaF->nm_etapa}}</option>
+            @endforeach 
+            @elseif($strEtapa[1] !== "federal" && $strEtapa[1] !== "estadual")
             @foreach($nmEtapas as $nmEtapa)
             <option value="{{$nmEtapa->id_etapa}}">{{$nmEtapa->nm_etapa}}</option>
-            @endforeach           
+            @endforeach    
+            @endif       
           </select>
         </div>  
 

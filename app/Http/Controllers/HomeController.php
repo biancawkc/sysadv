@@ -16,8 +16,15 @@ class HomeController extends Controller
 		->limit(9)
 		->get();
 
+        $datas2=  \DB::table('etapa_processo')
+        ->join('etapa', 'etapa.id_etapa','=', 'etapa_processo.id_etapa')
+        ->orderBy('dt_prazo','asc')
+        ->whereDate('dt_prazo','>=', date('Y-m-d'))
+        //->where('dt_prazo', '=', NULL)
+        ->get();
 
-		$num = count($datas);
+
+		$num = count($datas2);
 
 		return view('layouts.dashboard')
 		->with('datas', $datas)

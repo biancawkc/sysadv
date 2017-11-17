@@ -6,7 +6,7 @@
         <div class="col-md-12">
         <br><br>
             <div class=" well text-center">
-                <h3>Deseja excluir o advogado <b>{{$advogado->nome}}</b>?</h3>
+                <h3>Deseja excluir todos os dados o(a) advogado(a) <br><br> <b>{{$advogado->nome}}</b>?</h3>
                 <h4 class="red">Todos os processos relacionados também serão excluídos!</h4>
                 <br>
                 <div class="text-center">

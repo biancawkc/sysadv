@@ -133,7 +133,7 @@
 					</div>
 					<div class="col-sm-2 form-group null">
 						<label>Número</label>
-						<input type="text" placeholder="" name="numero" class="form-control" data-validation="number" data-validation-optional="true" value="{{ old('numero') }}">
+						<input type="text" placeholder="" name="numero" class="form-control" value="{{ old('numero') }}">
 					</div>
 
 				</div>

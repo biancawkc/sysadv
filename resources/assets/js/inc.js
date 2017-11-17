@@ -259,6 +259,12 @@ $(document).ready(function() {
             });
          });  
 
+            $( ".questionMarka" ).hover(function() {
+             $('.helpsa').modal({
+                show: true
+            });
+         });  
+
 
         });
 

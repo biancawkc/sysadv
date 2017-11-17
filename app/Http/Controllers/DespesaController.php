@@ -115,9 +115,11 @@ class DespesaController extends Controller
 	public function remove($id)
 	{
 		$despesa = \App\Models\Despesa::find($id);
+		$processo = \App\Models\Processo::find($despesa->id_processo)->value('numero');
 
 		return view('despesa.remove')
-			->with('despesa', $despesa);
+			->with('despesa', $despesa)
+			->with('processo', $processo);
 	}
 
 	public function destroy($id)

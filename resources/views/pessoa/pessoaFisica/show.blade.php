@@ -101,8 +101,6 @@
   <a href="{{ URL::to('/pessoaFisica/' . $pessoaFisica->id_parte. '/edit') }}" class="btn btn-lg btn-info">Editar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
 </div>
 </div>
-
-
 </div>
 <br>
 @endsection
