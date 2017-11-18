@@ -263,7 +263,8 @@ $(document).ready(function() {
              $('.helpsa').modal({
                 show: true
             });
-         });  
+         }); 
+          
 
 
         });

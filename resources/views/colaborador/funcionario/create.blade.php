@@ -70,8 +70,12 @@
 
 				<div class="row">
 					<div class="col-sm-4 form-group null">
-						<label>CTPS</label>
+						<label>CTPS - Número</label>
 						<input type="text" name="ctps" class="form-control" >
+					</div>	
+					<div class="col-sm-4 form-group null">
+						<label>CTPS - Série</label>
+						<input type="text" name="serie_ctps" class="form-control" >
 					</div>	
 
 					<div class="col-sm-4 form-group">

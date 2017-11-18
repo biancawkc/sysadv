@@ -74,8 +74,5 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript">
-	$(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
-</script>
 
 @endsection

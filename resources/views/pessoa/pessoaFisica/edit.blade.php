@@ -103,7 +103,7 @@
 
 					<div class="col-sm-4 form-group" >
 						<label>Telefone<span class="asterisk">*</span></label>
-						<input class="form-control phone_with_ddd" type="text" name="telefone[]" value="{{$tel->telefone}}">
+						<input class="form-control phone_with_ddd telefone" type="text" name="telefone[]" value="{{$tel->telefone}}">
 					</div>
 					@if($ind !== 0)
 					<div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;">
@@ -193,10 +193,15 @@
 						<label>CTPS</label>
 						<input type="text" name="ctps" class="form-control" value="{{$pessoaFisica->ctps}}">
 					</div>
+					<div class="col-sm-3 form-group" >
+						<label>CTPS - Série</label>
+						<input type="text" name="serie_ctps" class="form-control ctps_serie" value="{{ $pessoaFisica->serie_ctps}}" placeholder="Série">
+					</div>
 
 					<div class="col-sm-3 form-group" >
 						<label>Remuneração (R$)</label>
-						<input type="text" name="remuneracao" class="form-control" value="{{$pessoaFisica->remuneracao}}" onkeyup="this.value = this.value.replace(/,/g, '.');" data-validation="number" data-validation-allowing="float" data-validation-optional="true">
+						<input type="text" name="remuneracao" class="form-control money real text-right" value="{{$remuneracao}}" >
+						<input type="hidden" name="remuneracao" class="valorV" value="{{$pessoaFisica->remuneracao}}">
 					</div>
 				</div>
 
@@ -227,30 +232,33 @@
 @endsection
 
 @section('content_js')
+<script src="{{asset('../resources/assets/js/actions/parte.js')}}" type="text/javascript"></script>
+
 <script type="text/javascript" >
-$(document).ready(function() {
-$(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
-   var i=1;  
-   var maxField = 3;
-      $('#add').click(function(){  
-      	if(i < maxField){ 
-           i++;  
-           $('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone<span class="asterisk">*</span></label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone<span class="asterisk">*</span></label><input class="form-control phone_with_ddd" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>'); 
-           $('.phone_with_ddd').mask('(00) 0000-00000'); 
-       }
-      });  
-      $(document).on('click', '.btn_remove', function(){      
-           var button_id = $(this).attr("id");   
-           $('#row'+button_id+'').remove();  
-        	i--;
-      });  
-});
 $est = {{$pessoaFisica->id_estado_civil}}
 $("#estado_civil").val($est);
 
 $prof = {{$pessoaFisica->id_profissao}}
 $("#profissao").val($prof);
 
+$(document).ready(function() {
+		
+		var i=1;  
+		var maxField = 3;
+		$('#add').click(function(){  
+			$('.phone_with_ddd').mask('(00) 0000-00000');
+			if(i < maxField){ 
+				i++;  
+				$('#dynamic_field').after('<div class="row" id="row'+i+'"><div class="col-sm-4 form-group"><label>Tipo de Telefone</label><select class="form-control" name="id_tp_telefone[]" data-validation="required"><option value="">Selecione</option><?php foreach ($tp_tel as $tels){ ?><option value="{{$tels->id_tp_telefone}}">{{$tels->tp_telefone}}</option> <?php } ?></select></div><div class="col-sm-4 form-group" ><label>Telefone</label><input class="form-control phone_with_ddd telefone" type="text" name="telefone[]"></div><div class="col-sm-4 form-group" style="padding-top: 29px; padding-left: 35px;"><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></button></div></div>');  
+				$('.phone_with_ddd').mask('(00) 0000-00000');
+			}
+		});  
+		$(document).on('click', '.btn_remove', function(){  
+			var button_id = $(this).attr("id");   
+			$('#row'+button_id+'').remove(); 
+			i--; 
+		});  
+	});
 </script>
 
 @endsection

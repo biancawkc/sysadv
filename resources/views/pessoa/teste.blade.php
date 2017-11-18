@@ -58,7 +58,5 @@
 @endsection
 
 @section('content_js')
-<script>
-  var wizard = $("#cdt").steps();
-</script>
+
 @endsection

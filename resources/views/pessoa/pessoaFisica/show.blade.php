@@ -76,22 +76,29 @@
   <tr>
     <th class="col-md-3">CBO</th>
     @if(!is_null($pessoaFisica->id_profissao))
-    <td>{{$profissao->cbo}}</td>
+    <td colspan="3">{{$profissao->cbo}}</td>
     @else
-    <td> </td>
+    <td colspan="3"> </td>
     @endif
   </tr>
   <tr>
     <th>Profissão</th>
     @if(!is_null($pessoaFisica->id_profissao))
-    <td>{{$profissao->nm_profissao}}</td>
+    <td colspan="3">{{$profissao->nm_profissao}}</td>
      @else
-     <td> </td>
+     <td colspan="3"> </td>
     @endif
   </tr>
   <tr>
     <th>Remuneracao</th>
-    <td>{{$pessoaFisica->remuneracao}}</td>
+    <td colspan="3">R$ {{$remuneracao}}</td>
+  </tr>
+  <tr>
+    <th>CTPS - Número</th>
+    <td>{{$pessoaFisica->serie_ctps}}</td>
+    <th class="col-md-3">CTPS - Série</th>
+    <td>{{$pessoaFisica->serie_ctps}}</td>
+  </tr>
   </tr>
 </table>
 <div class="text-center">

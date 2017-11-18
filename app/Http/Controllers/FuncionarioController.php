@@ -97,6 +97,7 @@ class FuncionarioController extends Controller
 			$pessoaFisica->orgao_exp = $request->orgao_exp;
 			$pessoaFisica->cpf = $request->cpf;
 			$pessoaFisica->ctps = $request->ctps;
+			$pessoaFisica->serie_ctps = $request->serie_ctps;
 			$pessoaFisica->id_estado_civil = $request->id_estado_civil;
 
 			$str = $request->dt_nasc;

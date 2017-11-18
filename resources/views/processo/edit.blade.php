@@ -413,6 +413,7 @@
 				@endsection
 
 @section('content_js')
+<script src="{{asset('../resources/assets/js/actions/processo_edit.js')}}" type="text/javascript"></script>
 <script type="text/javascript" >
 
 	$jus = {{$processo->id_justica}}
@@ -429,63 +430,6 @@
 
 	$status = {{$processo->id_estado_processo}}
 	$("#status").val($status);
-
-	$(document).on('change', '.pessoa', function(event) {
-		var values = [];
-		$('.pessoa').each(
-			function() {
-		if (values.indexOf(this.value) >= 0) {
-	//$(this).css("border-color", "rgb(185, 74, 72)", "!important");
-	$( this ).parent().addClass("has-error");
-	//$('#submit').prop("disabled",true);
-}
-else {
-	//$(this).css("border-color", ""); 
-	$( this ).parent().removeClass("has-error");
-	//$('#submit').prop("disabled",false);
-	values.push(this.value);
-
-}
-});
-	});
-
-/*	$(document).on('change', '#r'+show, function(event) {
-		var responsavel = $('#r'+show).val();  
-       //	var responsavel = $('#r'+show).children(':selected').attr('value');
-       $('#pj'+show).val(responsavel);
-   }); */
-
-	$(document).on('change', '.cliente', function(event) {
-		var selected = $("option:selected", this);
-       //var idCliente = event.target.value;
-       if(selected.attr('class')=='pj') {
-       	var show = $(this).attr('id');
-       	$('.'+show).show();
-       	$('#r'+show).val('');
-       	$(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
-       } else {
-       	var show = $(this).attr('id');
-       	$('.'+show).hide();
-       	$('#r'+show).val('');
-       } 
-   });
-
-$(document).on('change', '.adversa', function(event) {
-       var selected = $("option:selected", this);
-       //var idCliente = event.target.value;
-       if(selected.attr('class')=='pj') {
-       	var show = $(this).attr('id');
-       	$('.'+show).show();
-       	$('#r'+show).val('');
-       	$(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
-      
-       } else {
-       	var show = $(this).attr('id');
-		$('.'+show).hide();
-		$('#r'+show).val('');
-
-       } 
-	});
 
 	$(document).ready(function() {
 
@@ -516,23 +460,8 @@ $(document).on('change', '.adversa', function(event) {
 			$('#row'+button_id+'').remove(); 
 		});
 
-
-		$(document).on('focus', '#dtFn', function(){  
-
-			var dtIni = document.getElementById("dtIni").value;
-			$('#dtFn').datepicker({
-				dateFormat: "dd/mm/yy",
-				changeMonth: true,
-				changeYear: true,
-				minDate: dtIni
-			});
-		}); 
-		$('#clearDates').on('click', function(){
-			document.getElementById("dtFn").value= "";
-		}); 
-
-
 	});
+
 
 </script>
 

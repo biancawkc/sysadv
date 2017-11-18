@@ -97,7 +97,6 @@ class PessoaFisicaController extends Controller
 			$pessoaFisica->id_estado_civil = $request->id_estado_civil;
 			$pessoaFisica->ctps = $request->ctps;
 			$pessoaFisica->serie_ctps = $request->serie_ctps;
-			$pessoaFisica->serie_ctps = $request->serie_ctps;
 			$pessoaFisica->remuneracao = $request->remuneracao;
 			$pessoaFisica->id_profissao = $request->id_profissao;
 
@@ -245,6 +244,8 @@ class PessoaFisicaController extends Controller
 
 		$dtNasc = date('d/m/Y', strtotime($pessoaFisica->dt_nasc));
 
+		$remuneracao = number_format($pessoaFisica->remuneracao,2,",",".");
+
 		return view('pessoa.pessoaFisica.edit')
 		->with('civil', $civil)
 		->with('tp_tel', $tp_tel)
@@ -254,7 +255,8 @@ class PessoaFisicaController extends Controller
 		->with('telefone', $telefone)
 		->with('profissao',$profissao)
 		->with('dtNasc', $dtNasc)
-		->with('numTel', $numTel);
+		->with('numTel', $numTel)
+		->with('remuneracao', $remuneracao);
 	}
 
 	function update(Request $request, $id)
@@ -295,6 +297,7 @@ class PessoaFisicaController extends Controller
 				'rg' => $request->rg,
 				'dt_nasc' => $data,
 				'ctps' => $request->ctps,
+				'serie_ctps' =>$request->serie_ctps,
 				'id_estado_civil' => $request->id_estado_civil,
 				'remuneracao' => $request->remuneracao,
 				'id_profissao' => $request->id_profissao				
@@ -347,13 +350,16 @@ class PessoaFisicaController extends Controller
 
 		$civil = \App\Models\EstadoCivil::find($pessoaFisica->id_estado_civil);
 
+		$remuneracao = number_format($pessoaFisica->remuneracao,2,",",".");
+
 		return view('pessoa.pessoaFisica.show')
 		->with('civil', $civil)
 		->with('pessoaFisica', $pessoaFisica)
 		->with('parte', $parte)
 		->with('endereco', $endereco)
 		->with('telefone', $telefone)
-		->with('profissao',$profissao);
+		->with('profissao',$profissao)
+		->with('remuneracao', $remuneracao);
 	}
 
 	public function remove($id)

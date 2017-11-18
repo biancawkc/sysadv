@@ -191,7 +191,8 @@
 					</div>
 					<div class="col-sm-3 form-group" >
 						<label>Remuneração (R$)</label>
-						<input type="text" name="remuneracao" class="form-control money" value="{{ old('remuneracao') }}">
+						<input type="text" name="" class="form-control money text-right real" value="{{ old('remuneracao') }}">
+						<input type="hidden" name="remuneracao" class="valorV">  
 					</div>
 				</div>
 			</div>
@@ -217,32 +218,10 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript" >
-	$.validate({
-		modules : 'date'
-	});
-	$(document).on('keyup', '.telefone', function(event) {
-		var values = [];
-		$('.telefone').each(
-			function() {
-				if (values.indexOf(this.value) >= 0) {
-					//$(this).css("border-color", "rgb(185, 74, 72)", "!important");
-					$( this ).parent().addClass("has-error");
-					$('#submit').prop("disabled",true);
-				}
-				else {
-					//$(this).css("border-color", ""); 
-					$( this ).parent().removeClass("has-error");
-					$('#submit').prop("disabled",false);
-					values.push(this.value);
-
-				}
-			});
-	});
-
+<script src="{{asset('../resources/assets/js/actions/parte.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
+	
 	$(document).ready(function() {
-		
-		$(".single-select").select2( {placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
 		var i=1;  
 		var maxField = 3;
 		$('#add').click(function(){  
@@ -259,8 +238,5 @@
 			i--; 
 		});  
 	});
-
-
 </script>
-
 @endsection
