@@ -55,7 +55,7 @@ class UsuarioController extends Controller
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
             'ativo' => 'required',
-            'username' => 'required|unique:usuario'
+            //'username' => 'required|unique:usuario'
         );
         $validator = \Validator::make($request->all(), $rules);
 
@@ -63,7 +63,7 @@ class UsuarioController extends Controller
         if ($validator->fails()) {
             return \Redirect::to('usuario/' . $id . '/edit')
                             ->withErrors($validator)
-                            ->withInput(Input::except('password'));
+                            ->withInput();
         } else {
             // store
             $usuario = \App\Models\Usuario::find($id);
@@ -72,8 +72,8 @@ class UsuarioController extends Controller
             $usuario->administrador = $request->administrador; 
             $usuario->save();
 
-            flash()->success('Parcela Atualizada com Sucesso!');
-        return redirect('usuario/'.$id.'/edit');
+            flash()->success('Usuário Atualizado com Sucesso!');
+            return redirect()->back();
         }
     }
 }

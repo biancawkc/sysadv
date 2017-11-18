@@ -11,6 +11,7 @@
 {!! Form::open(['route'=>['usuario.update', $usuario->id_usuario], 'method'=>'put']) !!}
 	<input type="hidden" name="ativo" value="1">
 	<input type="hidden" name="administrador" value="0">
+	 @include('flash::message')
 	<div class="container-custom">
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<h1 class="col-lg-12 well "> Editar Usuário <i class="fa fa-user user-plus" aria-hidden="true"></i>
