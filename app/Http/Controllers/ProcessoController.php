@@ -310,7 +310,7 @@ class ProcessoController extends Controller
 
 		$status = \DB::table('estado_processo')->get();
 
-		$usuario = \App\Models\Usuario::find($processo->id_usuario);
+		$user = \App\Models\Usuario::find($processo->id_usuario);
 
 		if(!is_null($processo->dt_final))
 		{
@@ -394,7 +394,7 @@ class ProcessoController extends Controller
 	->with('varas', $varas)
 	->with('dt_final', $dt_final)
 	->with('status', $status)
-	->with('usuario', $usuario);
+	->with('user', $user);
 }
 
 public function update(Request $request, $id)
@@ -413,6 +413,7 @@ public function update(Request $request, $id)
 	} else {
 
 		$processo = \App\Models\Processo::find($id);
+		$usuario = \App\Models\Usuario::where('username', '=', Auth::user()->username)->value('id_usuario');
 
 		$processo->numero = $request->numero;
 		$processo->desc_processo = $request->desc_processo;
@@ -428,6 +429,7 @@ public function update(Request $request, $id)
 		$processo->id_estado_processo = $request->id_estado_processo;
 		$processo->id_comarca = $request->id_comarca;
 		$processo->id_advogado = $request->id_advogado;
+		$processo->id_usuario = $usuario;
 
 		$str = $request->dt_inicio;
 		$data = explode("/", $str);

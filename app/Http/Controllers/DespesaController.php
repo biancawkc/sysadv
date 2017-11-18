@@ -98,7 +98,7 @@ class DespesaController extends Controller
 
 			$despesa->valor = $request->valor;
 			$despesa->desc_despesa = $request->desc_despesa;
-			$despesa->id_usuario = $request->id_usuario;
+			$despesa->id_usuario = $usuario;
 			
 			$str = $request->dt_despesa;
 			$data = explode("/", $str);

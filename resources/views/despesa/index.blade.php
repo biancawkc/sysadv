@@ -82,8 +82,8 @@
                   <div class="row">
                     <div class="col-sm-3 form-group">
                       <label>Valor<span class="asterisk">*</span></label>
-                      <input name="" type="text" class="form-control money" data-validation="required" id="valor" onkeyup="despesa();"> 
-                      <input type="hidden" name="valor" id="valorV">  
+                      <input name="" type="text" class="form-control money real text-right" data-validation="required"> 
+                      <input type="hidden" name="valor" class="valorV"> 
                     </div>
                     <div class="col-sm-5 form-group">
                       <label>Data<span class="asterisk">*</span></label>
@@ -91,7 +91,7 @@
                         <div class="input-group-btn">
                           <a class="btn btn-default"><i class="fa fa-calendar"></i></a>
                         </div>
-                        <input name="dt_despesa" type="text" class="form-control  dtParcel" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" readonly>
+                        <input name="dt_despesa" type="text" class="form-control  datepicker" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" readonly>
                       </div>
                     </div>
                   </div>
@@ -125,15 +125,7 @@
 @endsection
 
 @section('content_js')
-<script type="text/javascript">
-  function despesa()
-  {
-    var despesa = document.getElementById('valor').value;
-    val = despesa.replace(',','.');
-    valor = val.replace('R$','');
-    document.getElementById('valorV').value = valor;
-  }
-</script>
+<script src="{{asset('../resources/assets/js/actions/parte.js')}}" type="text/javascript"></script>
 @endsection
 
 

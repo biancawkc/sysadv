@@ -12,7 +12,7 @@
 @include('flash::message')
 <div class="container-custom">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
-	<h1 class="col-lg-12 well "> Editar Despesa <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+	<h1 class="col-lg-12 well "> Editar Despesa <i class="fa fa-shopping-basket despesa" aria-hidden="true"></i>
 	</h1>
 
 	<div class="col-lg-12 well">
@@ -20,8 +20,9 @@
 			<div class="col-sm-12">
 				<div class="row">
 					<div class="col-sm-3 form-group">
-						<label>Valor<span class="asterisk">*</span></label>
-						<input name="valor" type="text" class="form-control money" value="{{$valores}}">		
+						<label>Valor (R$)<span class="asterisk">*</span></label>
+						<input name="" type="text right" class="form-control money real text-right" value="{{$valores}}">
+						<input type="hidden" name="valor" class="valorV" value="{{$valores}}"> 		
 					</div>
 					<div class="col-sm-5 form-group">
 						<label>Data<span class="asterisk">*</span></label>
@@ -29,7 +30,7 @@
 							<div class="input-group-btn">
 								<a class="btn btn-default"><i class="fa fa-calendar"></i></a>
 							</div>
-							<input name="dt_despesa" type="text" class="form-control date-picker datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($despesa->dt_despesa))}}">
+							<input name="dt_despesa" type="text" class="form-control datepicker date" data-date-format="dd/mm/yyyy" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{date('d/m/Y', strtotime($despesa->dt_despesa))}}">
 						</div>
 					</div>
 				</div>
@@ -60,5 +61,5 @@
 @endsection
 
 @section('content_js')
-
+<script src="{{asset('../resources/assets/js/actions/parte.js')}}" type="text/javascript"></script>
 @endsection
