@@ -1,9 +1,11 @@
+$(document).ready(function() {
+
 
 	$(document).on('change', '.pessoa', function(event) {
 		var values = [];
 		$('.pessoa').each(
 			function() {
-		if (values.indexOf(this.value) >= 0) {
+				if (values.indexOf(this.value) >= 0) {
 	//$(this).css("border-color", "rgb(185, 74, 72)", "!important");
 	$( this ).parent().addClass("has-error");
 	//$('#submit').prop("disabled",true);
@@ -17,6 +19,8 @@ else {
 }
 });
 	});
+
+	
 
 	$(document).on('change', '.cliente', function(event) {
 		var selected = $("option:selected", this);
@@ -50,21 +54,20 @@ $(document).on('change', '.adversa', function(event) {
        } 
 	});
 
-	$(document).ready(function() {
 
-		$(document).on('focus', '#dtFn', function(){  
+$(document).on('focus', '#dtFn', function(){  
 
-			var dtIni = document.getElementById("dtIni").value;
-			$('#dtFn').datepicker({
-				dateFormat: "dd/mm/yy",
-				changeMonth: true,
-				changeYear: true,
-				minDate: dtIni
-			});
-		}); 
-		$('#clearDates').on('click', function(){
-			document.getElementById("dtFn").value= "";
-		}); 
+	var dtIni = document.getElementById("dtIni").value;
+	$('#dtFn').datepicker({
+		dateFormat: "dd/mm/yy",
+		changeMonth: true,
+		changeYear: true,
+		minDate: dtIni
+	});
+}); 
+$('#clearDates').on('click', function(){
+	document.getElementById("dtFn").value= "";
+}); 
 
 
 	});

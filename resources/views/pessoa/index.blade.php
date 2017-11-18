@@ -36,7 +36,7 @@
         <tr>
             <!-- <td>{!! $val->id_parte !!}</td> -->
             <td>{!! $val->nome !!}</td>
-            <td>{!! $val->cpf!!}</td>
+            <td class="cpf">{!! $val->cpf!!}</td>
             <td>Pessoa Física</td>
             <td>
               <a target="_blank" href="{{ URL::to('/pessoaFisica/' . $val->id_parte . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>   
