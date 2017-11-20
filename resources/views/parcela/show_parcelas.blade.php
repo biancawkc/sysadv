@@ -26,14 +26,14 @@
  			</tr>
  			<tr>
  				<td>1 de {{$qtd}}</td>
- 				<td class="money">{{$primeira}}</td>
+ 				<td class="money"> {!! number_format($primeira,2,",",".") !!}</td>
  				<td>{{date('d/m/Y', strtotime($data))}}</td>
  			</tr>
  			<?php for($j = $qtd-1; $i <= $j; $i++ )
  			{ ?>
  			<tr>
  				<td>{{$i+1}} de {{$qtd}}</td>	
- 				<td class="money">{{$demais}}</td>
+ 				<td class="money">{!! number_format($demais,2,",",".") !!}</td>
  				<?php $time = strtotime($data);
  				$date = strtotime('+'.$i.' month', $time);
  				$dt_venc = date("Y-m-d", $date);?>

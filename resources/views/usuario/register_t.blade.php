@@ -1,18 +1,18 @@
 @extends('layouts.master2')
 
 @section('content')
-@if ($errors->any())
-<ul class="alert alert-danger error-alert">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
 <form role="form" method="POST" action="{{ url('/cadastrar_usuario') }}">
-	@include('flash::message')
 	<input type="hidden" name="ativo" value="1">
 	<input type="hidden" name="administrador" value="0">
 	<div class="container-custom">
+		@if ($errors->any())
+		<ul class="alert alert-danger error-alert">
+			@foreach($errors->all() as $error)
+			<li>{{$error}}</li>
+			@endforeach
+		</ul>
+		@endif
+		@include('flash::message')
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<h1 class="col-lg-12 well "> Cadastro de Usuário <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
 			<span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
@@ -87,7 +87,7 @@
 
 			<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
 		<div class="text-center">
-	<a href="{{ URL::to('/colaboradores') }}" class="btn btn-lg btn-danger">Cancelar <i class="fa fa-undo" aria-hidden="true"></i></a>
+	<a href="{{ URL::to('/colaboradores') }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
 	&nbsp;&nbsp;&nbsp;
 	<button type="submit" class="btn btn-lg btn-info">Cadastrar <i class="fa fa-plus" aria-hidden="true"></i></button>
 </div>

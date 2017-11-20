@@ -1,16 +1,16 @@
 @extends('layouts.master2')
-
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
+
 {!! Form::open(['route'=>['etapa.store', $idProcesso], 'method'=>'post', 'id'=>'colabForm']) !!}
-@include('flash::message')
 <div class="container-custom">
+	@if($errors->any())
+	<ul class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		<li>{{$error}}</li>
+		@endforeach
+	</ul>
+	@endif
+	@include('flash::message')
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Etapa <i class="fa fa-calendar-plus-o fa-1x etapa" aria-hidden="true"></i>
 	</h1>

@@ -1,16 +1,16 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
 {!! Form::open(['route'=>['processo.update', $processo->id_processo], 'method'=>'put', 'class'=>'form']) !!}
-@include('flash::message')
 <div class="container-custom">
+	@if($errors->any())
+	<ul class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		<li>{{$error}}</li>
+		@endforeach
+	</ul>
+	@endif
+	@include('flash::message')
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Editar Processo <i class="fa fa-file processo" aria-hidden="true"></i>
 	</h1>

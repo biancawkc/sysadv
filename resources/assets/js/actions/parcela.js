@@ -3,11 +3,17 @@
 		var value = document.getElementById('valor').value;
 		var juros = document.getElementById('jur').value;
 		var desconto = document.getElementById('desconto').value;
-		valor = value.replace(',','.');
+		var  val1 = value.replace('.','');
+		var valor = val1.replace(',','.');
 		valor = valor.replace('R$','');
-		discount = desconto.replace(',','.');
+
+		var  val2 = desconto.replace('.','');
+		var discount = val2.replace(',','.');
 		discount = discount.replace('R$','');
-		juro = juros.replace(',','.');
+
+		var val2 = juros.replace('.','');
+		var juro = val2.replace(',','.');
+		juro = juro.replace(',','.');
 
 		document.getElementById('valorV').value = valor;
 		document.getElementById('discount').value = discount;
@@ -18,9 +24,9 @@
 		var dtPag = document.getElementById("dtPag").value;
 		var dtVenc = document.getElementById("dtVenc").value;
 		var total = document.getElementById("valor").value;
-			total = total.replace(',','.');
 		var juros = document.getElementById("juros").value;
 		var desconto = document.getElementById("desconto").value;
+			desconto = desconto.replace('.','');
 		    desconto = desconto.replace(',','.');
 		    desconto = desconto.replace('R$','');
 

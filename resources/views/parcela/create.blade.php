@@ -1,13 +1,6 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
 <div>
 	<div class="container-custom">
 		<div class="col-lg-12">
@@ -26,8 +19,15 @@
 	<div id="hono">
 		<!-- {!! Form::open(['route'=>['parcela.store', $idProcesso], 'method'=>'post', 'id'=>'colabForm']) !!} -->
 		{!! Form::open(['route'=>['parcela.addParcela', $idProcesso], 'method'=>'post', 'id'=>'colabForm']) !!}
-		@include('flash::message')
 		<div class="container-custom">
+			@if($errors->any())
+			<ul class="alert alert-danger">
+				@foreach($errors->all() as $error)
+				<li>{{$error}}</li>
+				@endforeach
+			</ul>
+			@endif
+			@include('flash::message')
 			<input type="hidden" name="id_tp_parcela" value="1">
 			<input type="hidden" name="_token" value="{{ csrf_token() }}">
 			<h1 class="col-lg-12 well "> Cadastro de Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i><span class="pull-right questionMark"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
@@ -38,7 +38,7 @@
 						<div class="row">
 							<div class="col-sm-3 form-group">
 								<label>Valor total (R$)<span class="asterisk">*</span></label>
-								<input type="text" name="demo" class="form-control money text-right" data-validation="required" id="total" onkeyup="parcela();"/>
+								<input type="text" name="valor_acao" class="form-control money text-right" data-validation="required" id="total" onkeyup="parcela();"/>
 							</div>
 
 							<div class="col-sm-2 form-group">
@@ -206,64 +206,7 @@
 	</div>
 	@endsection
 
+<script src="{{asset('../resources/assets/js/actions/parcela_create.js')}}" type="text/javascript"></script>
 	@section('content_js')
-	<script type="text/javascript" >
-		$(document).ready(function() {
-			$('input[type="radio"]').click(function() {
-				if($(this).attr('id') == 'ph') {
-					$('#hono').show();  
-					$('#ganho').hide();          
-				}
-				else {
-					$('#hono').hide();
-					$('#ganho').show();  
-				}
-			});
-		});
-
-		function porcent() 
-		{
-			var valor_acao = document.getElementById('valor_acao').value;
-			var num_parcelas = document.getElementById('num_parcelas').value;
-			var porcento = document.getElementById('porcento').value;
-			var result = Math.round(parseFloat(valor_acao) * (parseFloat(porcento)/100)*100)/100;
-			var result2 = Math.round(result/parseInt(num_parcelas)*100)/100;
-
-			var pp = parseFloat(result) - ((num_parcelas - 1)*result2);
-			var primeira = Math.round(pp* 100) / 100;
-
-			if (!isNaN(result)) {
-				document.getElementById('val_receber').value = result;
-			}
-
-			if (!isNaN(result2) && !isNaN(primeira)) {
-				document.getElementById('parcela').value = primeira;
-				document.getElementById('demais').value = result2;
-			}
-		}
-
-		function parcela()
-		{
-			var total = document.getElementById('total').value;
-			total1 = total.replace('.','');
-			total = total1.replace(',','.');
-			var num = document.getElementById('num').value;
-			var dt = document.getElementById('dt').value;
-			var va= parseFloat(total)/parseInt(num);
-			var val = Math.round(va * 100) / 100;
-			var p = parseFloat(total) - ((num - 1)*val);
-			var parcela1 = Math.round(p * 100) / 100;
-
-			if(!isNaN(val) )
-			{
-				document.getElementById('par').value = val;
-			}
-
-			if (!isNaN(parcela1)) {
-				document.getElementById('parcel1').value = parcela1;
-			}
-
-		}
-	</script>
 
 	@endsection

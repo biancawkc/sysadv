@@ -74,7 +74,7 @@ class FuncionarioController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'nome' => 'required|max:200',
-			'rg' => 'required|max:10',
+			'rg' => 'required|max:10|unique:pessoa_fisica,rg',
 			'orgao_exp' => 'required|max:10',
 			'cpf' => 'required|max:13|unique:pessoa_fisica,cpf',
 			'id_estado_civil' => 'required'

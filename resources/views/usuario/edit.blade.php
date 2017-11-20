@@ -1,18 +1,19 @@
 @extends('layouts.master2')
 
 @section('content')
-@if ($errors->any())
-<ul class="alert alert-danger error-alert">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
+
 {!! Form::open(['route'=>['usuario.update', $usuario->id_usuario], 'method'=>'put']) !!}
 	<input type="hidden" name="ativo" value="1">
 	<input type="hidden" name="administrador" value="0">
-	 @include('flash::message')
 	<div class="container-custom">
+		@if ($errors->any())
+		<ul class="alert alert-danger error-alert">
+			@foreach($errors->all() as $error)
+			<li>{{$error}}</li>
+			@endforeach
+		</ul>
+		@endif
+		@include('flash::message')
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<h1 class="col-lg-12 well "> Editar Usuário <i class="fa fa-user user-plus" aria-hidden="true"></i>
 			<span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>

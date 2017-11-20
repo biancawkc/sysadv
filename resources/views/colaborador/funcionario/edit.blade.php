@@ -1,16 +1,16 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
+{!! Form::open(['route'=>['funcionario.update', $funcionario->id_funcionario], 'method'=>'put', 'class'=>'form']) !!}
+<div class="container-custom">
+	@if($errors->any())
 <ul class="alert alert-danger">
 	@foreach($errors->all() as $error)
 	<li>{{$error}}</li>
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>['funcionario.update', $funcionario->id_funcionario], 'method'=>'put', 'class'=>'form']) !!}
 @include('flash::message')
-<div class="container-custom">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Editar Funcionário <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
 	</h1>

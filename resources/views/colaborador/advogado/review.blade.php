@@ -1,16 +1,17 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
+
 {!! Form::open(['route'=>['advogado.updateReview', $parte->id_parte], 'method'=>'post', 'class'=>'form']) !!}
-@include('flash::message')
 <div class="container-custom">
+	@if($errors->any())
+	<ul class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		<li>{{$error}}</li>
+		@endforeach
+	</ul>
+	@endif
+	@include('flash::message')
 	<input type="hidden" name="ativo" value="0">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Advogado <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
@@ -22,7 +23,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" value="{{$pessoaFisica->nome}}" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" >
+					<input type="text" placeholder="" name="nome" class="form-control" value="{{$pessoaFisica->nome}}" data-validation="required custom"  data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" >
 				</div>	
 
 				<div class="row">
@@ -75,24 +76,16 @@
 				<div class="row">
 					<div class="col-sm-4 form-group">
 						<label>OAB <span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="oab" class="form-control" value="" data-validation="required">
+						<input type="text" placeholder="" name="oab" class="form-control" data-validation="required" value="{{ old('oab') }}">
 					</div>	
 
 					<div class="col-sm-2 form-group">
 						<label>Seccional <span class="asterisk">*</span></label>
-						<input type="text" placeholder="" name="seccional" class="form-control" value="PR" data-validation="required">
+						<input type="text" placeholder="" name="seccional" class="form-control" value="{{ old('seccional') }}" data-validation="required">
 					</div>
 
 				</div>
-				
-
-				
-
-				<div class="form-group">
-					<label>Qualificaçōes</label>
-					<textarea class="form-control" rows="4" name="obs_condutor"  rows="4" ></textarea>
-				</div>
-
+					
 			</div>
 		</div>
 	</div>

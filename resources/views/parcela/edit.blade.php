@@ -1,15 +1,8 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
+
 {!! Form::open(['route'=>['parcela.update', $parcela->id_parcela], 'method'=>'put', 'class'=>'form']) !!}
-@include('flash::message')
 @if(is_null($parcela->porcentagem))
 <input type="hidden" name="id_tp_parcela" value="1">
 @else
@@ -17,6 +10,14 @@
 @endif
 <input type="hidden" name="advsersa_pag" value="0">
 <div class="container-custom">
+	@if($errors->any())
+<ul class="alert alert-danger">
+	@foreach($errors->all() as $error)
+	<li>{{$error}}</li>
+	@endforeach
+</ul>
+@endif
+@include('flash::message')
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h2><b>Processo: <a href="{{URL::to('/processo/'.$processo->id_processo.'/show')}}" target="_blank">{{$processo->numero}}</a> </b><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-info" id="open">Expandir</a><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-warning" id="close">Esconder</a></h2>
 	<div class="row">
@@ -40,9 +41,9 @@
 					<div class="row">
 						<div class="col-sm-3 form-group">
 							<label>Valor (R$)<span class="asterisk">*</span></label>
-							<input type="text" name="" class="form-control text-right" data-validation="required" value="{{ $valores}}" readonly  id="valor" onkeyup="GetDays(); Pag();"/>
+							<input type="text" name="" class="form-control text-right" data-validation="required" value="{{ $valores}}" readonly/>
 						</div>
-						<input type="hidden" name="valor" value="{{ str_replace(',','.', $valores)}}">
+						<input type="hidden" name="valor" value="{{$parcela->valor}}" id="valor">
 						<div class="col-sm-2 form-group">
 							<label>Nº<span class="asterisk">*</span></label>				
 							<input type="number" name="num_parcela" value="{{$parcela->num_parcela}}" class="form-control" data-validation="required" readonly/>

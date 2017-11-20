@@ -1,16 +1,16 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
 {!! Form::open(['route'=>['despesa.store', $idProcesso], 'method'=>'post', 'class'=>'form']) !!}
-@include('flash::message')
 <div class="container-custom">
+	@if($errors->any())
+	<ul class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		<li>{{$error}}</li>
+		@endforeach
+	</ul>
+	@endif
+	@include('flash::message')
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Despesa <i class="fa fa-shopping-basket" aria-hidden="true"></i>
 	</h1>
@@ -21,7 +21,8 @@
 				<div class="row">
 					<div class="col-sm-3 form-group">
 						<label>Valor<span class="asterisk">*</span></label>
-						<input name="valor" type="text" class="form-control money" data-validation="required">		
+						<input name="valor" type="text" class="form-control money real" data-validation="required">
+						 <input type="hidden" name="valor" class="valorV" value="{{ old('valor') }}"> 		
 					</div>
 					<div class="col-sm-5 form-group">
 						<label>Data<span class="asterisk">*</span></label>
@@ -36,7 +37,7 @@
 				
 				<div class="form-group">
 					<label>Descrição<span class="asterisk">*</span></label>
-					<textarea class="form-control" rows="4" name="desc_despesa"  rows="4"></textarea>
+					<textarea class="form-control" rows="4" name="desc_despesa"  rows="4" value="{{ old('desc_despesa') }}"></textarea>
 				</div>
 
 			</div>
@@ -59,5 +60,5 @@
 @endsection
 
 @section('content_js')
-
+<script src="{{asset('../resources/assets/js/actions/parte.js')}}" type="text/javascript"></script>
 @endsection

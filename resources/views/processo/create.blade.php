@@ -1,18 +1,19 @@
 @extends('layouts.master2')
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
 {!! Form::open(['route'=>'processo.store', 'class'=>'form' ]) !!}
-@include('flash::message')
+
 <input type="hidden" name="id_estado_processo" value="1">
 <input type="hidden" value="0" name="justica_grat">
 <input type="hidden" value="0" name="acao_grat">
 <div class="container-custom">
+	@if($errors->any())
+	<ul class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		<li>{{$error}}</li>
+		@endforeach
+	</ul>
+	@endif
+	@include('flash::message')
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Processo <i class="fa fa-file processo" aria-hidden="true"></i><span class="pull-right questionMark"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
 	</h1>

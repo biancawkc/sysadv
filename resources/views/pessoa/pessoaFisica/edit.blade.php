@@ -1,16 +1,16 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
 {!! Form::open(['route'=>['fisica.update', $pessoaFisica->id_parte], 'method'=>'put', 'class'=>'form']) !!}
-@include('flash::message')
 <div class="container-custom">
+	@if($errors->any())
+	<ul class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		<li>{{$error}}</li>
+		@endforeach
+	</ul>
+	@endif
+	@include('flash::message')
 	<input type="hidden" name="ativo" value="1">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Editar Pessoa Física <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>

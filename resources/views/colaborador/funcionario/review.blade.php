@@ -1,16 +1,17 @@
 @extends('layouts.master2')
 
 @section('content')
-@if($errors->any())
+
+{!! Form::open(['route'=>['funcionario.updateReview', $parte->id_parte], 'method'=>'post', 'class'=>'form']) !!}
+<div class="container-custom">
+	@if($errors->any())
 <ul class="alert alert-danger">
 	@foreach($errors->all() as $error)
 	<li>{{$error}}</li>
 	@endforeach
 </ul>
 @endif
-{!! Form::open(['route'=>['funcionario.updateReview', $parte->id_parte], 'method'=>'post', 'class'=>'form']) !!}
-@include('flash::message')
-<div class="container-custom">
+	@include('flash::message')
 	<input type="hidden" name="ativo" value="">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Cadastro de Funcionário <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
@@ -22,7 +23,7 @@
 
 				<div class="form-group">
 					<label>Nome Completo <span class="asterisk">*</span></label>
-					<input type="text" placeholder="" name="nome" class="form-control" value="{{$pessoaFisica->nome}}" data-validation="required custom"  data-validation-regexp="^[a-zA-Z ]+$" >
+					<input type="text" placeholder="" name="nome" class="form-control" value="{{$pessoaFisica->nome}}" data-validation="required custom"  data-validation-regexp="^[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$" >
 				</div>	
 
 				<div class="row">
@@ -79,14 +80,14 @@
 
 					<div class="col-sm-4 form-group">
 						<label>Data de Admissão <span class="asterisk">*</span></label>
-						<input type="text" placeholder="dd/mm/aaaa" name="dt_admissao" class="form-control datepicker date" value="" data-validation=" date required" data-validation-format="dd/mm/yyyy">
+						<input type="text" placeholder="dd/mm/aaaa" name="dt_admissao" class="form-control datepicker date" value="" data-validation=" date required" data-validation-format="dd/mm/yyyy" value="{{ old('dt_admissao') }}">
 					</div>	
 
 				</div>
 				
 				<div class="form-group">
 					<label>Qualificaçōes</label>
-					<textarea class="form-control" rows="4" name="qualificacoes"  rows="4" ></textarea>
+					<textarea class="form-control" rows="4" name="qualificacoes"  rows="4" >{{ old('qualificacoes') }}</textarea>
 				</div>
 
 			</div>

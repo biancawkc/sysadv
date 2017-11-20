@@ -1,16 +1,15 @@
 @extends('layouts.master2')
-
 @section('content')
-@if($errors->any())
-<ul class="alert alert-danger">
-	@foreach($errors->all() as $error)
-	<li>{{$error}}</li>
-	@endforeach
-</ul>
-@endif
 {!! Form::open(['route'=>['etapa.update', $etapa->id_etapa_processo], 'method'=>'put', 'id'=>'colabForm']) !!}
-@include('flash::message')
 <div class="container-custom">
+	@if($errors->any())
+	<ul class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		<li>{{$error}}</li>
+		@endforeach
+	</ul>
+	@endif
+	@include('flash::message')
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h1 class="col-lg-12 well "> Editar Etapa <i class="fa fa-calendar etapa" aria-hidden="true"></i>
 	</h1>
