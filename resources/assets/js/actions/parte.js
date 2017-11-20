@@ -23,7 +23,8 @@ $(document).on('keyup', '.telefone', function(event) {
 
 $(document).on('keyup', '.real', function(event) {
 	var dinheiro = $('.real').val();
-	var  val = dinheiro.replace(',','.');
+	var  val1 = dinheiro.replace('.','');
+	var  val = val1.replace(',','.');
 	var valor = val.replace('R$','');
 	$('.valorV').val(valor);
 });

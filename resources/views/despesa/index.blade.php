@@ -83,7 +83,7 @@
                     <div class="col-sm-3 form-group">
                       <label>Valor<span class="asterisk">*</span></label>
                       <input name="" type="text" class="form-control money real text-right" data-validation="required"> 
-                      <input type="hidden" name="valor" class="valorV"> 
+                      <input type="text" name="valor" class="valorV"> 
                     </div>
                     <div class="col-sm-5 form-group">
                       <label>Data<span class="asterisk">*</span></label>

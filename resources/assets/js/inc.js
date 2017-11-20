@@ -166,6 +166,8 @@ $(document).ready(function() {
         $(".phone_with_ddd").unmask();
         $(".money").unmask();
         $(".ctps_serie").unmask();
+        $(".money").unmask();
+
     });
 
 

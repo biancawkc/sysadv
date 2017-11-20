@@ -244,6 +244,7 @@ class ParcelaController extends Controller
 			{
 			$parcela->adversa_pag = 1;
 			}
+
 			$parcela->porcent_juros = $request->porcent_juros;
 			$parcela->valor_juros = $request->valor_juros;
 			$parcela->desconto = $request->desconto;

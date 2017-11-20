@@ -9,10 +9,10 @@
 </ul>
 @endif
 <form role="form" method="POST" action="{{ url('/cadastrar_usuario') }}">
+	@include('flash::message')
 	<input type="hidden" name="ativo" value="1">
 	<input type="hidden" name="administrador" value="0">
 	<div class="container-custom">
-		@include('flash::message')
 		<input type="hidden" name="_token" value="{{ csrf_token() }}">
 		<h1 class="col-lg-12 well "> Cadastro de Usuário <i class="fa fa-user-plus user-plus" aria-hidden="true"></i>
 			<span class="questionMark pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>

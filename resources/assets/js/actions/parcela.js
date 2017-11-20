@@ -1,4 +1,3 @@
-
 	function Pag()
 	{
 		var value = document.getElementById('valor').value;
@@ -24,6 +23,9 @@
 		var desconto = document.getElementById("desconto").value;
 		    desconto = desconto.replace(',','.');
 		    desconto = desconto.replace('R$','');
+
+		document.getElementById('discount').value = desconto;
+
 		var mdy = dtPag.split("/");
 		var dtPagr = new Date(mdy[1] + "/" + mdy[0] + "/" + mdy[2]);
 		var mmd = dtVenc.split("/");

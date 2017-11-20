@@ -179,8 +179,8 @@
     <div class="container-custom">
       <input type="hidden" name="id_tp_parcela" value="2">
       <input type="hidden" name="_token" value="{{ csrf_token() }}">
-      <h1 class="col-lg-12 well "> Cadastro de Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i><br><span class="questionMarka pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
-      </h1>
+      <h2 class="col-lg-12 well "> Cadastro de Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i><span class="questionMarka pull-right"><i class="fa fa-question-circle help" aria-hidden="true"></i></span>
+      </h2>
 
  <div class="col-lg-12 well">
         <div class="row">

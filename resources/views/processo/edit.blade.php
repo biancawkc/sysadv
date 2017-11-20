@@ -41,9 +41,9 @@
 							<input name="dt_final" type="text" class="form-control date" data-validation="date" data-validation-format="dd/mm/yyyy" placeholder="dd/mm/aaaa" value="{{$dt_final}}" data-validation-optional="true" id="dtFn" readonly>
 						</div>
 					</div>
-					<div class="col-sm-1 form-group" style="padding-top: 28px; padding-left: -15px;">
+					<!-- <div class="col-sm-1 form-group" style="padding-top: 28px; padding-left: -15px;">
 						<a type="button" class="btn btn-md btn-info" id="clearDates" data-toggle="tooltip" data-placement="top" title="Limpar Data Final"><i class="fa fa-eraser" aria-hidden="true"></i></a>
-					</div>
+					</div> -->
 
 					<div class="col-sm-3 form-group" style="padding-left: 42px;">
 						@if ($processo->justica_grat == 1)
@@ -126,7 +126,7 @@
 					<div class="row c{{$index}}">
 						<div class="col-sm-10 form-group">
 							<label>Responsável do processo</label>
-							<select class="form-control single-select pessoa" name="id_responsavel[]" id="rc{{$index}}">	
+							<select class="form-control single-select" name="id_responsavel[]" id="rc{{$index}}">	
 								@if(!is_null($values->id_responsavel))
 								<option value="{{$values->id_responsavel}}" selected>{{$values->nome}}</option>
 								@endif
@@ -188,7 +188,7 @@
 						<div class="row cf{{$ind}} partesProcesso">
 						<div class="col-sm-10 form-group">
 							<label>Responsável do processo</label>
-							<select class="form-control single-select pessoa" name="id_responsavel[]" id="rcf{{$ind}}">	
+							<select class="form-control single-select" name="id_responsavel[]" id="rcf{{$ind}}">	
 								@if(!is_null($value->id_responsavel))
 								<option value="{{$value->id_responsavel}}" selected>{{$value->nome}}</option>
 								@endif
@@ -248,7 +248,7 @@
 							<div class="row pa{{$index}}">
 							<div class="col-sm-10 form-group">
 							<label>Responsável do processo</label>
-							<select class="form-control single-select pessoa" name="id_responsavel[]" id="rpa{{$index}}">	
+							<select class="form-control single-select" name="id_responsavel[]" id="rpa{{$index}}">	
 								@if(!is_null($values->id_responsavel))
 								<option value="{{$values->id_responsavel}}" selected>{{$values->nome}}</option>
 								@endif
@@ -309,7 +309,7 @@
 								<div class="row ap{{$ind}} partesProcesso">
 									<div class="col-sm-10 form-group">
 										<label>Responsável do processo</label>
-										<select class="form-control single-select pessoa" name="id_responsavel[]" id="rap{{$ind}}">	
+										<select class="form-control single-select" name="id_responsavel[]" id="rap{{$ind}}">	
 											@if(!is_null($value->id_responsavel))
 											<option value="{{$value->id_responsavel}}" selected>{{$value->nome}}</option>
 											@endif
@@ -435,14 +435,27 @@
 	$status = {{$processo->id_estado_processo}}
 	$("#status").val($status);
 
+$(document).on('focus', '#dtFn', function(){  
+
+	var dtIni = document.getElementById("dtIni").value;
+	$('#dtFn').datepicker({
+		dateFormat: "dd/mm/yy",
+		changeMonth: true,
+		changeYear: true,
+		minDate: dtIni
+	});
+}); 
+
+
 	$(document).ready(function() {
+
 
 		var x=10;  
 		var n = 101;
 		$('#addCl').click(function(){  
 			x++;  
 			n++;
-			$('#cliente').after('<div class="col-lg-12 well" id="cl'+x+'"><div class="row"><div class="col-sm-12"><div class="row"> <div class="col-sm-10 form-group"><label>Cliente</label><select class="form-control single-select pessoa cliente" name="id_parte[]" data-validation="required" id="c'+n+'"><option value="">Selecione</option><optgroup label="Pessoa Jurídica"><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}" class="pj">{{$pj->razao_social}}</option> <?php }?></optgroup><optgroup label="Pessoa Física"> <?php foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></optgroup></select><input type="hidden" name="participacao[]" value="c"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a id="'+x+'" class="btn btn-danger btn_removeCl"><i class="fa fa-times" aria-hidden="true"></i></a></div></div><div class="row partesProcesso c'+n+'"><div class="col-sm-10 form-group"><label>Responsável do processo</label><select class="form-control single-select pessoa" name="id_responsavel[]" data-validation="required" id="rc'+n+'"><option value="">Selecione</option>@foreach($pessoaFisica as $pf)<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>@endforeach</select></div></div></div></div></div>'); 
+			$('#cliente').after('<div class="col-lg-12 well" id="cl'+x+'"><div class="row"><div class="col-sm-12"><div class="row"> <div class="col-sm-10 form-group"><label>Cliente</label><select class="form-control single-select pessoa cliente" name="id_parte[]" data-validation="required" id="c'+n+'"><option value="">Selecione</option><optgroup label="Pessoa Jurídica"><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}" class="pj">{{$pj->razao_social}}</option> <?php }?></optgroup><optgroup label="Pessoa Física"> <?php foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}">{{$pf->nome}}</option> <?php }?></optgroup></select><input type="hidden" name="participacao[]" value="c"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a id="'+x+'" class="btn btn-danger btn_removeCl"><i class="fa fa-times" aria-hidden="true"></i></a></div></div><div class="row partesProcesso c'+n+'"><div class="col-sm-10 form-group"><label>Responsável do processo</label><select class="form-control single-select" name="id_responsavel[]" data-validation="required" id="rc'+n+'"><option value="">Selecione</option>@foreach($pessoaFisica as $pf)<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>@endforeach</select></div></div></div></div></div>'); 
 			$(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
 		});  
 		$(document).on('click', '.btn_removeCl', function(){  
@@ -456,7 +469,7 @@
 		$('#add').click(function(){  
 			i++;
 			y++;  
-			$('#adversa').after('<div class="col-lg-12 well" id="row'+i+'"><div class="row"><div class="col-sm-12"><div class="row"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select id="a'+y+'" class="form-control single-select pessoa adversa" name="id_parte[]" data-validation="required"><option value="">Selecione</option><optgroup label="Pessoa Jurídica"><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}" class="pj">{{$pj->razao_social}}</option> <?php }?></optgroup> <optgroup label="Pessoa Física"><?php foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}" class="pf">{{$pf->nome}}</option> <?php }?></optgroup></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></a></div></div><div class="row a0 partesProcesso a'+y+'"><div class="col-sm-10 form-group"><label>Responsável do processo</label><select id="ra'+y+'"class="form-control single-select pessoa" name="id_responsavel[]" data-validation="required"><option value="">Selecione</option>@foreach($pessoaFisica as $pf)<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>@endforeach</select></div></div></div></div></div>');  
+			$('#adversa').after('<div class="col-lg-12 well" id="row'+i+'"><div class="row"><div class="col-sm-12"><div class="row"> <div class="col-sm-10 form-group"><label>Parte adversa</label><select id="a'+y+'" class="form-control single-select pessoa adversa" name="id_parte[]" data-validation="required"><option value="">Selecione</option><optgroup label="Pessoa Jurídica"><?php foreach ($pessoaJuridica as $pj){ ?><option value="{{$pj->id_parte}}" class="pj">{{$pj->razao_social}}</option> <?php }?></optgroup> <optgroup label="Pessoa Física"><?php foreach ($pessoaFisica as $pf){ ?><option value="{{$pf->id_parte}}" class="pf">{{$pf->nome}}</option> <?php }?></optgroup></select><input type="hidden" name="participacao[]" value="a"></div> <div class="col-sm-2 form-group" style="padding-top: 27px; padding-left: 40px;"><a name="remove" id="'+i+'" class="btn btn-danger btn_remove"><i class="fa fa-times" aria-hidden="true"></i></a></div></div><div class="row a0 partesProcesso a'+y+'"><div class="col-sm-10 form-group"><label>Responsável do processo</label><select id="ra'+y+'"class="form-control single-select" name="id_responsavel[]" data-validation="required"><option value="">Selecione</option>@foreach($pessoaFisica as $pf)<option value="{{$pf->id_parte}}">{{$pf->nome}}</option>@endforeach</select></div></div></div></div></div>');  
 			$(".single-select").select2({placeholder: "Selecione ou Digite", allowClear: true, theme: "bootstrap"});
 		});  
 		$(document).on('click', '.btn_remove', function(){  

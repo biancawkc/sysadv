@@ -74,7 +74,7 @@ class ProcessoController extends Controller
 	public function store(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-			'numero' => 'required|max:15|unique:processo,numero',
+			'numero' => 'required|unique:processo,numero',
 			'desc_processo' => 'required|max:2000',
 			'nome_acao' => 'required|max:100',
 			'dt_inicio' => 'required',
@@ -400,7 +400,7 @@ class ProcessoController extends Controller
 public function update(Request $request, $id)
 {
 	$validator = Validator::make($request->all(), [
-		'numero' => 'required|max:15',
+		'numero' => 'required',
 		'desc_processo' => 'required|max:2000',
 		'nome_acao' => 'required|max:100',
 		'dt_inicio' => 'required',
@@ -443,6 +443,7 @@ public function update(Request $request, $id)
 			$date = $date[2] . "/" . $date[1] . "/" . $date[0];
 			$processo->dt_final = new \DateTime($date);
 		}
+
 		$processo->save();
 
 		\DB::delete('DELETE FROM parte_tem_processo WHERE id_processo ='.$id);

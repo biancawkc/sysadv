@@ -158,10 +158,10 @@
 @section('content_js')
 <script src="{{asset('../resources/assets/js/actions/parcela.js')}}" type="text/javascript"></script>
 <script type="text/javascript" >
-
+$(document).ready(function() {
 	$pag = {{$parcela->id_forma_pag}}
 	$("#formaPag").val($pag);
-
+});
 </script>
 
 @endsection

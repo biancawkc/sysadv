@@ -51,7 +51,7 @@ class RelatorioController extends Controller
 		->where([
 			['parcela.id_processo', '=', $idProcesso],
 			['parcela.id_tp_parcela', '=', 1],
-			])->sum('multa');
+			])->sum('valor_juros');
 
 		$parcelaHsum = $parcelaHsum1 + $parcelaHjuro - $parcelaHdesc;
 
@@ -91,7 +91,7 @@ class RelatorioController extends Controller
 		->where([
 			['parcela.id_processo', '=', $idProcesso],
 			['parcela.id_tp_parcela', '=', 2],
-			])->sum('multa');
+			])->sum('valor_juros');
 
 		$parcelaGsum = $parcelaGsum1 + $parcelaGjuro - $parcelaGdesc;
 

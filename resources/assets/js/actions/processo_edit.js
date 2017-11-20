@@ -55,16 +55,6 @@ $(document).on('change', '.adversa', function(event) {
 	});
 
 
-$(document).on('focus', '#dtFn', function(){  
-
-	var dtIni = document.getElementById("dtIni").value;
-	$('#dtFn').datepicker({
-		dateFormat: "dd/mm/yy",
-		changeMonth: true,
-		changeYear: true,
-		minDate: dtIni
-	});
-}); 
 $('#clearDates').on('click', function(){
 	document.getElementById("dtFn").value= "";
 }); 

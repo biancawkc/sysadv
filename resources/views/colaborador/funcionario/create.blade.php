@@ -75,7 +75,7 @@
 					</div>	
 					<div class="col-sm-4 form-group null">
 						<label>CTPS - Série</label>
-						<input type="text" name="serie_ctps" class="form-control" >
+						<input type="text" name="serie_ctps" class="form-control ctps_serie" >
 					</div>	
 
 					<div class="col-sm-4 form-group">

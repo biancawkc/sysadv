@@ -492,7 +492,7 @@
 						<td>{{$parcelasH -> num_parcela}}</td>
 						<td class="money">R$ {{number_format($parcelasH -> valor,2,",",".")}} </td>
 						<td>R$ {{number_format($parcelasH -> desconto,2,",",".")}}</td>
-						<td>R$ {{number_format($parcelasH -> multa,2,",",".")}}</td>
+						<td>R$ {{number_format($parcelasH -> valor_juros,2,",",".")}}</td>
 						<td>{{ date('d/m/Y', strtotime($parcelasH -> dt_venc))}}</td>
 						@if(!is_null($parcelasH->dt_pag))
 						<td>{{ date('d/m/Y', strtotime($parcelasH -> dt_pag))}}</td>

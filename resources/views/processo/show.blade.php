@@ -220,7 +220,7 @@
         </tr>
         <tr>
           <th>Profissão</th>
-          <td colspan="3">{{ucfirst(strtolower($values->profis))}}</td>
+          <td colspan="3">{{$values->profis}}</td>
         </tr>
       </tbody>
     </table>
@@ -420,7 +420,7 @@
         </tr>
         <tr>
           <th>Profissão</th>
-          <td colspan="3">{{ucfirst(strtolower($values->profis))}}</td>
+          <td colspan="3">{{$values->profis}}</td>
         </tr>
       </tbody>
     </table>

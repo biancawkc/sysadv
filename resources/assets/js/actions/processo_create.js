@@ -46,6 +46,7 @@ $(document).on('change', '.adversa', function(event) {
        } 
       });
 
+
  $('#clearDates').on('click', function(){
             document.getElementById("dtFn").value= "";
       }); 
