@@ -115,7 +115,7 @@
 					<input type="hidden" name="participacao[]" value="c">
 				</div>
 				<div class="col-sm-2 form-group" style="padding-top: 29px; padding-left: 40px;">
-					<a  id="addCl" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="Mais de um cliente"></i></a>
+					<a  id="addCl" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i></a>
 				</div>
 			</div>	
 
