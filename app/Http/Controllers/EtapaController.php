@@ -155,7 +155,7 @@ public function update (Request $request, $id)
 public function remove($id)
 {
 	$etapa = \App\Models\EtapaProcesso::find($id);
-	$nomeEtapa = \App\Models\Etapa::find($etapa->id_etapa_processo);
+	$nomeEtapa = \App\Models\Etapa::find($etapa->id_etapa);
 	$processo = \App\Models\Processo::find($etapa->id_processo)->value('numero');
 
 	return view('etapa.remove')
