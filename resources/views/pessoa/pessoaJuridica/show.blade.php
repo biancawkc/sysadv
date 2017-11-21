@@ -46,7 +46,7 @@
 <table class="table table-striped table-bordered" style="width: 700px;">
   <tr>
     <th style="width: 18%">CEP</th>
-    <td>{{$endereco->cep}}</td>
+    <td class="cep">{{$endereco->cep}}</td>
     <th>Bairro</th>
     <td>{{$endereco->bairro}}</td>
   </tr>
