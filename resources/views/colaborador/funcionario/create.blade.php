@@ -79,11 +79,11 @@
 				<div class="row">
 					<div class="col-sm-4 form-group null">
 						<label>CTPS - Número</label>
-						<input type="text" name="ctps" class="form-control" value="{{ old('ctps') }}">
+						<input type="text" name="ctps" class="form-control" value="{{ old('ctps') }}" placeholder="Número">
 					</div>	
-					<div class="col-sm-4 form-group null">
+					<div class="col-sm-3 form-group null">
 						<label>CTPS - Série</label>
-						<input type="text" name="serie_ctps" class="form-control ctps_serie" value="{{ old('serie_ctps') }}">
+						<input type="text" name="serie_ctps" class="form-control ctps_serie" value="{{ old('serie_ctps') }}" placeholder="Série">
 					</div>	
 
 					<div class="col-sm-4 form-group">

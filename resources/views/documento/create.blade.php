@@ -26,7 +26,7 @@
 				<div class="form-group">
 
 					<label>Arquivo (PDF, JPEG, PNG) <span class="asterisk">*</span></label>					
-					<input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf, png, jpeg" data-validation="required">
+					<input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf, png, jpeg, doc, docx" data-validation="required">
 				</div>
 				
 				<div class="form-group">

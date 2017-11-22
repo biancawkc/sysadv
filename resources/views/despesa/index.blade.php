@@ -27,9 +27,9 @@
    <table class="table table-striped table-bordered tblCadastro text-center" >
     <thead>
       <tr>
-       <th>Valor</th>
-       <th>Data</th>
-       <th>Descrição</th>
+       <th class="col-md-2">Valor</th>
+       <th class="col-md-2">Data</th>
+       <th class="col-md-5">Descrição</th>
        <th>Ação</th>
      </tr>
    </thead>

@@ -28,8 +28,9 @@
     <thead>
       <tr>
         <!--  <th>ID</th> -->
-        <th>Nome</th>
+        <th class="col-md-4">Nome</th>
         <th>Documento</th>
+        <th class="col-md-4">Descrição</th>
         <th>Ação</th>
       </tr>
     </thead>
@@ -41,13 +42,16 @@
       -->  <td>{!! $value->nome_documento !!}</td>
       <td class="text-center">
         <?php $p =explode('.', $value->documento); ?>
-        @if( array_pop($p) == 'pdf'  )
-        <a href="{{ asset('documento/'.$value->documento) }}" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
-        @else
-        <a href="{{ asset('documento/'.$value->documento) }}" target="_blank"><i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
+        @if( end($p) == 'pdf'  )
+        <a href="{{ asset('documento/'.$value->documento) }}" target="_blank"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></a>
+        @elseif ( end($p) == 'docx' || end($p) == 'doc' )
+        <a href="{{ asset('documento/'.$value->documento) }}" target="_blank"><i class="fa fa-file-word-o fa-3x" aria-hidden="true"></i></a>
+        @elseif ( end($p) == 'png' || end($p) == 'jpeg' || end($p) == 'jpg' )
+        <a href="{{ asset('documento/'.$value->documento) }}" target="_blank"><i class="fa fa-picture-o fa-3x" aria-hidden="true"></i></a>
         @endif
       </td>
-      <td class="text-center">
+      <td>{!! $value->desc_documento !!}</td>
+      <td>
          <a href="{{ URL::to('/documento/' . $value->id_documento . '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
          <a href="{{ URL::to('/documento/' . $value->id_documento . '/remove') }}" class="btn btn-lg btn-danger" data-toggle="tooltip" data-placement="top" title="Deletar"> <i class="fa fa-trash" aria-hidden="true"></i></a> 
       </td>
@@ -91,7 +95,7 @@
                   <div class="form-group">
 
                     <label>Arquivo (PDF, JPEG, PNG) <span class="asterisk">*</span></label>         
-                    <input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf, png, jpeg">
+                    <input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf, png, jpeg,doc,docx,jpg">
                   </div>
                   
                   <div class="form-group">

@@ -465,7 +465,7 @@
 <p>Data de criação: {{date('d/m/Y H:i:s', strtotime($processo->dt_criacao))}} &nbsp;&nbsp;&nbsp; Última alteração feita em {{date('d/m/Y H:i:s', strtotime($processo->dt_atualizacao))}} por {{$usuario->username}} </p>
 <br>
 
-<ul class="list-group buttons" style="padding-left: 20%;">
+<ul class="list-group buttons center">
   <li><a href="{{ URL::to('/processo/' . $processo->id_processo. '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Editar"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></li>
   <li><a href="{{ URL::to('/etapa/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" target="_blank" data-toggle="tooltip" data-placement="top" title="Etapas"> <i class="fa fa-calendar" aria-hidden="true"></i></a></li>
   <li><a href="{{ URL::to('/documento/' . $processo->id_processo) }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Documentos" target="_blank"> <i class="fa fa-file-text" aria-hidden="true"></i></a></li>

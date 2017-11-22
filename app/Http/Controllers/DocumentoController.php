@@ -43,7 +43,7 @@ class DocumentoController extends Controller
 	{
 		$validator = Validator::make($request->all(), [
 			'nome_documento' => 'required|max:150',
-			'documento' => 'required|mimes:pdf,jpeg,png'
+			'documento' => 'required|mimes:pdf,jpeg,png,doc,docx,jpg'
 		]);
 		if ($validator->fails()) {
 			return redirect('documento/'.$idProcesso.'/create')
@@ -92,7 +92,8 @@ class DocumentoController extends Controller
 	public function update(Request $request, $id)
 	{
 		$validator = Validator::make($request->all(), [
-			'nome_documento' => 'required|max:150'
+			'nome_documento' => 'required|max:150',
+			'documento' => 'required|mimes:pdf,jpeg,png,doc,docx,jpg'
 		]);
 		if ($validator->fails()) {
 			return redirect('documento/'.$id.'/edit')

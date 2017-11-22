@@ -26,17 +26,19 @@
 				<div class="form-group" id="file">
 					<label>Arquivo <span class="asterisk">*</span></label>&nbsp;
 					<?php $p =explode('.', $documento->documento); ?>
-					@if( array_pop($p) == 'pdf'  )
-					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><i class="fa fa-file-pdf-o fa-2x" aria-hidden="true"></i></a>
-					@else
-					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><i class="fa fa-picture-o fa-2x" aria-hidden="true"></i></a>
+					@if( end($p) == 'pdf'  )
+					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true"></i></a>
+					@elseif ( end($p) == 'docx' || end($p) == 'doc' )
+					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><i class="fa fa-file-word-o fa-3x" aria-hidden="true"></i></a>
+					@elseif ( end($p) == 'png' || end($p) == 'jpeg' || end($p) == 'jpg' )
+					<a href="{{ asset('documento/'.$documento->documento) }}" target="_blank"><i class="fa fa-picture-o fa-3x" aria-hidden="true"></i></a>
 					@endif
 					&nbsp; <a name="substituir" >Substituir</a>  
 				</div>
 
 				<div class="form-group" style="display: none;" id="arquivo">
 					<label>Arquivo <span class="asterisk">*</span></label>
-					<input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf">&nbsp; <a name="cancel" >Cancelar</a>  
+					<input id="input-2" name="documento" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-validation-allowing="pdf,jpg,jpeg,doc,docx,png">&nbsp; <a name="cancel" >Cancelar</a>  
 				</div>
 				
 				<div class="form-group">

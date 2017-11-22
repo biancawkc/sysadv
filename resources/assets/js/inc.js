@@ -51,7 +51,6 @@ $(document).ready(function() {
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
-        minDate: 0,
         onSelect: function (date) {
             var date2 = $('.etapaIni').datepicker('getDate');
             date2.setDate(date2.getDate());

@@ -69,10 +69,17 @@
 
 				<div class="row">
 					<div class="col-sm-4 form-group null">
-						<label>CTPS</label>
-						<input type="text" name="ctps" class="form-control" value="{{$funcionario->ctps}}">
+						<label>CTPS - Número</label>
+						<input type="text" name="ctps" class="form-control" value="{{$funcionario->ctps}}" placeholder="Número">
+					</div>
+					<div class="col-sm-3 form-group null">
+						<label>CTPS - Série</label>
+						<input type="text" name="serie_ctps" class="form-control ctps_serie" value="{{$funcionario->serie_ctps}}" placeholder="Série">
 					</div>	
 
+				</div>
+				<div class="row">
+					
 					<div class="col-sm-4 form-group">
 						<label>Data de Admissão <span class="asterisk">*</span></label>
 						<div class="input-group add-on col-md-12" >
@@ -92,7 +99,6 @@
 						<input type="text" placeholder="dd/mm/aaaa" name="dt_demissao" class="form-control date" value="{{$dt_final}}" id="dtFn" readonly>
 					</div>
 					</div>	
-
 				</div>
 				
 				<div class="form-group">

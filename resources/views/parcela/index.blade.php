@@ -24,7 +24,7 @@
    
    <br><br>
    <div class="table-responsive-force">
-   <table class="table table-striped table-bordered tblCadastro text-right" >
+   <table class="table table-striped table-bordered tblCadastro text-center" >
     <thead>
       <tr>
        <th class="col-md-1">Nº</th>
@@ -54,7 +54,7 @@
       <td>Ganho de Causa</td>
       @endif
      
-      <td class="text-center"><a href="{{ URL::to('/parcela/' . $value->id_parcela . '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Atualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
+      <td class="text-left"><a href="{{ URL::to('/parcela/' . $value->id_parcela . '/edit') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Atualizar"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> &nbsp;&nbsp;
         @if( $value->dt_pag == NULL)
         <button class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Recibo" disabled><i class="fa fa-file-o" aria-hidden="true"></i></button> 
         @else
@@ -204,8 +204,7 @@
 
               <div class="col-sm-4 form-group">
                 <label>Valor total a receber (R$)<span class="asterisk">*</span></label>        
-                <input type='text' name="" class="form-control money" data-validation="required" id="val_receber" readonly />
-                <!-- <label id="val_receber"></label> -->
+                <input type='text' name="valor" class="form-control" data-validation="required" id="val_receber" readonly />
               </div>
 
             </div>

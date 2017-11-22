@@ -32,6 +32,13 @@
      </tr>
 
      <tr>
+       <th>CTPS - Número</th>
+       <td>{{$funcionario->ctps}}</td>
+       <th>CTPS - Série</th>
+       <td class="ctps_serie">{{$funcionario->serie_ctps}}</td>
+     </tr>
+
+     <tr>
        <th>Data de Admissão</th>
        <td>{{date('d/m/Y', strtotime($funcionario->dt_admissao))}}</td>
        <th>Data de Demissão</th>

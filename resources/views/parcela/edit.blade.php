@@ -9,6 +9,7 @@
 <input type="hidden" name="id_tp_parcela" value="2">
 @endif
 <input type="hidden" name="advsersa_pag" value="0">
+<div class="container">
 <div class="container-custom">
 	@if($errors->any())
 <ul class="alert alert-danger">
@@ -20,20 +21,16 @@
 @include('flash::message')
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 	<h2><b>Processo: <a href="{{URL::to('/processo/'.$processo->id_processo.'/show')}}" target="_blank">{{$processo->numero}}</a> </b><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-info" id="open">Expandir</a><a data-toggle="collapse" data-target="#demo" class="btn btn-sm btn-warning" id="close">Esconder</a></h2>
-	<div class="row">
-		<div class="col-lg-9">
+	
 			<div id="demo" class="collapse">
 				<p><b>Estado Processo</b>: {{$processo->desc_est_processo}} / <b>Nome Ação</b>: {{$processo->nome_acao}} / <b>Jutiça:</b> {{$processo->nm_justica}} / <b>Comarca:</b> {{$processo->comarca}} / <b>Vara:</b> {{$processo->vara}} / <b>Justiça Gratuita:</b> @if($processo->justica_grat == 1) Sim @else Não @endif / <b>Ação Gratuita:</b> @if($processo->acao_grat == 1) Sim @else Não @endif / <b>Data Início</b>: {{ date('d/m/Y', strtotime($processo->dt_inicio)) }} / <b>Data Final</b>: @if(!empty($processo->dt_final)){{ date('d/m/Y', strtotime($processo->dt_final)) }}@else - @endif </p>
 			</div>
-		</div>
-	</div>
-	@if(is_null($parcela->porcentagem))
-	<h1 class="col-lg-12 well "> Atualizar Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i>
-		@else
-		<h1 class="col-lg-12 well "> Atualizar Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i>
-			@endif
-		</h1>
 
+			@if(is_null($parcela->porcentagem))
+			<h1 class="col-lg-12 well "> Atualizar Parcela Honorários <i class="fa fa-usd dollar" aria-hidden="true"></i></h1>
+			@else
+			<h1 class="col-lg-12 well "> Atualizar Parcela Ganho de Causa <i class="fa fa-usd dollar" aria-hidden="true"></i></h1>
+			@endif
 
 		<div class="col-lg-12 well">
 			<div class="row">
@@ -127,32 +124,21 @@
 			<p><b><span class="asterisk">*</span>Campos de Preenchimento Obrigatórios </b><br><br></p>
 		</div>
 		
-		<div class="row text-center">
-			<div class="col-sm-3 form-group">
-			</div>
-						<div class="col-sm-2 form-group">
-							<a href="{{ URL::to('/parcela/'.$parcela->id_processo) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a>
-						</div>
-
-						<div class="col-sm-2 form-group">
-							<button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button>
-						</div>
-
-						<div class="col-sm-2 form-group">
-							@if(!empty($parcela->dt_pag))
-							<a target="_blank" href="{{ URL::to('/parcela/' .$parcela->id_parcela. '/recibo') }}" class="btn btn-lg btn-success">Recibo  <i class="fa fa-sticky-note-o" aria-hidden="true"></i></a>
-							@else
-							<button class="btn btn-lg btn-success" disabled>Recibo <i class="fa fa-sticky-note-o" aria-hidden="true"></i></button>
-							@endif
-						</div>
-					</div>
-				
+		
+		<ul class="buttons center">
+			<li><a href="{{ URL::to('/parcela/'.$parcela->id_processo) }}" class="btn btn-lg btn-danger">Voltar <i class="fa fa-undo" aria-hidden="true"></i></a></li>
+			<li><button type="submit" class="btn btn-lg btn-info">Salvar <i class="fa fa-check" aria-hidden="true"></i></button></li>
+			<li>	@if(!empty($parcela->dt_pag))
+				<a target="_blank" href="{{ URL::to('/parcela/' .$parcela->id_parcela. '/recibo') }}" class="btn btn-lg btn-success">Recibo  <i class="fa fa-sticky-note-o" aria-hidden="true"></i></a>
+				@else
+				<button class="btn btn-lg btn-success" disabled>Recibo <i class="fa fa-sticky-note-o" aria-hidden="true"></i></button>
+			@endif</li>
+		</ul>
+					
+		</div>
+		<br><br>		
 	</div> 
 	
-	
-
-
-</form> 
 {!! Form::close() !!}
 @endsection
 

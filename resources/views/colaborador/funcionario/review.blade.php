@@ -74,8 +74,12 @@
 
 				<div class="row">
 					<div class="col-sm-4 form-group">
-						<label>CTPS</label>
+						<label>CTPS - Número</label>
 						<input type="text" name="ctps" class="form-control" value="{{$pessoaFisica->ctps}}">
+					</div>	
+					<div class="col-sm-3 form-group null">
+						<label>CTPS - Série</label>
+						<input type="text" name="serie_ctps" class="form-control ctps_serie" value="{{$pessoaFisica->serie_ctps}}" placeholder="Série">
 					</div>	
 
 					<div class="col-sm-4 form-group">

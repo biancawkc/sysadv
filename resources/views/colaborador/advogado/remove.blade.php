@@ -7,7 +7,6 @@
         <br><br>
             <div class=" well text-center">
                 <h3>Deseja excluir todos os dados o(a) advogado(a) <br><br> <b>{{$advogado->nome}}</b>?</h3>
-                <h4 class="red">Todos os processos relacionados também serão excluídos!</h4>
                 <br>
                 <div class="text-center">
                     <a href="{{ URL::to('/advogado/'.$advogado->id_advogado.'/show') }}" class="btn btn-lg btn-info">Não <i class="fa fa-undo" aria-hidden="true"></i></a>

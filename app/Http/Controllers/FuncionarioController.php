@@ -178,6 +178,7 @@ class FuncionarioController extends Controller
 		//'cpf' => $request->cpf,
 		'dt_nasc' => $data,
 		'ctps' => $request->ctps,
+		'serie_ctps' => $request->serie_ctps,
 		'id_estado_civil' => $request->id_estado_civil
 		]);
 
@@ -244,6 +245,7 @@ public function update(Request $request, $idFuncionario)
 			'cpf' => $request->cpf,
 			'dt_nasc' => $data,
 			'ctps' => $request->ctps,
+			'serie_ctps' => $request->serie_ctps,
 			'id_estado_civil' => $request->id_estado_civil
 			]);
 

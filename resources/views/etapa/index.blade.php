@@ -27,7 +27,7 @@
     <thead>
         <tr>
            <!-- <th>ID</th> -->
-           <th class="col-md-5">Nome</th>
+           <th class="col-md-6">Nome</th>
            <th class="col-md-2">Data Início</th>
            <th class="col-md-2">Data Final</th>
            <th>Ação</th>
@@ -41,7 +41,7 @@
         <td>{!! $value->nm_etapa !!}</td>
         <td>{!! date('d/m/Y', strtotime($value->dt_etapa)) !!}</td>
         <td>{!! date('d/m/Y', strtotime($value->dt_prazo)) !!}</td>
-        <td class="text-center">
+        <td>
             <a href="{{ URL::to('/etapa/' . $value->id_etapa_processo . '/show') }}" class="btn btn-lg btn-primary" data-toggle="tooltip" data-placement="top" title="Detalhes"> <i class="fa fa-info-circle" aria-hidden="true"></i></a>    
         </td>
     </tr>

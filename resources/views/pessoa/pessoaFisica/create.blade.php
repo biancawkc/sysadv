@@ -192,7 +192,7 @@
 					<div class="col-sm-3 form-group" >
 						<label>Remuneração (R$)</label>
 						<input type="text" name="" class="form-control money text-right real" value="{{ old('remuneracao') }}">
-						<input type="text" name="remuneracao" class="valorV">  
+						<input type="hidden" name="remuneracao" class="valorV">  
 					</div>
 				</div>
 			</div>
